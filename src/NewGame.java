@@ -1,5 +1,3 @@
-package sample;
-
 /**
  * Authors: Thomas Crawford
  * Version: 1.0
