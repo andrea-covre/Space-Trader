@@ -34,8 +34,10 @@ public class NewGame extends Application {
     /**
      * Nodes that are important for scene changing:
      */
+    protected static Stage theStage;
     //New Game Scene
     private static Button sceneButton1 = new Button("New Game");
+
 
     //Difficulty Scene
     private static Button easy = new Button("Easy");
@@ -79,15 +81,16 @@ public class NewGame extends Application {
     private static String playerName;
     private static Difficulty difficulty;
     private static int credits;
-    private static int skillPoints;
+    protected static int skillPoints;
 
     /**
      * Skill levels
      */
-    private static int pilotSkill = 0;
-    private static int fighterSkill = 0;
-    private static int merchantSkill = 0;
-    private static int engineerSkill = 0;
+
+    private static Skill pilotSkill = new Skill(0);
+    private static Skill fighterSkill = new Skill(0);
+    private static Skill merchantSkill = new Skill(0);
+    private static Skill engineerSkill = new Skill(0);
 
     /**
      * Graphics
@@ -123,6 +126,20 @@ public class NewGame extends Application {
         sceneButton1.setStyle("-fx-background-color: transparent");
         sceneButton1.setTextFill(Color.RED);
         hbox2.setAlignment(Pos.CENTER);
+        sceneButton1.setOnAction(e -> {
+            try {
+                theStage.setScene(new Scene(difficulty()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+        backToScene1.setOnAction(e -> {
+            try {
+                theStage.setScene(new Scene(difficulty()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
 
         /**
          * Text
@@ -159,7 +176,7 @@ public class NewGame extends Application {
      * Difficulty Scene
      * @return Difficulty Pane
      */
-    private static Pane difficulty() {
+    protected static Pane difficulty() {
         /**
          * Base layout
          */
@@ -194,6 +211,39 @@ public class NewGame extends Application {
         hbox2.getChildren().add(title);
         hbox2.setAlignment(Pos.TOP_CENTER);
 
+        /**
+         * Difficulty
+         */
+        easy.setOnAction(e -> {
+            try {
+                difficulty = Difficulty.EASY;
+                credits = 5000;
+                skillPoints = 8;
+                theStage.setScene(new Scene(nameSelection()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+        medium.setOnAction(e -> {
+            try {
+                difficulty = Difficulty.MEDIUM;
+                credits = 3000;
+                skillPoints = 5;
+                theStage.setScene(new Scene(nameSelection()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+        hard.setOnAction(e -> {
+            try {
+                difficulty = Difficulty.HARD;
+                credits = 1000;
+                skillPoints = 3;
+                theStage.setScene(new Scene(nameSelection()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
         pane.setCenter(stackpane);
         stackpane.getChildren().addAll(BACKGROUND, hbox2, hbox);
         return pane;
@@ -245,6 +295,33 @@ public class NewGame extends Application {
         backToScene1.setStyle("-fx-background-color: transparent");
         backToScene1.setTextFill(Color.RED);
 
+        /**
+         * Name Selection
+         */
+
+        sceneButton2.setOnAction(e -> {
+            if (playerName == null) {
+                try {
+                    if (field.getText() == null || field.getText().trim().isEmpty()) {
+                        field.clear();
+                        field.setPromptText("Enter a valid name");
+                    } else {
+                        playerName = field.getText().trim();
+                        field.clear();
+                        field.setPromptText("Works. Name is: " + playerName);
+                    }
+                } catch (Throwable f) {
+                    f.printStackTrace();
+                }
+            } else {
+                try {
+                    theStage.setScene(new Scene(skillsLevelSelection()));
+                } catch (Throwable f) {
+                    f.printStackTrace();
+                }
+            }
+        });
+
         hbox.getChildren().add(title);
         hbox.setAlignment(Pos.CENTER);
         vbox.setAlignment(Pos.CENTER);
@@ -275,81 +352,81 @@ public class NewGame extends Application {
      * Scene where the player chooses his skills's initial level
      * @return the pane where the player sets the skills initial level
      */
-    private Pane skillsLevelSelection() {
-        /**
-         * Graphic constants
-         */
-        int skillNameFontSize = 50;
-        int skillLevelFontSize = 35;
-        int arrowsSize = 70;
-        String arrowsFont = "Verdana";
+    static Pane skillsLevelSelection() {
 
+        // setting actions for all skill leveling buttons
+        pilotUp.setOnAction(new IncrSkill(pilotSkill, 1));
+        pilotDown.setOnAction(new IncrSkill(pilotSkill, -1));
+        fighterUp.setOnAction(new IncrSkill(fighterSkill, 1));
+        fighterDown.setOnAction(new IncrSkill(fighterSkill, -1));
+        merchantUp.setOnAction(new IncrSkill(merchantSkill, 1));
+        merchantDown.setOnAction(new IncrSkill(merchantSkill, -1));
+        engineerUp.setOnAction(new IncrSkill(engineerSkill, 1));
+        engineerDown.setOnAction(new IncrSkill(engineerSkill, -1));
+
+        //setting back button to return to name selections
+        backToNameSelection.setOnAction(e -> {
+            skillPoints = skillPoints + pilotSkill.getValue() + merchantSkill.getValue()
+                    + fighterSkill.getValue() + engineerSkill.getValue();
+            pilotSkill = new Skill(0);
+            merchantSkill = new Skill(0);
+            fighterSkill = new Skill(0);
+            engineerSkill = new Skill(0);
+            try {
+                field.setPromptText(playerName);
+                theStage.setScene(new Scene(nameSelection()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
         /**
          * Skill Nodes
          */
-        //Nodes to display skill name and setting the style
+        //Nodes to display skill name
         Text pilotTitle = new Text("Pilot");
-        pilotTitle.setFont(Font.font("Comic Sans MS", skillNameFontSize));
-        pilotTitle.setFill(Color.YELLOW);
-
+        pilotTitle.setId("skillNameFont");
         Text fighterTitle = new Text("Fighter");
-        fighterTitle.setFont(Font.font("Comic Sans MS", skillNameFontSize));
-        fighterTitle.setFill(Color.YELLOW);
-
+        fighterTitle.setId("skillNameFont");
         Text merchantTitle = new Text("Merchant");
-        merchantTitle.setFont(Font.font("Comic Sans MS", skillNameFontSize));
-        merchantTitle.setFill(Color.YELLOW);
-
+        merchantTitle.setId("skillNameFont");
         Text engineerTitle = new Text("Engineer");
-        engineerTitle.setFont(Font.font("Comic Sans MS", skillNameFontSize));
-        engineerTitle.setFill(Color.YELLOW);
+        engineerTitle.setId("skillNameFont");
 
-
-        //Nodes to display skill level and setting the style
-        Text pilotLevelDisplay = new Text(Integer.toString(pilotSkill));
-        pilotLevelDisplay.setFont(Font.font("Comic Sans MS", skillLevelFontSize));
-        pilotLevelDisplay.setFill(Color.YELLOW);
-
-        Text fighterLevelDisplay = new Text(Integer.toString(fighterSkill));
-        fighterLevelDisplay.setFont(Font.font("Comic Sans MS", skillLevelFontSize));
-        fighterLevelDisplay.setFill(Color.YELLOW);
-
-        Text merchantLevelDisplay = new Text(Integer.toString(merchantSkill));
-        merchantLevelDisplay.setFont(Font.font("Comic Sans MS", skillLevelFontSize));
-        merchantLevelDisplay.setFill(Color.YELLOW);
-
-        Text engineerLevelDisplay = new Text(Integer.toString(engineerSkill));
-        engineerLevelDisplay.setFont(Font.font("Comic Sans MS", skillLevelFontSize));
-        engineerLevelDisplay.setFill(Color.YELLOW);
+        //Nodes to display skill level
+        Text pilotLevelDisplay = new Text(pilotSkill.toString());
+        pilotLevelDisplay.setId("skillLevelFont");
+        Text fighterLevelDisplay = new Text(fighterSkill.toString());
+        fighterLevelDisplay.setId("skillLevelFont");
+        Text merchantLevelDisplay = new Text(merchantSkill.toString());
+        merchantLevelDisplay.setId("skillLevelFont");
+        Text engineerLevelDisplay = new Text(engineerSkill.toString());
+        engineerLevelDisplay.setId("skillLevelFont");
 
         /**
          * Nodes to display skill points available
          */
         Text skillPointsDisplay = new Text("Skill points: " + Integer.toString(skillPoints));
-        skillPointsDisplay.setFont(Font.font("Comic Sans MS", skillLevelFontSize));
-        skillPointsDisplay.setFill(Color.YELLOW);
+        skillPointsDisplay.setId("skillLevelFont");
 
         /**
          * Style of navigation buttons
          */
         //Start Game
-        startGame.setFont(Font.font("Comic Sans MS", skillLevelFontSize + 40));
-        startGame.setStyle("-fx-background-color: transparent");
-        startGame.setTextFill(Color.YELLOW);
-
+        startGame.setId("skillSelectionStartFont");
         //Back
-        backToNameSelection.setFont(Font.font("Comic Sans MS", skillLevelFontSize));
-        backToNameSelection.setStyle("-fx-background-color: transparent");
-        backToNameSelection.setTextFill(Color.YELLOW);
+        backToNameSelection.setId("skillLevelFont");
 
-        /**
-         * Base Layout
-         */
+        // Base layout
         BorderPane pane = new BorderPane();
 
-        /**
-         * Skill layouts
-         */
+        // background
+        BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
+        BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
+
+        //Scene title
+        Text title = new Text("Skills");
+        title.setId("title");
+
         //Pilot layout
         HBox pilotLevelHbox = new HBox();
         pilotLevelHbox.setAlignment(Pos.CENTER);
@@ -403,57 +480,19 @@ public class NewGame extends Application {
         pane.getChildren().add(BACKGROUND);
         pane.setCenter(skillsInterface);
 
-
-        /**
-         * Background image
-         */
-        BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
-        BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
-
-        /**
-         * Text
-         */
-        //Scene title
-        Text title = new Text("Skills");
-        title.setFont(Font.font("Comic Sans MS", 100));
-        title.setFill(Color.YELLOW);
-
         /**
          * Arrows' Style
          */
-        pilotUp.setFont(Font.font(arrowsFont, arrowsSize));
-        pilotUp.setStyle("-fx-background-color: transparent");
-        pilotUp.setTextFill(Color.GREEN);
+        pilotUp.setId("arrowsUp");
+        pilotDown.setId("arrowsDown");
+        fighterUp.setId("arrowsUp");
+        fighterDown.setId("arrowsDown");
+        merchantUp.setId("arrowsUp");
+        merchantDown.setId("arrowsDown");
+        engineerUp.setId("arrowsUp");
+        engineerDown.setId("arrowsDown");
 
-        pilotDown.setFont(Font.font(arrowsFont, arrowsSize));
-        pilotDown.setStyle("-fx-background-color: transparent");
-        pilotDown.setTextFill(Color.RED);
-
-        fighterUp.setFont(Font.font(arrowsFont, arrowsSize));
-        fighterUp.setStyle("-fx-background-color: transparent");
-        fighterUp.setTextFill(Color.GREEN);
-
-        fighterDown.setFont(Font.font(arrowsFont, arrowsSize));
-        fighterDown.setStyle("-fx-background-color: transparent");
-        fighterDown.setTextFill(Color.RED);
-
-        merchantUp.setFont(Font.font(arrowsFont, arrowsSize));
-        merchantUp.setStyle("-fx-background-color: transparent");
-        merchantUp.setTextFill(Color.GREEN);
-
-        merchantDown.setFont(Font.font(arrowsFont, arrowsSize));
-        merchantDown.setStyle("-fx-background-color: transparent");
-        merchantDown.setTextFill(Color.RED);
-
-        engineerUp.setFont(Font.font(arrowsFont, arrowsSize));
-        engineerUp.setStyle("-fx-background-color: transparent");
-        engineerUp.setTextFill(Color.GREEN);
-
-        engineerDown.setFont(Font.font(arrowsFont, arrowsSize));
-        engineerDown.setStyle("-fx-background-color: transparent");
-        engineerDown.setTextFill(Color.RED);
-
-
+        pane.getStylesheets().add("css/Styles.css");
         return pane;
     }
 
@@ -564,199 +603,7 @@ public class NewGame extends Application {
      * @throws Exception if a problem occurs setting the Scene
      */
     public void start(Stage primaryStage) throws Exception {
-        sceneButton1.setOnAction(e -> {
-            try {
-                primaryStage.setScene(new Scene(difficulty()));
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-
-        /**
-         * Difficulty
-         */
-        easy.setOnAction(e -> {
-            try {
-                difficulty = Difficulty.EASY;
-                credits = 5000;
-                skillPoints = 8;
-                primaryStage.setScene(new Scene(nameSelection()));
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-        medium.setOnAction(e -> {
-            try {
-                difficulty = Difficulty.MEDIUM;
-                credits = 3000;
-                skillPoints = 5;
-                primaryStage.setScene(new Scene(nameSelection()));
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-        hard.setOnAction(e -> {
-            try {
-                difficulty = Difficulty.HARD;
-                credits = 1000;
-                skillPoints = 3;
-                primaryStage.setScene(new Scene(nameSelection()));
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-
-        /**
-         * Name Selection
-         */
-        backToScene1.setOnAction(e -> {
-            try {
-                primaryStage.setScene(new Scene(difficulty()));
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-        sceneButton2.setOnAction(e -> {
-            if (playerName == null) {
-                try {
-                    if (field.getText() == null || field.getText().trim().isEmpty()) {
-                        field.clear();
-                        field.setPromptText("Enter a valid name");
-                    } else {
-                        playerName = field.getText().trim();
-                        field.clear();
-                        field.setPromptText("Works. Name is: " + playerName);
-                    }
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            } else {
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        /**
-         * Skills Scene
-         */
-
-        //pilot
-        pilotUp.setOnAction(e -> {
-            if (skillPoints > 0) {
-                skillPoints--;
-                pilotSkill++;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        pilotDown.setOnAction(e -> {
-            if (pilotSkill > 0) {
-                skillPoints++;
-                pilotSkill--;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        //Fighter
-        fighterUp.setOnAction(e -> {
-            if (skillPoints > 0) {
-                skillPoints--;
-                fighterSkill++;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        fighterDown.setOnAction(e -> {
-            if (fighterSkill > 0) {
-                skillPoints++;
-                fighterSkill--;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        //Merchant
-        merchantUp.setOnAction(e -> {
-            if (skillPoints > 0) {
-                skillPoints--;
-                merchantSkill++;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        merchantDown.setOnAction(e -> {
-            if (merchantSkill > 0) {
-                skillPoints++;
-                merchantSkill--;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        //Engineer
-        engineerUp.setOnAction(e -> {
-            if (skillPoints > 0) {
-                skillPoints--;
-                engineerSkill++;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        engineerDown.setOnAction(e -> {
-            if (engineerSkill > 0) {
-                skillPoints++;
-                engineerSkill--;
-                try {
-                    primaryStage.setScene(new Scene(skillsLevelSelection()));
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-
-        //Back button
-        backToNameSelection.setOnAction(e -> {
-            skillPoints = skillPoints + pilotSkill + merchantSkill + fighterSkill + engineerSkill;
-            pilotSkill = 0;
-            merchantSkill = 0;
-            fighterSkill = 0;
-            engineerSkill = 0;
-            try {
-                field.setPromptText(playerName);
-                primaryStage.setScene(new Scene(nameSelection()));
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
+        theStage = primaryStage;
 
         startGame.setOnAction(e -> {
             try {
