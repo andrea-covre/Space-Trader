@@ -1,6 +1,11 @@
 /**
- * Authors: Thomas Crawford
- * Version: 1.0
+ * Authors:
+ * Thomas Crawford,
+ * Calogero Cullotta
+ * Andrea Covre
+ * Joseph Dodd
+ * Rares Cristian
+ * Version: 1.1
  */
 
 import javafx.application.Application;
