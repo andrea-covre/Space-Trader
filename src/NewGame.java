@@ -386,7 +386,8 @@ public class NewGame extends Application {
         //Condesing all the "skillVBoxes" in a TilePane
         TilePane skillsTiles = new TilePane();
         skillsTiles.setAlignment(Pos.CENTER);
-        skillsTiles.getChildren().addAll(pilotLevelVBox, fighterLevelVBox, merchantLevelVBox, engineerLevelVBox);
+        skillsTiles.getChildren().addAll(pilotLevelVBox, fighterLevelVBox, merchantLevelVBox,
+                engineerLevelVBox);
         skillsTiles.setHgap(60);
 
         //Putting skillTiles into a VBOX
@@ -455,8 +456,8 @@ public class NewGame extends Application {
 
     /**
      *
-     * @param primaryStage
-     * @throws Exception
+     * @param primaryStage the Stage of SpaceTrader
+     * @throws Exception if a problem occurs setting the Scene
      */
     public void start(Stage primaryStage) throws Exception {
         sceneButton1.setOnAction(e -> {
