@@ -131,6 +131,7 @@ public class NewGame extends Application {
         sceneButton1.setStyle("-fx-background-color: transparent");
         sceneButton1.setTextFill(Color.RED);
         hbox2.setAlignment(Pos.CENTER);
+
         sceneButton1.setOnAction(e -> {
             try {
                 theStage.setScene(new Scene(difficulty()));
