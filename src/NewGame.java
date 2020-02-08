@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -42,7 +43,6 @@ public class NewGame extends Application {
     protected static Stage theStage;
     //New Game Scene
     private static Button sceneButton1 = new Button("New Game");
-
 
     //Difficulty Scene
     private static Button easy = new Button("Easy");
@@ -102,6 +102,11 @@ public class NewGame extends Application {
      */
     private static final ImageView BACKGROUND = new ImageView(
             new Image(Main.backGround, 960, 1280, false, false));
+
+    /**
+     * Game Volume
+     */
+    private static double GAMEVOLUME = 0.02;
 
     /**
      * New Game/Welcome Scene
@@ -610,7 +615,9 @@ public class NewGame extends Application {
      */
     public void start(Stage primaryStage) throws Exception {
         theStage = primaryStage;
-
+        Main.backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);
+        Main.backgroundMusic.setVolume(GAMEVOLUME);
+        Main.backgroundMusic.play();
         startGame.setOnAction(e -> {
             try {
                 primaryStage.setScene(new Scene(characterSheet()));
