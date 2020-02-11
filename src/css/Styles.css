@@ -1,35 +1,53 @@
 #skillLevelFont{
--fx-font: 35px "Comic Sans Ms";
--fx-fill: YELLOW;
--fx-background-color: transparent;
+    -fx-font: 35px "Comic Sans Ms";
+    -fx-fill: YELLOW;
+    -fx-background-color: transparent;
 }
 
 #skillNameFont{
--fx-font: 50px "Comic Sans Ms";
--fx-fill: YELLOW;
+    -fx-font: 50px "Comic Sans Ms";
+    -fx-fill: YELLOW;
 }
 
 #arrowsDown{
--fx-font: 70px Verdana;
--fx-background-color: transparent;
--fx-text-fill: RED;
+    -fx-font: 70px Verdana;
+    -fx-background-color: transparent;
+    -fx-text-fill: RED;
 
 }
 #arrowsUp{
--fx-font: 70px Verdana;
--fx-background-color: transparent;
--fx-text-fill: GREEN;
+    -fx-font: 70px Verdana;
+    -fx-background-color: transparent;
+    -fx-text-fill: GREEN;
 
 }
 #skillSelectionStartFont{
--fx-font: 75px "Comic Sans Ms";
--fx-background-color: transparent;
--fx-text-fill: YELLOW;
+    -fx-font: 75px "Comic Sans Ms";
+    -fx-background-color: transparent;
+    -fx-text-fill: YELLOW;
 
 }
 
 #title{
--fx-font: 100px "Comic Sans Ms";
--fx-fill: YELLOW;
+    -fx-font: 100px "Comic Sans Ms";
+    -fx-fill: YELLOW;
+}
+
+#characterSheetStartFont{
+     -fx-font: 40px "Comic Sans Ms";
+     -fx-background-color: transparent;
+     -fx-text-fill: YELLOW;
+ }
+
+#mapTitle{
+    -fx-font: 70px "Comic Sans Ms";
+    -fx-background-color: transparent;
+    -fx-text-fill: YELLOW;
+}
+
+#regionName{
+    -fx-font: 15px "Comic Sans Ms";
+    -fx-background-color: transparent;
+    -fx-text-fill: YELLOW;
 }
 

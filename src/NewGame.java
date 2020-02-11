@@ -20,17 +20,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents the initial configuration for a new game
@@ -88,10 +86,11 @@ public class NewGame extends Application {
     private static int credits;
     protected static int skillPoints;
 
+    private static Button startGameCSheet = new Button("Start");
+
     /**
      * Skill levels
      */
-
     private static Skill pilotSkill = new Skill(0);
     private static Skill fighterSkill = new Skill(0);
     private static Skill merchantSkill = new Skill(0);
@@ -102,6 +101,25 @@ public class NewGame extends Application {
      */
     private static final ImageView BACKGROUND = new ImageView(
             new Image(Main.backGround, 960, 1280, false, false));
+
+    private static final ImageView MAP_BACKGROUND = new ImageView(
+            new Image(Main.mapBackGround, 960, 1280, false, false));
+
+    private static final ImageView UKNOWN_REGION = new ImageView(
+            new Image(Main.unknownRegion, 40, 40, false, false));
+
+    private static final ImageView VISITED_REGION = new ImageView(
+            new Image(Main.visitedRegion, 30, 30, false, false));
+
+
+    /**
+     * Map
+     */
+    private static boolean regionsGenerated = false;
+    private static List<Region> regions;
+    private static int numberOfRegions = 10;
+    private static int minimunRegionSpacing = 300;
+    private static int borderSpacing = 100;
 
     /**
      * New Game/Welcome Scene
@@ -529,30 +547,30 @@ public class NewGame extends Application {
          * Title
          */
         Text title = new Text("Welcome, " + playerName);
-        title.setFont(Font.font("Comic Sans MS", 100));
+        title.setFont(Font.font("Comic Sans MS", 70));
         title.setFill(Color.YELLOW);
 
         /* 
          * Skills
          */
         Text skill = new Text("Your Skill");
-        skill.setFont(Font.font("Comic Sans MS", 75));
+        skill.setFont(Font.font("Comic Sans MS", 70));
         skill.setFill(Color.RED);
 
         Text pilot = new Text("Pilot: \t\t" + pilotSkill);
-        pilot.setFont(Font.font("Comic Sans MS", 50));
+        pilot.setFont(Font.font("Comic Sans MS", 40));
         pilot.setFill(Color.YELLOW);
 
         Text fighter = new Text("Fighter: \t\t" + fighterSkill);
-        fighter.setFont(Font.font("Comic Sans MS", 50));
+        fighter.setFont(Font.font("Comic Sans MS", 40));
         fighter.setFill(Color.YELLOW);
 
         Text merchant = new Text("Fighter: \t\t" + merchantSkill);
-        merchant.setFont(Font.font("Comic Sans MS", 50));
+        merchant.setFont(Font.font("Comic Sans MS", 40));
         merchant.setFill(Color.YELLOW);
 
         Text engineer = new Text("Engineer: \t" + engineerSkill);
-        engineer.setFont(Font.font("Comic Sans MS", 50));
+        engineer.setFont(Font.font("Comic Sans MS", 40));
         engineer.setFill(Color.YELLOW);
 
         vboxSkills.getChildren().addAll(skill, pilot, fighter, merchant, engineer);
@@ -562,16 +580,16 @@ public class NewGame extends Application {
          * Credits
          */
         Text creditText = new Text("Your Credits");
-        creditText.setFont(Font.font("Comic Sans MS", 75));
+        creditText.setFont(Font.font("Comic Sans MS", 70));
         creditText.setFill(Color.RED);
 
         Text creditAmount = new Text(new Integer(credits).toString());
-        creditAmount.setFont(Font.font("Comic Sans MS", 50));
+        creditAmount.setFont(Font.font("Comic Sans MS", 40));
         creditAmount.setFill(Color.YELLOW);
 
         vboxCredits.getChildren().addAll(creditText, creditAmount);
         vboxCredits.setAlignment(Pos.TOP_CENTER);
-        vboxCredits.setSpacing(100);
+        vboxCredits.setSpacing(80);
 
 
         /*
@@ -586,20 +604,106 @@ public class NewGame extends Application {
             difficultyText = "Hard";
         } 
         Text difTitle = new Text("Playing On " + difficultyText + " Mode");
-        difTitle.setFont(Font.font("Comic Sans MS", 75));
+        difTitle.setFont(Font.font("Comic Sans MS", 40));
         difTitle.setFill(Color.YELLOW);
 
         hbox.getChildren().addAll(vboxSkills, vboxCredits);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(100);
 
-        vbox.getChildren().addAll(title, hbox, difTitle);
+        vbox.getChildren().addAll(title, hbox, difTitle, startGameCSheet);
         vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(50.0); 
+        vbox.setSpacing(50.0);
+        startGameCSheet.setId("characterSheetStartFont");
 
         pane.setCenter(stackpane);
         stackpane.getChildren().addAll(BACKGROUND, vbox);
+
+        pane.getStylesheets().add("css/Styles.css");
         return pane;
+    }
+
+    static Pane map() {
+        /**
+         * Regions generation
+         */
+        if (!regionsGenerated) {
+            regions = new ArrayList<Region>();
+            boolean tooClose = true;
+            Region newRegion = null;
+            for (int i = 0; i < numberOfRegions; i++) {
+                tooClose = true;
+                //preventing the regions to be too close
+                while(tooClose) {
+                    newRegion = new Region();
+                    tooClose = false;
+                    if (regions.size() > 0) {
+                        for (Region region : regions) {
+                            if ((Math.abs(newRegion.xCoordinate - region.xCoordinate) < minimunRegionSpacing)
+                            && (Math.abs(newRegion.yCoordinate - region.yCoordinate) < minimunRegionSpacing)) {
+                                tooClose = true;
+                            }
+                        }
+                    }
+                }
+                regions.add(newRegion);
+            }
+        }
+
+        /**
+         * Base layout
+         */
+        BorderPane pane = new BorderPane();
+        StackPane stackpane = new StackPane();
+        AnchorPane mapLayout = new AnchorPane();
+        stackpane.getChildren().add(MAP_BACKGROUND);
+        stackpane.getChildren().add(pane);
+
+        for (Region i : regions) {
+            VBox regionBox = new VBox();
+            Text regionName = null;
+            if (i.hasBeenVisited) {
+                regionName = new Text(i.name);
+                regionBox.getChildren().add(VISITED_REGION);
+                regionBox.getChildren().add(regionName);
+            } else {
+                regionName = new Text("?????");
+                regionBox.getChildren().add(UKNOWN_REGION);
+                //TODO: fix this, need to have the image above each region name
+                regionBox.getChildren().add(regionName);
+            }
+            regionName.setFill(Color.YELLOW);
+            //TODO: fix style here
+            regionName.setId("regionName");
+            mapLayout.getChildren().add(regionBox);
+            //normalizing coordinates to screen size
+            int tempX = (int) (i.xCoordinate * theStage.getWidth()) / 2500;
+            int tempY =  (int) (i.yCoordinate * theStage.getHeight()) / 2000;
+            tempX = tempX + (int) ((theStage.getWidth() - borderSpacing) / 2);
+            tempY = tempY + (int) ((theStage.getHeight() - borderSpacing) / 2);
+            regionBox.setLayoutX(tempX);
+            regionBox.setLayoutY
+                    (tempY);
+        }
+
+        /**
+         * Background image
+         */
+        MAP_BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
+        MAP_BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
+
+        /**
+         * Title
+         */
+        Text title = new Text("Map");
+        title.setFill(Color.YELLOW);
+        pane.setTop(title);
+        pane.setCenter(mapLayout);
+        BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
+        title.setId("mapTitle");
+        //TODO: set the map title to yellow with CSS, I can't manage to change it
+        pane.getStylesheets().add("css/Styles.css");
+        return stackpane;
     }
 
 
@@ -619,6 +723,15 @@ public class NewGame extends Application {
             }
         });
 
+        startGameCSheet.setOnAction(e -> {
+            try {
+                primaryStage.setScene(new Scene(map()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+
+
 
 
         primaryStage.setScene(new Scene(welcome()));
@@ -633,3 +746,5 @@ public class NewGame extends Application {
         primaryStage.show();
     }
 }
+
+//TODO: try to separate this big file in different classes
