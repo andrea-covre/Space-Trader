@@ -40,7 +40,7 @@ public class NewGame extends Application {
     /**
      * Nodes that are important for scene changing:
      */
-    protected static Stage theStage;
+    public static Stage theStage;
     //New Game Scene
     private static Button sceneButton1 = new Button("New Game");
 
@@ -83,19 +83,19 @@ public class NewGame extends Application {
     private enum Difficulty {
         EASY, MEDIUM, HARD;
     };
-    private static String playerName;
-    private static Difficulty difficulty;
-    private static int credits;
+    protected static String playerName;
+    protected static Difficulty difficulty;
+    protected static int credits;
     protected static int skillPoints;
 
     /**
      * Skill levels
      */
 
-    private static Skill pilotSkill = new Skill(0);
-    private static Skill fighterSkill = new Skill(0);
-    private static Skill merchantSkill = new Skill(0);
-    private static Skill engineerSkill = new Skill(0);
+    protected static Skill pilotSkill = new Skill(0);
+    protected static Skill fighterSkill = new Skill(0);
+    protected static Skill merchantSkill = new Skill(0);
+    protected static Skill engineerSkill = new Skill(0);
 
     /**
      * Graphics
@@ -106,7 +106,7 @@ public class NewGame extends Application {
     /**
      * Game Volume
      */
-    private static double GAMEVOLUME = 0.02;
+    protected static double GAMEVOLUME = 0.02;
 
     /**
      * New Game/Welcome Scene
