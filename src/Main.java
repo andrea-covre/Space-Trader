@@ -33,7 +33,5 @@ public class Main extends Application {
     public static void loadGraphics() throws FileNotFoundException {
         backGround = new FileInputStream("resources/menu_background.jpg");
         mapBackGround = new FileInputStream("resources/map_background.jpg");
-        unknownRegion = new FileInputStream("resources/unknown_location.png");
-        visitedRegion = new FileInputStream("resources/visited_location.png");
     }
 }

@@ -22,13 +22,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.PipedOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class represents the initial configuration for a new game
@@ -79,8 +84,8 @@ public class NewGame extends Application {
      * Variables that represent character sheet
      */
     private enum Difficulty {
-        EASY, MEDIUM, HARD;
-    };
+        EASY, MEDIUM, HARD
+    }
     private static String playerName;
     private static Difficulty difficulty;
     private static int credits;
@@ -105,21 +110,40 @@ public class NewGame extends Application {
     private static final ImageView MAP_BACKGROUND = new ImageView(
             new Image(Main.mapBackGround, 960, 1280, false, false));
 
-    private static final ImageView UKNOWN_REGION = new ImageView(
-            new Image(Main.unknownRegion, 40, 40, false, false));
-
-    private static final ImageView VISITED_REGION = new ImageView(
-            new Image(Main.visitedRegion, 30, 30, false, false));
-
-
     /**
      * Map
      */
+    //Map info
+    protected static Region currentLocation;
+    protected static Region selectedLocation;
+
+    //Travel
+    private static double fuelCostPerUnit = 1; //cost per unit of distance
+    private static int travelDiscountPerPilotLevel = 3; //in percentage
+    private static int costToSelectedLocation;
+
+    //Map Buttons
+    private static Button travelToLocation = new Button("Travel to");
+    private static Button closeInfoPanel = new Button("Close");
+
+    //Map generation
     private static boolean regionsGenerated = false;
     private static List<Region> regions;
-    private static int numberOfRegions = 10;
-    private static int minimunRegionSpacing = 300;
-    private static int borderSpacing = 100;
+    private static int numberOfRegions = 10;    //number of regions generated for each new map [max reasonable # = 20 because of spacing]
+    private static int minimunRegionSpacing = 300; //coordinate-wise: minimum distance required between planets, valid for both X and Y [used during world generation]
+
+    //Graphics
+    private static int borderSpacing = 240;     //space to prevent planets from being too close to the screen borders [for layout generation ONLY]
+    private static int infoPaneSpacing = 85;    //spacing between icon and info pane
+    private static double infoPaneSpacingLeftFactor = 2.4;  //increase spacing if pane will be shown on the left of the planet icon
+    private static double infoPaneSpacingNameFactor = 2;    //add extra spacing to the left based on the length of the planet's name
+    private static int xScaling = 2500; //scaling factors to resize regions coordinates in displayable screen coordinates
+    private static int yScaling = 2000;
+
+    /**
+     * Region Scene
+     */
+    private static Button regionBackButton = new Button("Back to Map");
 
     /**
      * New Game/Welcome Scene
@@ -623,6 +647,10 @@ public class NewGame extends Application {
         return pane;
     }
 
+    /**
+     * This pane generates the Map Scene
+     * @return the generated pane to display
+     */
     static Pane map() {
         /**
          * Regions generation
@@ -645,9 +673,18 @@ public class NewGame extends Application {
                             }
                         }
                     }
+//                    if (tooClose) {
+//                        System.out.println(" -> Invalid generation");
+//                    } else {
+//                        System.out.println(" -> Valid generation");
+//                    }
                 }
                 regions.add(newRegion);
             }
+            //Setting the first world generated has the spawn world
+            regions.get(0).hasBeenVisited = true;
+            currentLocation = regions.get(0);
+            regionsGenerated = true;
         }
 
         /**
@@ -656,35 +693,204 @@ public class NewGame extends Application {
         BorderPane pane = new BorderPane();
         StackPane stackpane = new StackPane();
         AnchorPane mapLayout = new AnchorPane();
+
         stackpane.getChildren().add(MAP_BACKGROUND);
         stackpane.getChildren().add(pane);
 
-        for (Region i : regions) {
+        ArrayList<Button> locationButt = new ArrayList<>();
+
+        //Location info containers
+        Pane infoPane = new Pane();
+        VBox infoList = new VBox();
+
+        for (int x = 0; x < regions.size(); x++) {
+            Region i = regions.get(x);
+            StackPane imagePane = new StackPane();
             VBox regionBox = new VBox();
-            Text regionName = null;
-            if (i.hasBeenVisited) {
-                regionName = new Text(i.name);
-                regionBox.getChildren().add(VISITED_REGION);
-                regionBox.getChildren().add(regionName);
-            } else {
-                regionName = new Text("?????");
-                regionBox.getChildren().add(UKNOWN_REGION);
-                //TODO: fix this, need to have the image above each region name
-                regionBox.getChildren().add(regionName);
+
+            Circle planet = new Circle(28);
+            if (currentLocation.equals(i)) {
+                planet.setStrokeWidth(5);
+                planet.setStroke(Color.GREEN);
             }
+            Text regionName = null;
+            Text planetText = null;
+
+            locationButt.add(new Button("   "));
+            locationButt.get(x).setId("locationButt");
+
+            if (i.hasBeenVisited) {
+                //Location appearance
+                regionName = new Text(i.name);
+                planetText = new Text("✹");
+                planetText.setFill(Color.GREEN);
+                regionBox.getChildren().add(imagePane);
+
+            } else {
+                //Location appearance
+                regionName = new Text("?????");
+                planetText = new Text("?");
+                planetText.setFill(Color.RED);
+                regionBox.getChildren().add(imagePane);
+                //TODO: fix this, need to have the image above each region name
+            }
+
+
+            //Location Button and info
+
+            //Because lambda is nasty: xIndex = x
+            AtomicInteger xIndex = new AtomicInteger();
+            xIndex.set(x);
+
+            locationButt.get(x).setOnAction(e -> {
+                try {
+                    //If a location gets clicked on:
+
+                    //resetting the info
+                    infoPane.getChildren().clear();
+                    infoList.getChildren().clear();
+                    infoPane.setStyle("-fx-border-width: 2px;");
+
+                    Text locationInfo;
+
+                    //Calculating distance between current location and every other planet
+                    int distance = (int) Math.sqrt(Math.pow(currentLocation.xCoordinate - i.xCoordinate, 2)
+                            + Math.pow(currentLocation.yCoordinate - i.yCoordinate, 2));
+
+                    //Calculating fuel cost based on distance and pilot skill level
+                    int fuelCost = (int) ((double) distance * fuelCostPerUnit
+                            * (1.00 - 0.01 * travelDiscountPerPilotLevel * pilotSkill.getValue()));
+
+                    costToSelectedLocation = fuelCost;
+                    selectedLocation = i;
+
+                    if(i.hasBeenVisited) {
+                        String visitedText = "Yes ";
+                        if (currentLocation.equals(i)) {
+                            visitedText = "Current Location ";
+                        }
+                        locationInfo = new Text(" Location: " + i.name + " \n"
+                                + " Tech Level: " + i.techLevel + " \n"
+                                + " Coordinates: " + "(X:" + i.xCoordinate + " | Y:" + i.yCoordinate + ")" + " \n"
+                                + " Description: " + i.description + " \n"
+                                + " Visited: " + visitedText + " \n"
+                                + " Distance: " + distance + " \n"
+                                + " Fuel cost: " + fuelCost + " (-" + pilotSkill.getValue() * 5 + "%) ");
+                        locationInfo.setId("locationInfo");
+                    } else {
+                        locationInfo = new Text(" Location: " + "?????" + " \n"
+                                + " Tech Level: " + "?????" + " \n"
+                                + " Coordinates: " + "(X:" + i.xCoordinate + " | Y:" + i.yCoordinate + ")" + " \n"
+                                + " Description: " + "?????" + " \n"
+                                + " Visited: " + "Not yet " + " \n"
+                                + " Distance: " + distance + " \n"
+                                + " Fuel cost: " + fuelCost + " (-" + pilotSkill.getValue() * 5 + "%) ");
+                        locationInfo.setId("locationInfo");
+                    }
+
+                    //Containers to put inside panel info (info + buttons)
+                    VBox infoVBox = new VBox();
+                    HBox infoButtonHBox = new HBox();
+                    infoButtonHBox.setAlignment(Pos.CENTER_RIGHT);
+                    infoVBox.setAlignment(Pos.CENTER_RIGHT);
+
+                    //TODO: need to fix the overlap of the travel button over the panel border
+                    //Setting and add Travel and close buttons
+                    infoButtonHBox.setHgrow(travelToLocation, Priority.ALWAYS);
+                    infoButtonHBox.setHgrow(closeInfoPanel, Priority.ALWAYS);
+                    travelToLocation.setMaxWidth(Double.MAX_VALUE);
+                    closeInfoPanel.setMaxWidth(Double.MAX_VALUE);
+
+                    //Checking if player has enough credits to traver to this location
+                    if (credits >= fuelCost) {
+                        travelToLocation.setStyle("-fx-background-color: rgba(0, 156, 0, 0.7)");
+                    } else {
+                        travelToLocation.setStyle("-fx-background-color: rgba(255, 0, 0, 0.48)");
+                    }
+
+                    travelToLocation.setId("travelToLocation");
+                    closeInfoPanel.setId("closeInfoPanel");
+
+                    infoButtonHBox.getChildren().addAll(travelToLocation, closeInfoPanel);
+
+                    //setting new Info and putting together the containers
+                    infoList.getChildren().add(locationInfo);
+                    infoVBox.getChildren().addAll(infoList, infoButtonHBox);
+                    infoPane.getChildren().add(infoVBox);
+
+                    //Calculating optimal location for the infopane to appear in
+                    int infoPaneX = i.xCoordinate;
+                    int infoPaneY = i.yCoordinate;
+
+                    infoPaneX = (int) (infoPaneX * theStage.getWidth()) / xScaling;
+                    infoPaneY =  (int) (infoPaneY * theStage.getHeight()) / yScaling;
+                    infoPaneX = infoPaneX + (int) ((theStage.getWidth() - borderSpacing) / 2);
+                    infoPaneY = infoPaneY + (int) ((theStage.getHeight() - borderSpacing) / 2);
+
+                    if (i.xCoordinate > 0) {
+                        infoPaneX = infoPaneX - (int) (infoPaneSpacing * infoPaneSpacingLeftFactor
+                                + (i.name.length() * infoPaneSpacingNameFactor));
+                    } else {
+                        infoPaneX = infoPaneX + infoPaneSpacing;
+                    }
+
+                    if (i.yCoordinate > 0) {
+                        infoPaneY = infoPaneY - infoPaneSpacing;
+                    } else {
+                        infoPaneY = infoPaneY + infoPaneSpacing;
+                    }
+
+                    infoPane.setLayoutX(infoPaneX);
+                    infoPane.setLayoutY(infoPaneY);
+                    infoPane.setId("infoPane");
+
+                } catch (Throwable f) {
+                    f.printStackTrace();
+                }
+            });
+
+            regionBox.getChildren().add(regionName);
+            regionBox.setAlignment(Pos.CENTER);
+            imagePane.getChildren().addAll(planet, planetText, locationButt.get(x));
+
             regionName.setFill(Color.YELLOW);
             //TODO: fix style here
             regionName.setId("regionName");
-            mapLayout.getChildren().add(regionBox);
+            planetText.setId("planetText");
+
+            mapLayout.getChildren().addAll(regionBox);
+
             //normalizing coordinates to screen size
-            int tempX = (int) (i.xCoordinate * theStage.getWidth()) / 2500;
-            int tempY =  (int) (i.yCoordinate * theStage.getHeight()) / 2000;
+            int tempX = (int) (i.xCoordinate * theStage.getWidth()) / xScaling;
+            int tempY =  (int) (i.yCoordinate * theStage.getHeight()) / yScaling;
             tempX = tempX + (int) ((theStage.getWidth() - borderSpacing) / 2);
             tempY = tempY + (int) ((theStage.getHeight() - borderSpacing) / 2);
             regionBox.setLayoutX(tempX);
-            regionBox.setLayoutY
-                    (tempY);
+            regionBox.setLayoutY(tempY);
         }
+
+        //Map buttons management
+        closeInfoPanel.setOnAction(e -> {
+            try {
+                infoPane.getChildren().clear();
+                infoPane.setStyle("-fx-border-width: 0px;");
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+
+        travelToLocation.setOnAction(e -> {
+            try {
+                if (costToSelectedLocation <= credits) {
+                    currentLocation = selectedLocation;
+                    currentLocation.hasBeenVisited = true;
+                    credits = credits - costToSelectedLocation;
+                    theStage.setScene(new Scene(regionScene()));
+                }
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
 
         /**
          * Background image
@@ -698,14 +904,69 @@ public class NewGame extends Application {
         Text title = new Text("Map");
         title.setFill(Color.YELLOW);
         pane.setTop(title);
+
+        //Adding planet info panel
+        mapLayout.getChildren().addAll(infoPane);
+
+        //Creating stats bar
+        //TODO: for some reason CSS does not work here so the text's color is hardcoded here
+        HBox statsBar = new HBox();
+        Text creditsInfo = new Text("Credits: " + credits);
+        creditsInfo.setId("statsBar");
+        creditsInfo.setFill(Color.YELLOW);
+
+        Text pilotInfo = new Text("Pilot: " + pilotSkill.getValue());
+        pilotInfo.setId("statsBar");
+        pilotInfo.setFill(Color.YELLOW);
+
+        Text fighterInfo = new Text("Fighter: " + fighterSkill.getValue());
+        fighterInfo.setId("statsBar");
+        fighterInfo.setFill(Color.YELLOW);
+
+        Text merchantInfo = new Text("Merchant: " + merchantSkill.getValue());
+        merchantInfo.setId("statsBar");
+        merchantInfo.setFill(Color.YELLOW);
+
+        Text engineerInfo = new Text("Engineer: " + engineerSkill.getValue());
+        engineerInfo.setId("statsBar");
+        engineerInfo.setFill(Color.YELLOW);
+
+
+        statsBar.setSpacing(100);
+        statsBar.setAlignment(Pos.CENTER);
+        statsBar.getChildren().addAll(creditsInfo, pilotInfo, fighterInfo, merchantInfo, engineerInfo);
+
         pane.setCenter(mapLayout);
+        pane.setBottom(statsBar);
         BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
+        BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
         title.setId("mapTitle");
         //TODO: set the map title to yellow with CSS, I can't manage to change it
         pane.getStylesheets().add("css/Styles.css");
         return stackpane;
     }
 
+    /**
+     * This pane generates the region scene
+     * @return the generated pane to display
+     */
+    static Pane regionScene() {
+        StackPane stackPane = new StackPane();
+        VBox vBox = new VBox();
+        Text tempText = new Text(currentLocation.description);
+        vBox.getChildren().addAll(tempText, regionBackButton);
+        stackPane.getChildren().add(vBox);
+
+        regionBackButton.setOnAction(e -> {
+            try {
+                theStage.setScene(new Scene(map()));
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+
+        return stackPane;
+    }
 
     /**
      *
@@ -732,8 +993,6 @@ public class NewGame extends Application {
         });
 
 
-
-
         primaryStage.setScene(new Scene(welcome()));
         primaryStage.setTitle("Space trader");
         primaryStage.setResizable(true);
@@ -748,3 +1007,4 @@ public class NewGame extends Application {
 }
 
 //TODO: try to separate this big file in different classes
+//TODO: need to delete the extra images and their loading (for already visited world and not)

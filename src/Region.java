@@ -31,10 +31,11 @@ public class Region {
         if (rand.nextInt(1000) % 2 == 0) {
             yCoordinate = -yCoordinate;
         }
-        description = name + ", a level " + techLevel + " civilization located at X:" + xCoordinate + " | Y:"
+        description = name + ", a level " + techLevel + " civilization \r located at X:" + xCoordinate + " | Y:"
                 + yCoordinate;
         regionID = numberOfRegions;
         numberOfRegions++;
+        //System.out.print(this.regionID + " Generated");
     }
 
     private String generateName() {
