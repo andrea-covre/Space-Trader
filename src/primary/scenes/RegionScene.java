@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class RegionScene extends SceneBuilder {
-    private static Button regionBackButton = new Button("Back to Map");
+    private Button regionBackButton = new Button("Back to Map");
 
     @Override
     public Parent build() {

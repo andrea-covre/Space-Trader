@@ -5,20 +5,19 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
-import java.lang.Math;
 
 /**
  * This class generates different regions that inhabit the space trader universe
  */
 public class Region {
     protected String name;
-    protected int techLevel;
-    protected int xCoordinate;
-    protected int yCoordinate;
-    protected String description;
-    protected boolean hasBeenVisited = false;
-    protected static int numberOfRegions = 0;
-    protected int regionID;
+    private int techLevel;
+    private int xCoordinate;
+    private int yCoordinate;
+    private String description;
+    private boolean hasBeenVisited = false;
+    private static int numberOfRegions = 0;
+    private int regionID;
 
     private Random rand = new Random();
 
@@ -33,8 +32,10 @@ public class Region {
         if (rand.nextInt(1000) % 2 == 0) {
             yCoordinate = -yCoordinate;
         }
-        description = name + ", a level " + techLevel + " civilization \r located at X:" + xCoordinate + " | Y:"
-                + yCoordinate;
+        description = name + ", a level " + techLevel
+                + " civilization \r located at X:" + xCoordinate
+                + " | Y:" + yCoordinate;
+
         regionID = numberOfRegions;
         numberOfRegions++;
         //System.out.print(this.regionID + " Generated");
@@ -53,11 +54,14 @@ public class Region {
             File className = new File("resources/RegionClassName.txt");
             classNameSC = new Scanner(className);
         } catch (FileNotFoundException e) {
-            System.out.println("primary.Region's names files are missing from the resources folder");
+            System.out.println("primary.Region's names "
+                            + "files are missing from the resources folder");
         }
+        assert regionNameSC != null;
         while (regionNameSC.hasNext()) {
             nameDictionary.add(regionNameSC.next());
         }
+        assert classNameSC != null;
         while (classNameSC.hasNext()) {
             classDictionary.add(classNameSC.nextLine());
         }
@@ -82,7 +86,7 @@ public class Region {
     public boolean hasBeenVisited() {
         return hasBeenVisited;
     }
-    public void setBeenVisited(boolean v){
+    public void setBeenVisited(boolean v) {
         hasBeenVisited = v;
     }
 

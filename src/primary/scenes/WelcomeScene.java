@@ -1,8 +1,6 @@
 package primary.scenes;
 
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -14,15 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class WelcomeScene extends SceneBuilder{
-    private static Button sceneButton1 = new Button("New Game");
-    private static Button backToScene1 = new Button("Back");
+public class WelcomeScene extends SceneBuilder {
+    private  Button sceneButton1 = new Button("New Game");
+    private  Button backToScene1 = new Button("Back");
     @Override
     public Parent build() {
         return welcome();
     }
     private Pane welcome()  {
-        /**
+        /*
          * Base layout
          */
         BorderPane pane = new BorderPane();
@@ -31,13 +29,13 @@ public class WelcomeScene extends SceneBuilder{
         Text title = new Text("SPACE TRADER");
         StackPane stackpane = new StackPane();
 
-        /**
+        /*
          * Background image
          */
         BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
         BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
 
-        /**
+        /*
          * Buttons
          */
         hbox.setAlignment(Pos.CENTER);
@@ -61,7 +59,7 @@ public class WelcomeScene extends SceneBuilder{
             }
         });
 
-        /**
+        /*
          * Text
          */
         title.setFont(Font.font("Comic Sans MS", 100));
@@ -70,22 +68,20 @@ public class WelcomeScene extends SceneBuilder{
 
         pane.setCenter(stackpane);
         stackpane.getChildren().addAll(BACKGROUND, hbox2, hbox);
-        Task<Void> sleeper = new Task<Void>() {
+        Task<Void> sleeper = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 try {
                     Thread.sleep(1500);
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
         };
-        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                hbox.getChildren().add(sceneButton1);
-                hbox2.setAlignment(Pos.TOP_CENTER);
-            }
+        sleeper.setOnSucceeded(event -> {
+            hbox.getChildren().add(sceneButton1);
+            hbox2.setAlignment(Pos.TOP_CENTER);
         });
         new Thread(sleeper).start();
 

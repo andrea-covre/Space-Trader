@@ -1,5 +1,4 @@
 package primary.scenes;
-
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -16,8 +15,9 @@ public class CharacterSheetScene extends SceneBuilder {
     }
 
     private Pane characterSheet() {
-        /**
-         * Base layout
+
+        /*
+          base layout
          */
         BorderPane pane = new BorderPane();
         VBox vbox = new VBox();
@@ -27,13 +27,13 @@ public class CharacterSheetScene extends SceneBuilder {
         StackPane stackpane = new StackPane();
 
 
-        /**
+        /*
          * Background image
          */
         BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
         BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
 
-        /**
+        /*
          * Title
          */
         Text title = new Text("Welcome, " + playerName);
@@ -73,7 +73,7 @@ public class CharacterSheetScene extends SceneBuilder {
         creditText.setFont(Font.font("Comic Sans MS", 70));
         creditText.setFill(Color.RED);
 
-        Text creditAmount = new Text(new Integer(credits).toString());
+        Text creditAmount = new Text(Integer.toString(credits));
         creditAmount.setFont(Font.font("Comic Sans MS", 40));
         creditAmount.setFill(Color.YELLOW);
 
@@ -92,7 +92,7 @@ public class CharacterSheetScene extends SceneBuilder {
         /*
          * Difficulty
          */
-        String difficultyText = "";
+        String difficultyText;
         if (setDifficulty == Difficulty.EASY) {
             difficultyText = "Easy";
         } else if (setDifficulty == Difficulty.MEDIUM) {

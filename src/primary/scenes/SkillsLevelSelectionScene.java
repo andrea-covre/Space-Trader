@@ -12,32 +12,31 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
      * primary.Skill Level Selection Scene buttons
      */
     //Pilot
-    private static Button pilotUp = new Button("⬆");
-    private static Button pilotDown = new Button("⬇");
+    private  Button pilotUp = new Button("⬆");
+    private  Button pilotDown = new Button("⬇");
 
     //Fighter
-    private static Button fighterUp = new Button("⬆");
-    private static Button fighterDown = new Button("⬇");
+    private  Button fighterUp = new Button("⬆");
+    private  Button fighterDown = new Button("⬇");
 
     //Merchant
-    private static Button merchantUp = new Button("⬆");
-    private static Button merchantDown = new Button("⬇");
+    private  Button merchantUp = new Button("⬆");
+    private  Button merchantDown = new Button("⬇");
 
     //Engineer
-    private static Button engineerUp = new Button("⬆");
-    private static Button engineerDown = new Button("⬇");
+    private  Button engineerUp = new Button("⬆");
+    private  Button engineerDown = new Button("⬇");
 
     //Navigation
-    private static Button startGame = new Button("Start");
-    private static Button backToNameSelection = new Button("Back");
+    private  Button startGame = new Button("Start");
+    private  Button backToNameSelection = new Button("Back");
 
     @Override
     public Parent build() {
         return skillsLevelSelection();
     }
 
-   private Pane skillsLevelSelection() {
-
+    private void setButtons() {
         // setting actions for all skill leveling buttons
         pilotUp.setOnAction(new IncrSkill(pilotSkill, 1));
         pilotDown.setOnAction(new IncrSkill(pilotSkill, -1));
@@ -57,7 +56,6 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
             fighterSkill = new Skill(0);
             engineerSkill = new Skill(0);
             try {
-//                field.setPromptText(playerName);
                 setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
@@ -65,14 +63,22 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
         });
 
         // setting start game to start the game
-       startGame.setOnAction(e -> {
-           try {
-               setStage(new CharacterSheetScene());
-           } catch (Throwable f) {
-               f.printStackTrace();
-           }
-       });
-        /**
+        startGame.setOnAction(e -> {
+            try {
+                setStage(new CharacterSheetScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+    }
+
+    private Pane skillsLevelSelection() {
+
+        /*
+        set buttons here in helper method
+         */
+        setButtons();
+        /*
          * primary.Skill Nodes
          */
         //Nodes to display skill name
@@ -95,13 +101,14 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
         Text engineerLevelDisplay = new Text(engineerSkill.toString());
         engineerLevelDisplay.setId("skillLevelFont");
 
-        /**
+        /*
          * Nodes to display skill points available
          */
-        Text skillPointsDisplay = new Text("primary.Skill points: " + Integer.toString(skillPoints));
+        Text skillPointsDisplay = new Text("primary.Skill points: "
+                + skillPoints);
         skillPointsDisplay.setId("skillLevelFont");
 
-        /**
+        /*
          * Style of navigation buttons
          */
         //Start Game
@@ -173,7 +180,7 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
         pane.getChildren().add(BACKGROUND);
         pane.setCenter(skillsInterface);
 
-        /**
+        /*
          * Arrows' Style
          */
         pilotUp.setId("arrowsUp");

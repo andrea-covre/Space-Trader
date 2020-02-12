@@ -1,6 +1,6 @@
 package primary;
 
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import primary.scenes.SceneBuilder;
@@ -10,7 +10,7 @@ import primary.scenes.SkillsLevelSelectionScene;
  * "inner" class to deal with button events
  * for incrementing and decrementing skills
  */
-public class IncrSkill extends SceneBuilder implements EventHandler {
+public class IncrSkill extends SceneBuilder implements EventHandler<javafx.event.ActionEvent> {
     private Skill skill;
     private int amount;
 
@@ -20,7 +20,7 @@ public class IncrSkill extends SceneBuilder implements EventHandler {
     }
 
     @Override
-    public void handle(Event event) {
+    public void handle(ActionEvent event) {
         setStage(this);
     }
 
@@ -32,4 +32,5 @@ public class IncrSkill extends SceneBuilder implements EventHandler {
         }
         return new SkillsLevelSelectionScene().build();
     }
+
 }

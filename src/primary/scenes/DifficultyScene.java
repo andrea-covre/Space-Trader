@@ -13,9 +13,9 @@ import javafx.scene.text.Text;
 
 public class DifficultyScene extends SceneBuilder {
     //Difficulty Scene
-    private static Button easy = new Button("Easy");
-    private static Button medium = new Button("Medium");
-    private static Button hard = new Button("Hard");
+    private Button easy = new Button("Easy");
+    private Button medium = new Button("Medium");
+    private Button hard = new Button("Hard");
 
     @Override
     public Parent build() {
@@ -24,7 +24,7 @@ public class DifficultyScene extends SceneBuilder {
 
 
     private Pane difficulty() {
-        /**
+        /*
          * Base layout
          */
         BorderPane pane = new BorderPane();
@@ -33,14 +33,14 @@ public class DifficultyScene extends SceneBuilder {
         Text title = new Text("Pick a Difficulty");
         StackPane stackpane = new StackPane();
 
-        /**
+        /*
          *
          * Background image
          */
-        SceneBuilder.BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
-        SceneBuilder.BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
+        BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
+        BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
 
-        /**
+        /*
          * Text
          */
         title.setFont(Font.font("Comic Sans MS", 100));
@@ -59,7 +59,7 @@ public class DifficultyScene extends SceneBuilder {
         hbox2.getChildren().add(title);
         hbox2.setAlignment(Pos.TOP_CENTER);
 
-        /**
+        /*
          * Difficulty
          */
         easy.setOnAction(e -> {
@@ -67,7 +67,7 @@ public class DifficultyScene extends SceneBuilder {
                 setDifficulty = Difficulty.EASY;
                 credits = 5000;
                 skillPoints = 8;
-                setStage(new SkillsLevelSelectionScene());
+                setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -77,7 +77,7 @@ public class DifficultyScene extends SceneBuilder {
                 setDifficulty = Difficulty.MEDIUM;
                 credits = 3000;
                 skillPoints = 5;
-                setStage(new SkillsLevelSelectionScene());
+                setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -87,7 +87,7 @@ public class DifficultyScene extends SceneBuilder {
                 setDifficulty = Difficulty.HARD;
                 credits = 1000;
                 skillPoints = 3;
-                setStage(new SkillsLevelSelectionScene());
+                setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }

@@ -39,3 +39,4 @@
 TO DO:
     - add icon for each skill above skill title
     - better way to update the skill level than recalling the scene
+------------------------------------------------------------------------------------------------------------------------
