@@ -1,20 +1,20 @@
+package primary.scenes;
+
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class CharacterSheetScene extends SceneBuilder {
+    private static Button startGameCSheet = new Button("Start");
     @Override
     public Parent build() {
         return characterSheet();
     }
 
-    @Override
-    public void setStage(SceneBuilder b) {
-
-    }
     private Pane characterSheet() {
         /**
          * Base layout
@@ -37,30 +37,30 @@ public class CharacterSheetScene extends SceneBuilder {
          * Title
          */
         Text title = new Text("Welcome, " + playerName);
-        title.setFont(Font.font("Comic Sans MS", 100));
+        title.setFont(Font.font("Comic Sans MS", 70));
         title.setFill(Color.YELLOW);
 
         /*
          * Skills
          */
-        Text skill = new Text("Your Skill");
-        skill.setFont(Font.font("Comic Sans MS", 75));
+        Text skill = new Text("Your primary.Skill");
+        skill.setFont(Font.font("Comic Sans MS", 70));
         skill.setFill(Color.RED);
 
         Text pilot = new Text("Pilot: \t\t" + pilotSkill);
-        pilot.setFont(Font.font("Comic Sans MS", 50));
+        pilot.setFont(Font.font("Comic Sans MS", 40));
         pilot.setFill(Color.YELLOW);
 
         Text fighter = new Text("Fighter: \t\t" + fighterSkill);
-        fighter.setFont(Font.font("Comic Sans MS", 50));
+        fighter.setFont(Font.font("Comic Sans MS", 40));
         fighter.setFill(Color.YELLOW);
 
         Text merchant = new Text("Fighter: \t\t" + merchantSkill);
-        merchant.setFont(Font.font("Comic Sans MS", 50));
+        merchant.setFont(Font.font("Comic Sans MS", 40));
         merchant.setFill(Color.YELLOW);
 
         Text engineer = new Text("Engineer: \t" + engineerSkill);
-        engineer.setFont(Font.font("Comic Sans MS", 50));
+        engineer.setFont(Font.font("Comic Sans MS", 40));
         engineer.setFill(Color.YELLOW);
 
         vboxSkills.getChildren().addAll(skill, pilot, fighter, merchant, engineer);
@@ -70,43 +70,53 @@ public class CharacterSheetScene extends SceneBuilder {
          * Credits
          */
         Text creditText = new Text("Your Credits");
-        creditText.setFont(Font.font("Comic Sans MS", 75));
+        creditText.setFont(Font.font("Comic Sans MS", 70));
         creditText.setFill(Color.RED);
 
-        Text creditAmount = new Text(Integer.toString(credits));
-        creditAmount.setFont(Font.font("Comic Sans MS", 50));
+        Text creditAmount = new Text(new Integer(credits).toString());
+        creditAmount.setFont(Font.font("Comic Sans MS", 40));
         creditAmount.setFill(Color.YELLOW);
 
         vboxCredits.getChildren().addAll(creditText, creditAmount);
         vboxCredits.setAlignment(Pos.TOP_CENTER);
-        vboxCredits.setSpacing(100);
+        vboxCredits.setSpacing(80);
 
+        startGameCSheet.setOnAction(e -> {
+            try {
+                setStage(new MapScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
 
         /*
          * Difficulty
          */
         String difficultyText = "";
-        if (difficulty == difficulty.EASY) {
+        if (setDifficulty == Difficulty.EASY) {
             difficultyText = "Easy";
-        } else if (difficulty == difficulty.MEDIUM) {
+        } else if (setDifficulty == Difficulty.MEDIUM) {
             difficultyText = "Medium";
         } else {
             difficultyText = "Hard";
         }
         Text difTitle = new Text("Playing On " + difficultyText + " Mode");
-        difTitle.setFont(Font.font("Comic Sans MS", 75));
+        difTitle.setFont(Font.font("Comic Sans MS", 40));
         difTitle.setFill(Color.YELLOW);
 
         hbox.getChildren().addAll(vboxSkills, vboxCredits);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(100);
 
-        vbox.getChildren().addAll(title, hbox, difTitle);
+        vbox.getChildren().addAll(title, hbox, difTitle, startGameCSheet);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(50.0);
+        startGameCSheet.setId("characterSheetStartFont");
 
         pane.setCenter(stackpane);
         stackpane.getChildren().addAll(BACKGROUND, vbox);
+
+        pane.getStylesheets().add("css/Styles.css");
         return pane;
     }
 

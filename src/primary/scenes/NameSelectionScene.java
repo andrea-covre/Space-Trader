@@ -1,33 +1,29 @@
+package primary.scenes;
+
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import primary.NewGame;
 
 public class NameSelectionScene extends SceneBuilder {
     private  Button sceneButton1 = new Button("New Game");
     private  Button sceneButton2 = new Button("Continue");
     private  Button backToScene1 = new Button("Back");
 
-
-
     @Override
     public Parent build() {
         return nameSelection();
     }
 
-    @Override
-    public void setStage(SceneBuilder b) {
-        NewGame.theStage.setScene(new Scene(b.build()));
-    }
 
     private Pane nameSelection(){
         TextField field = new TextField();
@@ -85,15 +81,15 @@ public class NameSelectionScene extends SceneBuilder {
          */
 
         sceneButton2.setOnAction(e -> {
-            if (NewGame.playerName == null) {
+            if (playerName == null) {
                 try {
                     if (field.getText() == null || field.getText().trim().isEmpty()) {
                         field.clear();
                         field.setPromptText("Enter a valid name");
                     } else {
-                        NewGame.playerName = field.getText().trim();
+                        playerName = field.getText().trim();
                         field.clear();
-                        field.setPromptText("Works. Name is: " + NewGame.playerName);
+                        field.setPromptText("Works. Name is: " + playerName);
                     }
                 } catch (Throwable f) {
                     f.printStackTrace();

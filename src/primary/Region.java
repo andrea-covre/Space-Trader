@@ -1,3 +1,5 @@
+package primary;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class Region {
         //System.out.print(this.regionID + " Generated");
     }
 
+
     private String generateName() {
         ArrayList<String> nameDictionary = new ArrayList<>();
         ArrayList<String> classDictionary = new ArrayList<>();
@@ -50,7 +53,7 @@ public class Region {
             File className = new File("resources/RegionClassName.txt");
             classNameSC = new Scanner(className);
         } catch (FileNotFoundException e) {
-            System.out.println("Region's names files are missing from the resources folder");
+            System.out.println("primary.Region's names files are missing from the resources folder");
         }
         while (regionNameSC.hasNext()) {
             nameDictionary.add(regionNameSC.next());
@@ -61,6 +64,34 @@ public class Region {
 
         return nameDictionary.get(rand.nextInt(nameDictionary.size()))
                 + classDictionary.get(rand.nextInt(classDictionary.size()));
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public boolean hasBeenVisited() {
+        return hasBeenVisited;
+    }
+    public void setBeenVisited(boolean v){
+        hasBeenVisited = v;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getTechLevel() {
+        return techLevel;
     }
 }
 
