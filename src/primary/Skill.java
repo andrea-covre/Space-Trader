@@ -1,4 +1,6 @@
-class Skill {
+package primary;
+
+public class Skill {
     private int value;
 
 

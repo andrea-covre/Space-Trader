@@ -1,0 +1,8 @@
+2/12/2020
+removed atomic integer from the map scene- have no idea what that was for- seems to run fine without
+dont use javadoc comments when block qoutes will do
+        //TODO: set the map title to yellow with CSS, I can't manage to change it
+        //TODO: for some reason CSS does not work here so the text's color is hardcoded here @generateStatsBar
+        //TODO: need to fix the overlap of the travel button over the panel border
+//TODO: fix style here 156 MapScene.java
+//TODO: fix this, need to have the image above each region name (MapeScene.java)

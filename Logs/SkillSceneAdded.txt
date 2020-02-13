@@ -27,8 +27,8 @@
         ~ javaDocs
 
 ? clues on how to fix the flash at every change of scene?
-    currently the backgorund is loaded before lunch() in Main.java
-    then the ImageView is created at the beginning of NewGame.java, however the canvas flashes at every change of scene
+    currently the backgorund is loaded before lunch() in primary.Main.java
+    then the ImageView is created at the beginning of primary.NewGame.java, however the canvas flashes at every change of scene
     might be due to the resizing to fit pane size (which happens at each change of scene)
     No idea of what else we can try
 
@@ -39,3 +39,4 @@
 TO DO:
     - add icon for each skill above skill title
     - better way to update the skill level than recalling the scene
+------------------------------------------------------------------------------------------------------------------------
