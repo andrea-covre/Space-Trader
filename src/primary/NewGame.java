@@ -26,7 +26,7 @@ public class NewGame extends Application {
     /**
      * Game Volume
      */
-    protected static double gameVolume = 0.02;
+    protected static double gameVolume = 0.5;
 
 
     /**
