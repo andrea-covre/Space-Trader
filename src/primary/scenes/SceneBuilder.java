@@ -1,13 +1,10 @@
 package primary.scenes;
 
-import primary.Main;
+import primary.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import primary.NewGame;
-import primary.Region;
-import primary.Skill;
 
 import java.util.List;
 

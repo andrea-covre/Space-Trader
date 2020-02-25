@@ -1,0 +1,13 @@
+Axe:Cut people's heads in style:500:1
+Shield:Protect yourself in style:500:1
+Scroll:Some rare information:500:2
+Missile:A stylistic bomb:500:0
+Bag:Flex on these fools:500:2
+Wrench:Fix screws with style:500:3
+Screwdriver:Screw things with style:500:3
+Brick:Just a stylish Brick:500:2
+Knife:Cut things in style:500:1
+Belt:Stylish Belt:500:2
+Hat:Stylish Hat:500:0
+Wheel:Pull up in style:500:0
+ToolBox:A stylish toolbox:500:3
