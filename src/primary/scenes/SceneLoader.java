@@ -1,17 +1,16 @@
 package primary.scenes;
 
-import primary.Main;
+import primary.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import primary.NewGame;
-import primary.Region;
-import primary.Skill;
 
 import java.util.List;
 
-public abstract class SceneBuilder {
+public abstract class SceneLoader {
+
+    protected static Ship playerShip;
     //Travel
     protected static double fuelCostPerUnit = 1; //cost per unit of distance
     protected static int travelDiscountPerPilotLevel = 3; //in percentage
@@ -40,6 +39,9 @@ public abstract class SceneBuilder {
     protected static final ImageView MAP_BACKGROUND = new ImageView(
             new Image(Main.getMapBackGround(), 960, 1280, false, false));
 
+    protected static final ImageView Ship_Background = new ImageView(
+            new Image(Main.getShipBackground(), 960, 1280, false, false));
+
 
     protected enum Difficulty {
         EASY, MEDIUM, HARD;
@@ -58,7 +60,7 @@ public abstract class SceneBuilder {
     protected static Skill engineerSkill = new Skill(0);
     public abstract Parent build();
 
-    public void setStage(SceneBuilder b) {
+    public void setStage(SceneLoader b) {
         NewGame.getTheStage().getScene().setRoot(b.build());
     }
 

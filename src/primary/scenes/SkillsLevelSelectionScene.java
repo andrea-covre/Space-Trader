@@ -7,7 +7,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import primary.Skill;
 
-public class SkillsLevelSelectionScene extends SceneBuilder {
+public class SkillsLevelSelectionScene extends SceneLoader {
     /**
      * primary.Skill Level Selection Scene buttons
      */

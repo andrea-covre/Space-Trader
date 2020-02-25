@@ -16,9 +16,11 @@ public class Main extends Application {
     private static FileInputStream backGround;
     private static AudioClip backgroundMusic;
     private static FileInputStream mapBackGround;
+    private static FileInputStream shipBackGround;
     protected static FileInputStream unknownRegion;
     protected static FileInputStream visitedRegion;
     private NewGame newGame = new NewGame();
+
     public void start(Stage stage) throws Exception {
         newGame.start(stage);
     }
@@ -34,9 +36,11 @@ public class Main extends Application {
      */
     public static void loadResources() throws FileNotFoundException {
         backGround = new FileInputStream("resources/menu_background.jpg");
+
         backgroundMusic = new AudioClip(
                 Paths.get("resources/default_music.mp3").toUri().toString());
         mapBackGround = new FileInputStream("resources/map_background.jpg");
+        shipBackGround = new FileInputStream("resources/ShipBackground.jpg");
     }
 
     public static AudioClip getBackgroundMusic() {
@@ -57,6 +61,10 @@ public class Main extends Application {
 
     public static void setBackGround(FileInputStream backGround) {
         Main.backGround = backGround;
+    }
+
+    public static FileInputStream getShipBackground() {
+        return shipBackGround;
     }
 
 }

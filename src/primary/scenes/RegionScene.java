@@ -7,7 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class RegionScene extends SceneBuilder {
+public class RegionScene extends SceneLoader {
     private Button regionBackButton = new Button("Back to Map");
 
     @Override

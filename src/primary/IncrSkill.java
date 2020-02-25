@@ -3,14 +3,14 @@ package primary;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
-import primary.scenes.SceneBuilder;
+import primary.scenes.SceneLoader;
 import primary.scenes.SkillsLevelSelectionScene;
 
 /**
  * "inner" class to deal with button events
  * for incrementing and decrementing skills
  */
-public class IncrSkill extends SceneBuilder implements EventHandler<javafx.event.ActionEvent> {
+public class IncrSkill extends SceneLoader implements EventHandler<javafx.event.ActionEvent> {
     private Skill skill;
     private int amount;
 

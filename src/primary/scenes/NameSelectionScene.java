@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
-public class NameSelectionScene extends SceneBuilder {
+public class NameSelectionScene extends SceneLoader {
     private  Button sceneButton1 = new Button("New Game");
     private  Button sceneButton2 = new Button("Continue");
     private  Button backToScene1 = new Button("Back");

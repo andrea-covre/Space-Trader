@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class CharacterSheetScene extends SceneBuilder {
+public class CharacterSheetScene extends SceneLoader {
     private static Button startGameCSheet = new Button("Start");
     @Override
     public Parent build() {

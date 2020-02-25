@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class DifficultyScene extends SceneBuilder {
+public class DifficultyScene extends SceneLoader {
     //Difficulty Scene
     private Button easy = new Button("Easy");
     private Button medium = new Button("Medium");

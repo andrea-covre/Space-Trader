@@ -9,10 +9,14 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import primary.NewGame;
 import primary.Region;
+import primary.Ship;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 
-public class MapScene extends SceneBuilder {
+public class MapScene extends SceneLoader {
 
     /**
      * Base layout
@@ -110,6 +114,8 @@ public class MapScene extends SceneBuilder {
         infoPane = new Pane();
         infoList = new VBox();
     }
+
+
 
     @Override
     public Parent build() {

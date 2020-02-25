@@ -1,6 +1,7 @@
 package primary.scenes;
 
 import javafx.concurrent.Task;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -11,13 +12,36 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import primary.Ship;
 
-public class WelcomeScene extends SceneBuilder {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class WelcomeScene extends SceneLoader {
     private  Button sceneButton1 = new Button("New Game");
     private  Button backToScene1 = new Button("Back");
     @Override
     public Parent build() {
-        return welcome();
+        try {
+//            Pane p = FXMLLoader.load(getClass().getResource("C:\\Users\\ccxbo\\cs2340\\resources\\boobs.fxml"));
+            giveDefaultShip();
+            FXMLLoader p =  new FXMLLoader();
+            p.setController(new ShipScene());
+            return p.load(new File("resources/boobs.fxml").toURI().toURL());
+//            return welcome();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private void giveDefaultShip() {
+        try {
+            playerShip = new Ship("basic bitch", 50, new FileInputStream("resources/defaultShip.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     private Pane welcome()  {
         /*
