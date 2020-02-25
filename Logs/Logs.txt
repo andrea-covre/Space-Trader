@@ -1,0 +1,47 @@
+--------------------------------- Jan 31, 2020 ---------------------------------
+
++ SKILLS +
+    + Vairables:
+        pilotSkillLevel
+        fighterSkillLevel
+        merchantSkillLevel
+        engineerSkillLevel
+        skillPoints:
+            easy: 8
+            medium: 5
+            hard: 3 (so that you have to leave at least one skill at base level)
+    + Scene for skills initial level selection S
+
++ descriptions for block of codes (they are "kinda" categorized, didn't want to mess too much with the code)
+
+~ added new background
+    ~ new path within game folder
+~ fixed checkstyle
+    ~ Capital letters
+    ~ spaces
+    ~ indentations
+    ~ names
+    ~ imports
+    ~ what I could fix has been fixed, stuff not fixed:
+        ~ throw error javaDoc descriptions
+        ~ javaDocs
+
+? clues on how to fix the flash at every change of scene?
+    currently the backgorund is loaded before lunch() in primary.Main.java
+    then the ImageView is created at the beginning of primary.NewGame.java, however the canvas flashes at every change of scene
+    might be due to the resizing to fit pane size (which happens at each change of scene)
+    No idea of what else we can try
+
+! LoadGraphics method
+! Comments to separate nodes for each scene
+! Thomas should fix names of varibales so that they make more sense (scene navgation, layouts etc.)
+
+TO DO:
+    - add icon for each skill above skill title
+    - better way to update the skill level than recalling the scene
+------------------------------------------------------------------------------------------------------------------------
++Goods and Character Upgrades
+
+~Added CharacterUpgrade and Items class
+
+~More info on variables and methods are commented in the classes
