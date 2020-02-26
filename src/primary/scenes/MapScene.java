@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class MapScene extends SceneBuilder {
 
-    /**
+    /*
      * Base layout
      */
     private BorderPane pane;
@@ -22,7 +22,7 @@ public class MapScene extends SceneBuilder {
     private AnchorPane mapLayout;
     private ArrayList<Button> locationButt;
 
-    /**
+    /*
      * stats bar stuff
      */
     private HBox statsBar;
