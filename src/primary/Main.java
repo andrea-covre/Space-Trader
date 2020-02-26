@@ -16,9 +16,14 @@ public class Main extends Application {
     private static FileInputStream backGround;
     private static AudioClip backgroundMusic;
     private static FileInputStream mapBackGround;
+<<<<<<< HEAD
     private static FileInputStream shipBackGround;
     protected static FileInputStream unknownRegion;
     protected static FileInputStream visitedRegion;
+=======
+    private static FileInputStream marketPlaceIcon;
+    private static FileInputStream mapIcon;
+>>>>>>> d5a82110c408cee0abdf185637c05673829053f2
     private NewGame newGame = new NewGame();
 
     public void start(Stage stage) throws Exception {
@@ -40,7 +45,12 @@ public class Main extends Application {
         backgroundMusic = new AudioClip(
                 Paths.get("resources/default_music.mp3").toUri().toString());
         mapBackGround = new FileInputStream("resources/map_background.jpg");
+<<<<<<< HEAD
         shipBackGround = new FileInputStream("resources/ShipBackground.jpg");
+=======
+        marketPlaceIcon = new FileInputStream("resources/MarketPlace_Icon.png");
+        mapIcon = new FileInputStream("resources/Map_Icon.png");
+>>>>>>> d5a82110c408cee0abdf185637c05673829053f2
     }
 
     public static AudioClip getBackgroundMusic() {
@@ -55,8 +65,12 @@ public class Main extends Application {
         return mapBackGround;
     }
 
-    public static FileInputStream getUnknownRegion() {
-        return unknownRegion;
+    public static FileInputStream getMarketPlaceIcon() {
+        return marketPlaceIcon;
+    }
+
+    public static FileInputStream getMapIcon() {
+        return mapIcon;
     }
 
     public static void setBackGround(FileInputStream backGround) {
