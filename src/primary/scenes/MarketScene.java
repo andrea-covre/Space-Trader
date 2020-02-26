@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import primary.Main;
 
-public class MarketScene extends SceneBuilder {
+public class MarketScene extends SceneLoader {
 
     /*
     Graphics

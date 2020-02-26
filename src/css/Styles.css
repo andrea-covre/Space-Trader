@@ -89,7 +89,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: YELLOW;
 }
-<<<<<<< HEAD
+
 #clear {
 -fx-background-color: transparent;
 }
@@ -106,10 +106,11 @@
     -fx-underline: true;
      -fx-background-color: transparent;
 }
-{
+
+#teststuff{
 bacjground-image: url("locatio/location/bo");
 }
-=======
+
 
 #regionTitle{
     -fx-font: 50px "Comic Sans Ms";
@@ -138,4 +139,3 @@ bacjground-image: url("locatio/location/bo");
     -fx-font: 25px "Comic Sans Ms";
     -fx-background-color: transparent;
 }
->>>>>>> d5a82110c408cee0abdf185637c05673829053f2

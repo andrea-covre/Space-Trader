@@ -15,20 +15,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import primary.Main;
 
-<<<<<<< HEAD
 public class RegionScene extends SceneLoader {
     private Button regionBackButton = new Button("Back to Map");
-=======
-public class RegionScene extends SceneBuilder {
 
     /*
     Graphics
      */
     private int iconSize = 100;
 
-    private Button regionBackButton = new Button(" ");
     private Button enterMarket = new Button(" ");
->>>>>>> d5a82110c408cee0abdf185637c05673829053f2
 
     @Override
     public Parent build() {
