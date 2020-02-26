@@ -24,25 +24,9 @@ public class WelcomeScene extends SceneLoader {
     private  Button backToScene1 = new Button("Back");
     @Override
     public Parent build() {
-        try {
-//            Pane p = FXMLLoader.load(getClass().getResource("C:\\Users\\ccxbo\\cs2340\\resources\\boobs.fxml"));
-            giveDefaultShip();
-            FXMLLoader p =  new FXMLLoader();
-            p.setController(new ShipScene());
-            return p.load(new File("resources/boobs.fxml").toURI().toURL());
-//            return welcome();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+            return welcome();
     }
-    private void giveDefaultShip() {
-        try {
-            playerShip = new Ship("basic bitch", 50, new FileInputStream("resources/defaultShip.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
     private Pane welcome()  {
         /*
          * Base layout
@@ -70,14 +54,14 @@ public class WelcomeScene extends SceneLoader {
 
         sceneButton1.setOnAction(e -> {
             try {
-                setStage(new DifficultyScene());
+                setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
         });
         backToScene1.setOnAction(e -> {
             try {
-                setStage(new DifficultyScene());
+                setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }

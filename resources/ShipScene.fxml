@@ -19,7 +19,7 @@
          <top>
             <SplitPane id="clear" dividerPositions="0.5" maxHeight="45.0" prefHeight="45.0" prefWidth="600.0" stylesheets="@../src/css/Styles.css" BorderPane.alignment="CENTER">
                <items>
-                  <Button id="clear" fx:id="BackButton" mnemonicParsing="false" onMouseClicked="#handleBackClick" prefHeight="49.0" prefWidth="123.0" stylesheets="@../src/css/Styles.css" text="Back" textFill="RED" textOverrun="WORD_ELLIPSIS">
+                  <Button id="clear" fx:id="BackButton" mnemonicParsing="false" onMouseClicked="#handleBackClick" prefHeight="49.0" prefWidth="123.0" style="-fx-text-fill: YELLOW;" stylesheets="@../src/css/Styles.css" text="Back" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="Comic Sans MS Bold" size="23.0" />
                      </font>
@@ -43,9 +43,9 @@
               <items>
                   <StackPane>
                      <children>
-                        <StackPane id="clear" stylesheets="@../src/css/Styles.css">
+                        <StackPane id="clear" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../src/css/Styles.css">
                            <children>
-                              <ImageView id="clear" fitHeight="276.0" fitWidth="257.0">
+                              <ImageView id="clear" fitHeight="250.0" fitWidth="250.0" scaleX="1.5" scaleY="1.5">
                                  <image>
                                     <Image url="@defaultShip.png" />
                                  </image>

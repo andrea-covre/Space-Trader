@@ -10,11 +10,13 @@ import java.util.List;
 
 public abstract class SceneLoader {
 
-    protected static Ship playerShip;
-    //Travel
+
+    protected static Player player;
+//    //Travel
     protected static double fuelCostPerUnit = 1; //cost per unit of distance
     protected static int travelDiscountPerPilotLevel = 3; //in percentage
     protected static int costToSelectedLocation;
+    protected static Difficulty setDifficulty;
 
     //Map info
     protected static Region currentLocation;
@@ -39,25 +41,11 @@ public abstract class SceneLoader {
     protected static final ImageView MAP_BACKGROUND = new ImageView(
             new Image(Main.getMapBackGround(), 960, 1280, false, false));
 
-    protected static final ImageView Ship_Background = new ImageView(
-            new Image(Main.getShipBackground(), 960, 1280, false, false));
 
 
     protected enum Difficulty {
         EASY, MEDIUM, HARD;
     };
-    protected static String playerName;
-    protected static Difficulty setDifficulty;
-    protected static int credits;
-    protected static int skillPoints;
-    /**
-     * primary.Skill levels
-     */
-
-    protected static Skill pilotSkill = new Skill(0);
-    protected static Skill fighterSkill = new Skill(0);
-    protected static Skill merchantSkill = new Skill(0);
-    protected static Skill engineerSkill = new Skill(0);
     public abstract Parent build();
 
     public void setStage(SceneLoader b) {
@@ -65,7 +53,6 @@ public abstract class SceneLoader {
     }
 
     public static void startStage() {
-
         NewGame.getTheStage().setScene(new Scene(new WelcomeScene().build()));
     }
 

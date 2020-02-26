@@ -36,7 +36,7 @@ public class CharacterSheetScene extends SceneLoader {
         /*
          * Title
          */
-        Text title = new Text("Welcome, " + playerName);
+        Text title = new Text("Welcome, " + player.getPlayerName());
         title.setFont(Font.font("Comic Sans MS", 70));
         title.setFill(Color.YELLOW);
 
@@ -47,19 +47,19 @@ public class CharacterSheetScene extends SceneLoader {
         skill.setFont(Font.font("Comic Sans MS", 70));
         skill.setFill(Color.RED);
 
-        Text pilot = new Text("Pilot: \t\t" + pilotSkill);
+        Text pilot = new Text("Pilot: \t\t" + player.getPilotSkill());
         pilot.setFont(Font.font("Comic Sans MS", 40));
         pilot.setFill(Color.YELLOW);
 
-        Text fighter = new Text("Fighter: \t\t" + fighterSkill);
+        Text fighter = new Text("Fighter: \t\t" + player.getFighterSkill());
         fighter.setFont(Font.font("Comic Sans MS", 40));
         fighter.setFill(Color.YELLOW);
 
-        Text merchant = new Text("Fighter: \t\t" + merchantSkill);
+        Text merchant = new Text("Fighter: \t\t" + player.getMerchantSkill());
         merchant.setFont(Font.font("Comic Sans MS", 40));
         merchant.setFill(Color.YELLOW);
 
-        Text engineer = new Text("Engineer: \t" + engineerSkill);
+        Text engineer = new Text("Engineer: \t" + player.getEngineerSkill());
         engineer.setFont(Font.font("Comic Sans MS", 40));
         engineer.setFill(Color.YELLOW);
 
@@ -73,7 +73,7 @@ public class CharacterSheetScene extends SceneLoader {
         creditText.setFont(Font.font("Comic Sans MS", 70));
         creditText.setFill(Color.RED);
 
-        Text creditAmount = new Text(Integer.toString(credits));
+        Text creditAmount = new Text(Integer.toString(player.getCredits()));
         creditAmount.setFont(Font.font("Comic Sans MS", 40));
         creditAmount.setFill(Color.YELLOW);
 

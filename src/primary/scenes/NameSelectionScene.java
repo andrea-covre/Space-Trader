@@ -28,7 +28,8 @@ public class NameSelectionScene extends SceneLoader {
 
         sceneButton1.setOnAction(e -> {
             try {
-                setStage(new DifficultyScene());
+                player = null;
+                setStage(new WelcomeScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -79,22 +80,22 @@ public class NameSelectionScene extends SceneLoader {
          */
 
         sceneButton2.setOnAction(e -> {
-            if (playerName == null) {
+            if (player == null) {
                 try {
                     if (field.getText() == null || field.getText().trim().isEmpty()) {
                         field.clear();
                         field.setPromptText("Enter a valid name");
                     } else {
-                        playerName = field.getText().trim();
+                        player = new Player(field.getText().trim(),0,0);
                         field.clear();
-                        field.setPromptText("Works. Name is: " + playerName);
+                        field.setPromptText("Works. Name is: " + player.getPlayerName());
                     }
                 } catch (Throwable f) {
                     f.printStackTrace();
                 }
             } else {
                 try {
-                    setStage(new SkillsLevelSelectionScene());
+                    setStage(new DifficultyScene());
                 } catch (Throwable f) {
                     f.printStackTrace();
                 }

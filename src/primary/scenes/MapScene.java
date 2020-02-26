@@ -3,6 +3,8 @@ package primary.scenes;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -11,8 +13,10 @@ import primary.NewGame;
 import primary.Region;
 import primary.Ship;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 
@@ -43,6 +47,7 @@ public class MapScene extends SceneLoader {
     //Map Buttons
     private  Button travelToLocation = new Button("Travel to");
     private  Button closeInfoPanel = new Button("Close");
+    private  Button viewShip = new Button("Ship➔");
 
     //Graphics
     //space to prevent planets from being too close to the screen borders
@@ -212,7 +217,7 @@ public class MapScene extends SceneLoader {
 
                 //Calculating fuel cost based on distance and pilot skill level
                 int fuelCost = (int) ((double) distance * fuelCostPerUnit
-                        * (1.00 - 0.01 * travelDiscountPerPilotLevel * pilotSkill.getValue()));
+                        * (1.00 - 0.01 * travelDiscountPerPilotLevel * player.getPilotSkill().getValue()));
 
                 costToSelectedLocation = fuelCost;
                 selectedLocation = i;
@@ -230,7 +235,7 @@ public class MapScene extends SceneLoader {
                             + " Visited: " + visitedText + " \n"
                             + " Distance: " + distance + " \n"
                             + " Fuel cost: " + fuelCost + " (-"
-                            + pilotSkill.getValue() * 5 + "%) ");
+                            + player.getPilotSkill().getValue() * 5 + "%) ");
                     locationInfo.setId("locationInfo");
                 } else {
                     locationInfo = new Text(" Location: " + "?????" + " \n"
@@ -241,7 +246,7 @@ public class MapScene extends SceneLoader {
                             + " Visited: " + "Not yet " + " \n"
                             + " Distance: " + distance + " \n"
                             + " Fuel cost: " + fuelCost + " (-"
-                            + pilotSkill.getValue() * 5 + "%) ");
+                            + player.getPilotSkill().getValue() * 5 + "%) ");
                     locationInfo.setId("locationInfo");
                 }
 
@@ -260,7 +265,7 @@ public class MapScene extends SceneLoader {
                 closeInfoPanel.setMaxWidth(Double.MAX_VALUE);
 
                 //Checking if player has enough credits to traver to this location
-                if (credits >= fuelCost) {
+                if (player.getCredits() >= fuelCost) {
                     travelToLocation.setStyle("-fx-background-color: rgba(0, 156, 0, 0.7)");
                 } else {
                     travelToLocation.setStyle("-fx-background-color: rgba(255, 0, 0, 0.48)");
@@ -316,29 +321,39 @@ public class MapScene extends SceneLoader {
 
 
         statsBar = new HBox();
-        creditsInfo = new Text("Credits: " + credits);
+        creditsInfo = new Text("Credits: " + player.getCredits());
         creditsInfo.setId("statsBar");
         creditsInfo.setFill(Color.YELLOW);
 
-        pilotInfo = new Text("Pilot: " + pilotSkill.getValue());
+        pilotInfo = new Text("Pilot: " + player.getPilotSkill().getValue());
         pilotInfo.setId("statsBar");
         pilotInfo.setFill(Color.YELLOW);
 
-        fighterInfo = new Text("Fighter: " + fighterSkill.getValue());
+        fighterInfo = new Text("Fighter: " + player.getFighterSkill().getValue());
         fighterInfo.setId("statsBar");
         fighterInfo.setFill(Color.YELLOW);
 
-        merchantInfo = new Text("Merchant: " + merchantSkill.getValue());
+        merchantInfo = new Text("Merchant: " + player.getMerchantSkill().getValue());
         merchantInfo.setId("statsBar");
         merchantInfo.setFill(Color.YELLOW);
 
-        engineerInfo = new Text("Engineer: " + engineerSkill.getValue());
+        engineerInfo = new Text("Engineer: " + player.getEngineerSkill().getValue());
         engineerInfo.setId("statsBar");
         engineerInfo.setFill(Color.YELLOW);
         statsBar.setSpacing(100);
         statsBar.setAlignment(Pos.CENTER);
         statsBar.getChildren()
-                .addAll(creditsInfo, pilotInfo, fighterInfo, merchantInfo, engineerInfo);
+                .addAll(creditsInfo, pilotInfo, fighterInfo, merchantInfo, engineerInfo, viewShip);
+
+
+        viewShip.setOnAction(e -> {
+            try {
+                setStage(new ShipScene());
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        viewShip.setId("viewShip");
     }
     private Pane map() {
 
@@ -355,17 +370,16 @@ public class MapScene extends SceneLoader {
 
         travelToLocation.setOnAction(e -> {
             try {
-                if (costToSelectedLocation <= credits) {
+                if (costToSelectedLocation <= player.getCredits()) {
                     currentLocation = selectedLocation;
                     currentLocation.setBeenVisited(true);
-                    credits = credits - costToSelectedLocation;
+                    player.setCredits(player.getCredits() - costToSelectedLocation);
                     setStage(new RegionScene());
                 }
             } catch (Throwable f) {
                 f.printStackTrace();
             }
         });
-
         /*
          * Background image
          */

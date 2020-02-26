@@ -99,8 +99,12 @@
    -fx-background-color: transparent;
 }
 
-
+#viewShip{
+    -fx-font: 30px "Comic Sans Ms";
+    -fx-text-fill: RED;
+    -fx-underline: true;
+     -fx-background-color: transparent;
+}
 {
 bacjground-image: url("locatio/location/bo");
-
 }

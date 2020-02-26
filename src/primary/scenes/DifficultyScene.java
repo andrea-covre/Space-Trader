@@ -65,9 +65,9 @@ public class DifficultyScene extends SceneLoader {
         easy.setOnAction(e -> {
             try {
                 setDifficulty = Difficulty.EASY;
-                credits = 5000;
-                skillPoints = 8;
-                setStage(new NameSelectionScene());
+                player.setCredits(5000);
+                player.setSkillPoints(8);
+                setStage(new SkillsLevelSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -75,9 +75,9 @@ public class DifficultyScene extends SceneLoader {
         medium.setOnAction(e -> {
             try {
                 setDifficulty = Difficulty.MEDIUM;
-                credits = 3000;
-                skillPoints = 5;
-                setStage(new NameSelectionScene());
+                player.setCredits(3000);
+                player.setSkillPoints(5);
+                setStage(new SkillsLevelSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -85,9 +85,9 @@ public class DifficultyScene extends SceneLoader {
         hard.setOnAction(e -> {
             try {
                 setDifficulty = Difficulty.HARD;
-                credits = 1000;
-                skillPoints = 3;
-                setStage(new NameSelectionScene());
+                player.setCredits(1000);
+                player.setSkillPoints(3);
+                setStage(new SkillsLevelSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
