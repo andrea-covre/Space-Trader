@@ -30,7 +30,6 @@ public abstract class SceneBuilder {
     // valid for both X and Y [used during world generation]
     protected static int numberOfRegions = 10;
 
-
     /**
      * Graphics
      */
