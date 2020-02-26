@@ -15,6 +15,10 @@ public class Item {
     private String name;
     private String description;
     private int price;
+    private int techLevel = 1;
+    private int adjustedPrice;
+    //TODO: add tech level for items
+    //TODO: need more items at least 10 per tech level
 
     /**
      * Constructor for Item class
@@ -54,13 +58,28 @@ public class Item {
         }
         return var;
     }
+
     public String getName() {
         return name;
     }
+
     public String getDescription() {
         return description;
     }
+
     public int getPrice() {
         return price;
+    }
+
+    public int getTechLevel() {
+        return techLevel;
+    }
+
+    public int getAdjustedPrice() {
+        return adjustedPrice;
+    }
+
+    public void setAdjustedPrice(int adjustedPrice) {
+        this.adjustedPrice = adjustedPrice;
     }
 }

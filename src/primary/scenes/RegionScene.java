@@ -22,8 +22,8 @@ public class RegionScene extends SceneBuilder {
      */
     private int iconSize = 100;
 
-    private Button regionBackButton = new Button(" ");
-    private Button enterMarket = new Button(" ");
+    private Button regionBackButton = new Button("  ");
+    private Button enterMarket = new Button("  ");
 
     @Override
     public Parent build() {

@@ -1,6 +1,13 @@
 package primary.scenes;
 
-import primary.*;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import primary.Region;
+import primary.Main;
+import primary.Skill;
+import primary.NewGame;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -63,6 +70,36 @@ public abstract class SceneBuilder {
         NewGame.getTheStage().setScene(new Scene(new WelcomeScene().build()));
     }
 
+    protected HBox generateStatsBar() {
+        //Creating stats bar
 
+
+        HBox statsBar = new HBox();
+        Text creditsInfo = new Text("Credits: " + credits);
+        creditsInfo.setId("statsBar");
+        creditsInfo.setFill(Color.YELLOW);
+
+        Text pilotInfo = new Text("Pilot: " + pilotSkill.getValue());
+        pilotInfo.setId("statsBar");
+        pilotInfo.setFill(Color.YELLOW);
+
+        Text fighterInfo = new Text("Fighter: " + fighterSkill.getValue());
+        fighterInfo.setId("statsBar");
+        fighterInfo.setFill(Color.YELLOW);
+
+        Text  merchantInfo = new Text("Merchant: " + merchantSkill.getValue());
+        merchantInfo.setId("statsBar");
+        merchantInfo.setFill(Color.YELLOW);
+
+        Text engineerInfo = new Text("Engineer: " + engineerSkill.getValue());
+        engineerInfo.setId("statsBar");
+        engineerInfo.setFill(Color.YELLOW);
+        statsBar.setSpacing(100);
+        statsBar.setAlignment(Pos.CENTER);
+        statsBar.getChildren()
+                .addAll(creditsInfo, pilotInfo, fighterInfo, merchantInfo, engineerInfo);
+
+        return statsBar;
+    }
 
 }

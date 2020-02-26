@@ -20,6 +20,8 @@ public class CharacterUpgrade {
     private int price;
     private int skillID;
     private int incAmount;
+    private int adjustedPrice;
+    private int techLevel;
     private Random rand = new Random();
 
     /**
@@ -33,6 +35,7 @@ public class CharacterUpgrade {
         incAmount = probability[rand.nextInt(10)];
         price = Integer.parseInt(var[2]) + (incAmount * 100);
         skillID = Integer.parseInt(var[3]);
+        techLevel = 1;
     }
     /**
      * Generates Character Upgrade from the Character Upgrade text file in the resources file
@@ -88,5 +91,13 @@ public class CharacterUpgrade {
     public int getIncAmount() {
         return incAmount;
     }
-
+    public int getTechLevel() {
+        return techLevel;
+    }
+    public int getAdjustedPrice() {
+        return adjustedPrice;
+    }
+    public void setAdjustedPrice(int adjustedPrice) {
+        this.adjustedPrice = adjustedPrice;
+    }
 }

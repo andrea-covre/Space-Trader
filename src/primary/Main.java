@@ -19,6 +19,7 @@ public class Main extends Application {
     private static FileInputStream marketPlaceIcon;
     private static FileInputStream mapIcon;
     private NewGame newGame = new NewGame();
+
     public void start(Stage stage) throws Exception {
         newGame.start(stage);
     }
