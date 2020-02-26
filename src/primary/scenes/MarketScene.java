@@ -15,14 +15,14 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import primary.Main;
 
-public class RegionScene extends SceneLoader {
-    private Button regionBackButton = new Button("Back to Map");
+public class MarketScene extends SceneLoader {
 
     /*
     Graphics
      */
     private int iconSize = 100;
 
+    private Button regionBackButton = new Button(" ");
     private Button enterMarket = new Button(" ");
 
     @Override
@@ -38,20 +38,11 @@ public class RegionScene extends SceneLoader {
          */
         VBox titleBox = new VBox();
 
-        Text regionTitle = new Text(currentLocation.getName());
+        Text regionTitle = new Text(currentLocation.getName() + "\n ~ Market ~");
         regionTitle.setId("regionTitle");
         regionTitle.setFill(Color.YELLOW);
 
-        Text regionInfo = new Text(" Location: " + currentLocation.getName() + " \n"
-                + " Tech Level: " + currentLocation.getTechLevel() + " \n"
-                + " Coordinates: " + "(X:" + currentLocation.getxCoordinate()
-                + " | Y:" + currentLocation.getyCoordinate() + ")" + " \n"
-                + " Description: " + currentLocation.getDescription() + " \n");
-        regionInfo.setId("regionInfo");
-        regionInfo.setFill(Color.YELLOW);
-        regionInfo.setTextAlignment(TextAlignment.CENTER);
-
-        titleBox.getChildren().addAll(regionTitle, regionInfo);
+        titleBox.getChildren().add(regionTitle);
         titleBox.setAlignment(Pos.CENTER);
         pane.setTop(titleBox);
         BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
@@ -78,7 +69,7 @@ public class RegionScene extends SceneLoader {
         Text mapIconText = new Text("Map");
         mapIconText.setId("iconText");
         mapIconText.setFill(Color.YELLOW);
-        regionBackButton.setId("mapIconButton");
+        regionBackButton.setId("iconButtons");
 
         mapIconVBox.setAlignment(Pos.CENTER);
         mapIconStack.getChildren().addAll(MAP_ICON, regionBackButton);
@@ -91,7 +82,7 @@ public class RegionScene extends SceneLoader {
         Text marketIconText = new Text("Market Place");
         marketIconText.setId("iconText");
         marketIconText.setFill(Color.YELLOW);
-        enterMarket.setId("marketIconButton");
+        regionBackButton.setId("iconButtons");
 
         marketIconVBox.setAlignment(Pos.CENTER);
         marketIconStack.getChildren().addAll(MARKETPLACE_ICON, enterMarket);
@@ -121,7 +112,7 @@ public class RegionScene extends SceneLoader {
 
         enterMarket.setOnAction(e -> {
             try {
-                setStage(new MarketScene());
+                setStage(new MapScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
