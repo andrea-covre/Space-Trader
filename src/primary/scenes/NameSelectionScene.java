@@ -86,7 +86,7 @@ public class NameSelectionScene extends SceneLoader {
                         field.clear();
                         field.setPromptText("Enter a valid name");
                     } else {
-                        player = new Player(field.getText().trim(),0,0);
+                        player = new Player(field.getText().trim(), 0, 0);
                         field.clear();
                         field.setPromptText("Works. Name is: " + player.getPlayerName());
                     }

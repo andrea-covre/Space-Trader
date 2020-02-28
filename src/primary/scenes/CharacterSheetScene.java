@@ -43,7 +43,7 @@ public class CharacterSheetScene extends SceneLoader {
         /*
          * Skills
          */
-        Text skill = new Text("Your primary.Skill");
+        Text skill = new Text("Your skills.Skill");
         skill.setFont(Font.font("Comic Sans MS", 70));
         skill.setFill(Color.RED);
 

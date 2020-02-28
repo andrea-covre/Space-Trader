@@ -18,7 +18,7 @@ public abstract class SceneLoader {
     protected static Player player;
 
 
-//    //Travel
+    //Travel
     protected static double fuelCostPerUnit = 1; //cost per unit of distance
     protected static int travelDiscountPerPilotLevel = 3; //in percentage
     protected static int costToSelectedLocation;

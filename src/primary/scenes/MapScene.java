@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import primary.NewGame;
 import primary.Region;
 import primary.Ship;
-import java.net.MalformedURLException;
 
 import java.util.ArrayList;
 
@@ -207,7 +206,8 @@ public class MapScene extends SceneLoader {
 
                 //Calculating fuel cost based on distance and pilot skill level
                 int fuelCost = (int) ((double) distance * fuelCostPerUnit
-                        * (1.00 - 0.01 * travelDiscountPerPilotLevel * player.getPilotSkill().getValue()));
+                        * (1.00 - 0.01 * travelDiscountPerPilotLevel
+                        * player.getPilotSkill().getValue()));
 
                 costToSelectedLocation = fuelCost;
                 selectedLocation = i;

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<StackPane fx:id="MainPane" prefHeight="584.0" prefWidth="1000.0" stylesheets="@../src/css/Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.ShipScene">
+<StackPane fx:id="mainPane" prefHeight="584.0" prefWidth="1000.0" stylesheets="@../src/css/Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.ShipScene">
    <children>
       <BorderPane id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../src/css/Styles.css">
          <top>
@@ -29,7 +29,7 @@
                   </Button>
                   <StackPane cacheShape="false" prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <Text fx:id="ShipName" fill="#4a86ff" strokeType="OUTSIDE" strokeWidth="0.0" text="SHIPNAME">
+                        <Text fx:id="shipName" fill="#4a86ff" strokeType="OUTSIDE" strokeWidth="0.0" text="SHIPNAME">
                            <font>
                               <Font name="System Bold" size="29.0" />
                            </font></Text>

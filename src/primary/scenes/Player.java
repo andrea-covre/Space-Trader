@@ -1,88 +1,35 @@
 package primary.scenes;
 
 import primary.Ship;
-import primary.Skill;
-
+import skills.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Player {
 
     protected String playerName;
-    protected  int credits;
-    protected  int skillPoints;
-    protected  Ship playerShip;
+    protected int credits;
+    protected AtomicInteger skillPoints;
+    protected Ship playerShip;
 
     /**
-     * primary.Skill levels
+     * skills.Skill levels
      */
-    protected  Skill pilotSkill = new Skill(0);
-    protected  Skill fighterSkill = new Skill(0);
-    protected  Skill merchantSkill = new Skill(0);
-    protected Skill engineerSkill = new Skill(0);
+
+    protected PilotSkill pilotSkill = new PilotSkill(0);
+    protected FighterSkill fighterSkill = new FighterSkill(0);
+    protected MerchantSkill merchantSkill = new MerchantSkill(0);
+    protected EngineerSkill engineerSkill = new EngineerSkill(0);
 
     public Player(String name, int c, int s) throws FileNotFoundException {
         playerName = name;
         credits = c;
-        skillPoints = s;
+        skillPoints = new AtomicInteger(s);
         playerShip = new Ship("basic bitch", 50,
                 10, new FileInputStream("resources/defaultShip.png"));
     }
 
-    public void IncrPilot(int a) {
-        if (a > 0) {
-            if (skillPoints > 0) {
-                pilotSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        } else {
-            if (pilotSkill.getValue() > 0) {
-                pilotSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        }
-    }
-    public void IncrFighter(int a) {
-        if (a > 0) {
-            if (skillPoints > 0) {
-                fighterSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        } else {
-            if (fighterSkill.getValue() > 0) {
-                fighterSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        }
-
-    }
-    public void IncrMerchant(int a) {
-        if (a > 0) {
-            if (skillPoints > 0) {
-                merchantSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        } else {
-            if (merchantSkill.getValue() > 0) {
-                merchantSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        }
-
-    }
-    public void IncrEngineer(int a) {
-        if (a > 0) {
-            if (skillPoints > 0) {
-                engineerSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        } else {
-            if (engineerSkill.getValue() > 0) {
-                engineerSkill.inc(a);
-                skillPoints = skillPoints - a;
-            }
-        }
-    }
     public String getPlayerName() {
         return playerName;
     }
@@ -92,20 +39,22 @@ public class Player {
     }
 
     public int getSkillPoints() {
+        return skillPoints.get();
+    }
+    public AtomicInteger skillPoints() {
         return skillPoints;
     }
-
     public void setCredits(int credits) {
         this.credits = credits;
     }
 
     public void setSkillPoints(int skillPoints) {
-        this.skillPoints = skillPoints;
+        this.skillPoints.set(skillPoints);
     }
 
     public void resetSkill() {
         setSkillPoints(pilotSkill.getValue() + engineerSkill.getValue()
-                + fighterSkill.getValue() + merchantSkill.getValue() );
+                + fighterSkill.getValue() + merchantSkill.getValue());
         pilotSkill.setValue(0);
         engineerSkill.setValue(0);
         fighterSkill.setValue(0);
@@ -131,4 +80,5 @@ public class Player {
     public Ship getShip() {
         return playerShip;
     }
+
 }

@@ -1,7 +1,6 @@
 package primary.scenes;
 
 import javafx.concurrent.Task;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -12,19 +11,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import primary.Ship;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class WelcomeScene extends SceneLoader {
     private  Button sceneButton1 = new Button("New Game");
     private  Button backToScene1 = new Button("Back");
     @Override
     public Parent build() {
-            return welcome();
+        return welcome();
     }
 
     private Pane welcome()  {

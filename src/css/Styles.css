@@ -117,6 +117,7 @@ bacjground-image: url("locatio/location/bo");
     -fx-background-color: transparent;
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #marketTitle{
@@ -124,6 +125,7 @@ bacjground-image: url("locatio/location/bo");
     -fx-background-color: transparent;
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #regionInfo{
@@ -152,12 +154,14 @@ bacjground-image: url("locatio/location/bo");
     -fx-font: 20px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #itemDescription{
     -fx-font: 10px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #itemBuyButt{
@@ -168,24 +172,29 @@ bacjground-image: url("locatio/location/bo");
     -fx-font: 16px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #specialItemsTitle{
     -fx-font: 16px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #shipCargoTitle{
     -fx-font: 16px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
+
 }
 
 #shipUpgradeTitle{
     -fx-font: 16px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #itemVBox{
@@ -198,12 +207,14 @@ bacjground-image: url("locatio/location/bo");
     -fx-font: 16px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #specialItemDescription{
     -fx-font: 10px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }
 
 #currentUpgradeItemDescription{
@@ -227,4 +238,5 @@ bacjground-image: url("locatio/location/bo");
     -fx-text-alignment: center;
     -fx-background-color: transparent;
     -fx-text-fill: YELLOW;
+    -fx-fill: YELLOW;
 }

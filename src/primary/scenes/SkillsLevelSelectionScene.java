@@ -4,10 +4,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import skills.EngineerSkill;
+import skills.FighterSkill;
+import skills.MerchantSkill;
+import skills.PilotSkill;
 
 public class SkillsLevelSelectionScene extends SceneLoader {
     /**
-     * primary.Skill Level Selection Scene buttons
+     * skills.Skill Level Selection Scene buttons
      */
     //Pilot
     private  Button pilotUp = new Button("⬆");
@@ -37,35 +41,35 @@ public class SkillsLevelSelectionScene extends SceneLoader {
     private void setButtons() {
         // setting actions for all skill leveling buttons
         pilotUp.setOnAction(e -> {
-            player.IncrPilot(1);
+            new PilotSkill(1).upgrade(player);
             setStage(this);
-                });
+        });
         pilotDown.setOnAction(e -> {
-            player.IncrPilot(-1);
+            new PilotSkill(-1).upgrade(player);
             setStage(this);
         });
         fighterUp.setOnAction(e -> {
-            player.IncrFighter(1);
+            new FighterSkill(1).upgrade(player);
             setStage(this);
         });
         fighterDown.setOnAction(e -> {
-            player.IncrFighter(-1);
+            new FighterSkill(-1).upgrade(player);
             setStage(this);
         });
         merchantUp.setOnAction(e -> {
-            player.IncrMerchant(1);
+            new MerchantSkill(1).upgrade(player);
             setStage(this);
         });
         merchantDown.setOnAction(e -> {
-            player.IncrMerchant(-1);
+            new MerchantSkill(-1).upgrade(player);
             setStage(this);
         });
         engineerUp.setOnAction(e -> {
-            player.IncrEngineer(1);
+            new EngineerSkill(1).upgrade(player);
             setStage(this);
         });
         engineerDown.setOnAction(e -> {
-            player.IncrEngineer(-1);
+            new EngineerSkill(-1).upgrade(player);
             setStage(this);
         });
 
@@ -96,7 +100,7 @@ public class SkillsLevelSelectionScene extends SceneLoader {
          */
         setButtons();
         /*
-         * primary.Skill Nodes
+         * skills.Skill Nodes
          */
         //Nodes to display skill name
         Text pilotTitle = new Text("Pilot");

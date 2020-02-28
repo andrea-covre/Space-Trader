@@ -1,6 +1,8 @@
 package primary;
 
 
+import skills.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +20,7 @@ public class CharacterUpgrade {
     private String name;
     private String description;
     private int price;
-    private int skillID;
+    private Skill skillID;
     private String skillType;
     private int incAmount;
     private int adjustedPrice;
@@ -74,19 +76,18 @@ public class CharacterUpgrade {
         price = Integer.parseInt(var[2]) * incAmount * 4;
         sellingPrice = 0;
         equipped = false;
-        skillID = Integer.parseInt(var[3]);
-        switch (skillID) {
+        switch (Integer.parseInt(var[3])) {
         case 0:
-            skillType = "Pilot";
+            skillID = new PilotSkill(incAmount);
             break;
         case 1:
-            skillType = "Fighter";
+            skillID = new FighterSkill(incAmount);
             break;
         case 2:
-            skillType = "Merchant";
+            skillID = new MerchantSkill(incAmount);
             break;
         case 3:
-            skillType = "Engineer";
+            skillID = new EngineerSkill(incAmount);
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + skillID);
@@ -143,9 +144,6 @@ public class CharacterUpgrade {
     public int getPrice() {
         return price;
     }
-    public int getSkillID() {
-        return skillID;
-    }
     public int getIncAmount() {
         return incAmount;
     }
@@ -159,7 +157,7 @@ public class CharacterUpgrade {
         this.adjustedPrice = adjustedPrice;
     }
     public String getSkillType() {
-        return skillType;
+        return skillID.getName();
     }
     public int getSellingPrice() {
         return sellingPrice;
@@ -172,5 +170,9 @@ public class CharacterUpgrade {
     }
     public void setEquipped(boolean equipped) {
         this.equipped = equipped;
+    }
+
+    public Skill getInc() {
+        return skillID;
     }
 }

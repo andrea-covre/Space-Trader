@@ -8,11 +8,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import primary.CharacterUpgrade;
 import primary.Item;
 import primary.Market;
+
 import java.util.ArrayList;
 
 
@@ -47,11 +47,9 @@ public class MarketScene extends SceneLoader {
 
         Text regionTitle = new Text(currentLocation.getName());
         regionTitle.setId("regionTitle");
-        regionTitle.setFill(Color.YELLOW);
 
         Text marketTitle = new Text("~ Market ~");
         marketTitle.setId("marketTitle");
-        marketTitle.setFill(Color.YELLOW);
 
         titleBox.getChildren().addAll(regionTitle, marketTitle);
         titleBox.setAlignment(Pos.CENTER);
@@ -61,19 +59,17 @@ public class MarketScene extends SceneLoader {
         //Sections Titles
         Text itemsForSaleTitle = new Text("--- Items for Sale ---\n");
         itemsForSaleTitle.setId("itemsForSaleTitle");
-        itemsForSaleTitle.setFill(Color.YELLOW);
 
         Text specialItemsTitle = new Text("\n--- Special Items ---\n");
         specialItemsTitle.setId("specialItemsTitle");
-        specialItemsTitle.setFill(Color.YELLOW);
+
 
         Text shipCargoTitle = new Text("\n--- Ship's Cargo ---\n");
         shipCargoTitle.setId("shipCargoTitle");
-        shipCargoTitle.setFill(Color.YELLOW);
+
 
         Text shipUpgradeTitle = new Text("\n--- Upgrades ---\n");
         shipUpgradeTitle.setId("shipUpgradeTitle");
-        shipUpgradeTitle.setFill(Color.YELLOW);
 
         generateBuyButtons();
 
@@ -85,7 +81,6 @@ public class MarketScene extends SceneLoader {
 
         //Back Button layout
         backButton.setId("backButton");
-        backButton.setTextFill(Color.YELLOW);
         Text dummyText = new Text(" ");
 
         centerBox.setAlignment(Pos.CENTER);
@@ -126,16 +121,15 @@ public class MarketScene extends SceneLoader {
 
         Text specialItemTitle = new Text(specialItem.getName());
         specialItemTitle.setId("specialItemTitle");
-        specialItemTitle.setFill(Color.YELLOW);
 
         Text itemDescription = new Text(specialItem.getDescription()
                 + " (Tech: " + specialItem.getTechLevel() + " | " + specialItem.getSkillType()
                 + " +" + specialItem.getIncAmount() + ")");
         itemDescription.setId("specialItemDescription");
-        itemDescription.setFill(Color.YELLOW);
 
         int specialItemFinalPrice = (int)
-                ((1.00 - 0.01 * Market.getDiscountMerchantLevel() * player.getMerchantSkill().getValue())
+                ((1.00 - 0.01 * Market.getDiscountMerchantLevel()
+                        * player.getMerchantSkill().getValue())
                         * specialItem.getPrice());
         specialItem.setAdjustedPrice(specialItemFinalPrice);
         specialItem.setSellingPrice((int) (specialItemFinalPrice * CharacterUpgrade.DEPRECIATION));
@@ -195,22 +189,7 @@ public class MarketScene extends SceneLoader {
                         && !localMarket.getSpecialItem().isEquipped()) {
                     currentShip.getUpgrades().add(localMarket.getSpecialItem());
                     localMarket.getSpecialItem().setEquipped(true);
-                    switch (localMarket.getSpecialItem().getSkillID()) {
-                    case 0:
-                        player.IncrPilot(localMarket.getSpecialItem().getIncAmount());
-                        break;
-                    case 1:
-                        player.IncrFighter(localMarket.getSpecialItem().getIncAmount());
-                        break;
-                    case 2:
-                        player.IncrMerchant(localMarket.getSpecialItem().getIncAmount());
-                        break;
-                    case 3:
-                        player.IncrEngineer(localMarket.getSpecialItem().getIncAmount());
-                        break;
-                    default:
-                        break;
-                    }
+                    localMarket.getSpecialItem().getInc().upgrade(player);
                     player.setCredits(player.getCredits() - itemFinalPrice);
                 }
                 setStage(new MarketScene());
@@ -227,7 +206,8 @@ public class MarketScene extends SceneLoader {
 
             sellButtons.get(i).setOnAction(e -> {
                 try {
-                    player.setCredits(player.getCredits() + currentShip.getItems().get(finalI).getFinalSellPrice());
+                    player.setCredits(player.getCredits()
+                            + currentShip.getItems().get(finalI).getFinalSellPrice());
                     currentShip.getItems().remove(currentShip.getItems().get(finalI));
                     setStage(new MarketScene());
                 } catch (Throwable f) {
@@ -241,24 +221,10 @@ public class MarketScene extends SceneLoader {
 
             sellUpgradesButtons.get(i).setOnAction(e -> {
                 try {
-                    player.setCredits(player.getCredits() + currentShip.getUpgrades().get(finalI).getSellingPrice());
+                    player.setCredits(player.getCredits()
+                            + currentShip.getUpgrades().get(finalI).getSellingPrice());
                     currentShip.getUpgrades().get(finalI).setEquipped(false);
-                    switch (currentShip.getUpgrades().get(finalI).getSkillID()) {
-                    case 0:
-                        player.IncrPilot(-currentShip.getUpgrades().get(finalI).getIncAmount());
-                        break;
-                    case 1:
-                        player.IncrFighter(-currentShip.getUpgrades().get(finalI).getIncAmount());
-                        break;
-                    case 2:
-                        player.IncrMerchant(-currentShip.getUpgrades().get(finalI).getIncAmount());
-                        break;
-                    case 3:
-                        player.IncrEngineer(-currentShip.getUpgrades().get(finalI).getIncAmount());
-                        break;
-                    default:
-                        break;
-                    }
+                    localMarket.getSpecialItem().getInc().removeUpgrade(player);
                     currentShip.getUpgrades().remove(currentShip.getUpgrades().get(finalI));
                     setStage(new MarketScene());
                 } catch (Throwable f) {
@@ -273,20 +239,15 @@ public class MarketScene extends SceneLoader {
 
         for (int i = 0; i < currentShip.getUpgradeSlots(); i++) {
             VBox itemUpgradesVBox = new VBox();
-
             if (i < currentShip.getUpgrades().size()) {
-
                 CharacterUpgrade currentUpgradeItem = currentShip.getUpgrades().get(i);
                 Text upgradeItemTitle = new Text(currentUpgradeItem.getName());
                 upgradeItemTitle.setId("itemTitle");
-                upgradeItemTitle.setFill(Color.YELLOW);
-
                 Text currentUpgradeItemDescription = new Text("(Tech: "
                         + specialItem.getTechLevel() + " | "
                         + specialItem.getSkillType() + " +"
                         + specialItem.getIncAmount() + ")");
                 currentUpgradeItemDescription.setId("currentUpgradeItemDescription");
-                currentUpgradeItemDescription.setFill(Color.YELLOW);
 
                 int itemFinalPrice = (int)
                         ((double) currentUpgradeItem.getAdjustedPrice()
@@ -310,7 +271,6 @@ public class MarketScene extends SceneLoader {
 
                 Text upgradeItemTitle = new Text("Empty Upgrade Slot\n#" + (i + 1));
                 upgradeItemTitle.setId("itemTitle");
-                upgradeItemTitle.setFill(Color.YELLOW);
 
 
                 itemUpgradesVBox.getChildren().addAll(upgradeItemTitle);
@@ -338,8 +298,6 @@ public class MarketScene extends SceneLoader {
                 Item currentCargoItem = currentShip.getItems().get(i);
                 Text cargoItemTitle = new Text(currentCargoItem.getName());
                 cargoItemTitle.setId("itemTitle");
-                cargoItemTitle.setFill(Color.YELLOW);
-
                 int itemFinalPrice = (int)
                         ((double) currentCargoItem.getAdjustedPrice()
                                 * (1.00 + 0.01 * Market.getDiscountMerchantLevel()
@@ -360,7 +318,6 @@ public class MarketScene extends SceneLoader {
 
                 Text cargoItemTitle = new Text("Empty Slot\n#" + (i + 1));
                 cargoItemTitle.setId("itemTitle");
-                cargoItemTitle.setFill(Color.YELLOW);
 
 
                 itemVBox.getChildren().addAll(cargoItemTitle);
@@ -384,14 +341,12 @@ public class MarketScene extends SceneLoader {
 
             Text itemTitle = new Text(localMarket.getItemsOffering().get(i).getName());
             itemTitle.setId("itemTitle");
-            itemTitle.setFill(Color.YELLOW);
 
             Text itemDescription = new Text(localMarket.getItemsOffering().get(i).getDescription()
                     + " (Tech: "
                     + localMarket.getItemsOffering().get(i).getTechLevel()
                     + ")");
             itemDescription.setId("itemDescription");
-            itemDescription.setFill(Color.YELLOW);
 
             int itemFinalPrice = (int)
                     ((double) localMarket.getItemsOffering().get(i).getAdjustedPrice()
@@ -405,7 +360,8 @@ public class MarketScene extends SceneLoader {
 
 
             buyButtons.add(new Button("Buy for " + itemFinalPrice + " (-"
-                    + Market.getDiscountMerchantLevel() * player.getMerchantSkill().getValue() + "%)"));
+                    + Market.getDiscountMerchantLevel()
+                    * player.getMerchantSkill().getValue() + "%)"));
 
             buyButtons.get(i).setId("itemBuyButt");
 
