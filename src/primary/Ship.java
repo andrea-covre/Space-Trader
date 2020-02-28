@@ -13,9 +13,11 @@ public class Ship {
     private List<Item> items;
     private int upgradeSlots;
     private List<CharacterUpgrade> upgrades;
-    FileInputStream image;
+    private FileInputStream image;
 
-    public Ship(String name, int cargo, int upgradeSlots, int hp, int attack, FileInputStream image) {
+    public Ship(String name, int cargo,
+                int upgradeSlots, int hp,
+                int attack, FileInputStream image) {
         this.name = name;
         this.cargo = cargo;
         this.attack = attack;
@@ -39,7 +41,7 @@ public class Ship {
     }
 
     public Ship(String name, int cargo, int upgradeSlots, FileInputStream image) {
-        this(name, cargo, upgradeSlots, 10,10, image);
+        this(name, cargo, upgradeSlots, 10, 10, image);
     }
 
 

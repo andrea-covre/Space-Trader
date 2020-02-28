@@ -34,36 +34,40 @@ public class CharacterUpgrade {
     public CharacterUpgrade() {
         String[] var = generateUpgrade();
         techLevel = Integer.parseInt(var[4]);
-        int[] probability = new int[]{1,1,1,1,1,1,1,1,1,1};
+        int[] probability;
         switch (techLevel) {
-            case 1:
-                probability = new int[]{1,1,1,1,1,1,1,1,2,2};
-                break;
-            case 2:
-                probability = new int[]{1,1,1,1,1,1,2,2,2,2};
-                break;
-            case 3:
-                probability = new int[]{1,1,1,1,1,2,2,2,2,3};
-                break;
-            case 4:
-                probability = new int[]{1,1,1,2,2,2,2,2,3,3};
-                break;
-            case 5:
-                probability = new int[]{1,1,2,2,2,2,2,3,3,3};
-                break;
+        case 1:
+            probability = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 2, 2};
+            break;
+        case 2:
+            probability = new int[]{1, 1, 1, 1, 1, 1, 2, 2, 2, 2};
+            break;
+        case 3:
+            probability = new int[]{1, 1, 1, 1, 1, 2, 2, 2, 2, 3};
+            break;
+        case 4:
+            probability = new int[]{1, 1, 1, 2, 2, 2, 2, 2, 3, 3};
+            break;
+        case 5:
+            probability = new int[]{1, 1, 2, 2, 2, 2, 2, 3, 3, 3};
+            break;
+        default: 
+            throw new IllegalStateException("Unexpected value: " + techLevel);
         }
         incAmount = probability[rand.nextInt(10)];
-        String adjective = "Basic ";
+        String adjective;
         switch (incAmount) {
-            case 1:
-                adjective = "Basic ";
-                break;
-            case 2:
-                adjective = "Advanced ";
-                break;
-            case 3:
-                adjective = "Supreme ";
-                break;
+        case 1:
+            adjective = "Basic ";
+            break;
+        case 2:
+            adjective = "Advanced ";
+            break;
+        case 3:
+            adjective = "Supreme ";
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + incAmount);
         }
         name = adjective + var[0];
         description = var[1];
@@ -72,18 +76,20 @@ public class CharacterUpgrade {
         equipped = false;
         skillID = Integer.parseInt(var[3]);
         switch (skillID) {
-            case 0:
-                skillType = "Pilot";
-                break;
-            case 1:
-                skillType = "Fighter";
-                break;
-            case 2:
-                skillType = "Merchant";
-                break;
-            case 3:
-                skillType = "Engineer";
-                break;
+        case 0:
+            skillType = "Pilot";
+            break;
+        case 1:
+            skillType = "Fighter";
+            break;
+        case 2:
+            skillType = "Merchant";
+            break;
+        case 3:
+            skillType = "Engineer";
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + skillID);
         }
     }
     /**
@@ -96,20 +102,23 @@ public class CharacterUpgrade {
      * 3 represents Engineer
      *
      * incAmount is how much the Upgrade increments a skill, dependent on a probability scheme
-     * The probability is 60% for an increase of 1, 30% for an increase of 2, and 10% for an increase of 3
-     * The incAmount also will slightly increase the price of a character upgrade:
-     * Increase of 100 credits for 1, 200 credits for 1, and 300 credits for 3
+     * The probability is 60% for an increase of 1, 30% for an increase of 2,
+     * and 10% for an increase of 3 The incAmount also will slightly increase
+     * the price of a character upgrade: Increase of 100 credits for 1, 200 credits for 1,
+     * and 300 credits for 3
+     *
+     * @return im here for no reason
      */
     private String[] generateUpgrade() {
         ArrayList<String> upgradeDictionary = new ArrayList<>();
         BufferedReader upgradeSC = null;
         String[] var = null;
-        String a = null;
+        String a;
 
         try {
             File items = new File("resources/CharacterUpgrade.txt");
             upgradeSC = new BufferedReader(new FileReader(items));
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Character Upgrades "
                     + "file is missing from the resources folder");
         }

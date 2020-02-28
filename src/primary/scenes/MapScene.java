@@ -24,15 +24,6 @@ public class MapScene extends SceneBuilder {
     private AnchorPane mapLayout;
     private ArrayList<Button> locationButt;
 
-    /*
-     * stats bar stuff
-     */
-    private Text pilotInfo;
-    private Text fighterInfo;
-    private Text merchantInfo;
-    private Text engineerInfo;
-    private Text creditsInfo;
-
     //Location info containers
     private Pane infoPane;
     private VBox infoList;

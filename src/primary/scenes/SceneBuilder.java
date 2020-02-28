@@ -119,7 +119,8 @@ public abstract class SceneBuilder {
         shipAttack.setId("statsBar");
         shipAttack.setFill(Color.YELLOW);
 
-        Text shipCapacity = new Text("Capacity: " + currentShip.getItems().size() + "/" + currentShip.getCargo());
+        Text shipCapacity = new Text("Capacity: " + currentShip.getItems().size()
+                + "/" + currentShip.getCargo());
         shipCapacity.setId("statsBar");
         shipCapacity.setFill(Color.YELLOW);
 
@@ -133,7 +134,8 @@ public abstract class SceneBuilder {
         statsBar.setSpacing(30);
         statsBar.setAlignment(Pos.CENTER);
         statsBar.getChildren()
-                .addAll(creditsInfo, spacing1, pilotInfo, fighterInfo, merchantInfo, engineerInfo, spacing2, shipName,
+                .addAll(creditsInfo, spacing1, pilotInfo,
+                        fighterInfo, merchantInfo, engineerInfo, spacing2, shipName,
                         shipHealth, shipAttack, shipCapacity, upgrades);
 
         return statsBar;

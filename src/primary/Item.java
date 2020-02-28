@@ -32,18 +32,19 @@ public class Item {
     }
     /**
      * This method generates an Item from the Items text file in the resources file
+     * @return the item string
      */
     public String[] generateItem() {
         ArrayList<String> itemDictionary = new ArrayList<>();
         BufferedReader itemsSC = null;
         Random rand = new Random();
         String[] var = null;
-        String a = null;
+        String a;
 
         try {
             File items = new File("resources/Items.txt");
             itemsSC = new BufferedReader(new FileReader(items));
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Items "
                     + "file is missing from the resources folder");
         }

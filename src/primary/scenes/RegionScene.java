@@ -59,16 +59,17 @@ public class RegionScene extends SceneBuilder {
         /*
         Tile Pane with options
          */
-        //every tile/option is a stack pane with the icon and blank button on top, everything inside a VBox
+        //every tile/option is a stack pane with the icon and blank
+        // button on top, everything inside a VBox
         //the top of the VBox has the icon, the bottom has the title
         TilePane optionsPane = new TilePane();
 
         /*
         Icon images
          */
-        ImageView MARKETPLACE_ICON = new ImageView(
+        ImageView marketPlaceImage = new ImageView(
                 new Image(Main.getMarketPlaceIcon(), iconSize, iconSize, false, false));
-        ImageView MAP_ICON = new ImageView(
+        ImageView mapIcon = new ImageView(
                 new Image(Main.getMapIcon(), iconSize, iconSize, false, true));
 
         //Map Icon
@@ -81,7 +82,7 @@ public class RegionScene extends SceneBuilder {
         regionBackButton.setId("mapIconButton");
 
         mapIconVBox.setAlignment(Pos.CENTER);
-        mapIconStack.getChildren().addAll(MAP_ICON, regionBackButton);
+        mapIconStack.getChildren().addAll(mapIcon, regionBackButton);
         mapIconVBox.getChildren().addAll(mapIconStack, mapIconText);
 
         //Market Icon
@@ -94,7 +95,7 @@ public class RegionScene extends SceneBuilder {
         enterMarket.setId("marketIconButton");
 
         marketIconVBox.setAlignment(Pos.CENTER);
-        marketIconStack.getChildren().addAll(MARKETPLACE_ICON, enterMarket);
+        marketIconStack.getChildren().addAll(marketPlaceImage, enterMarket);
         marketIconVBox.getChildren().addAll(marketIconStack, marketIconText);
 
 

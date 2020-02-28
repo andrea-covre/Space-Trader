@@ -1,6 +1,5 @@
 package primary;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,8 +25,8 @@ public class Market {
                 temp = new Item();
                 isNotValid = false;
                 if (itemsOffering.size() > 0) {
-                    for (int j = 0; j < itemsOffering.size(); j++) {
-                        if (temp.getName().equals(itemsOffering.get(j).getName())) {
+                    for (Item item : itemsOffering) {
+                        if (temp.getName().equals(item.getName())) {
                             isNotValid = true;
                             break;
                         }
@@ -50,17 +49,21 @@ public class Market {
         specialItem = tempUpgrade;
     }
 
-    //final price is going to be discounted based on the tech level difference between item and region, plus a random
+    //final price is going to be discounted based on the tech level
+    // difference between item and region, plus a random
     //decrease or increase
     private void calculateAdjustedPrice(Item item, int regionTech) {
-        item.setAdjustedPrice((int) (item.getPrice() - (regionTech - item.getTechLevel())
-                * TECH_LEVEL_DISCOUNT_FACTOR * item.getPrice() + item.getPrice() * rand.nextDouble() / 5));
+        item.setAdjustedPrice((int) (item.getPrice()
+                - (regionTech - item.getTechLevel())
+                * TECH_LEVEL_DISCOUNT_FACTOR * item.getPrice()
+                + item.getPrice() * rand.nextDouble() / 5));
     }
 
 
     private void calculateAdjustedPrice(CharacterUpgrade item, int regionTech) {
         item.setAdjustedPrice((int) (item.getPrice() - (regionTech - item.getTechLevel())
-                * TECH_LEVEL_DISCOUNT_FACTOR * item.getPrice() + item.getPrice() * rand.nextDouble() / 5));
+                * TECH_LEVEL_DISCOUNT_FACTOR * item.getPrice()
+                + item.getPrice() * rand.nextDouble() / 5));
     }
 
     public ArrayList<Item> getItemsOffering() {
