@@ -100,6 +100,14 @@ public class NameSelectionScene extends SceneBuilder {
                 }
             }
         });
+        backToScene1.setOnAction(e -> {
+            try {
+                setStage(new DifficultyScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+
 
         hbox.getChildren().add(title);
         hbox.setAlignment(Pos.CENTER);

@@ -9,28 +9,20 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import primary.NewGame;
 import primary.Region;
+import primary.Ship;
+
 import java.util.ArrayList;
 
 
 public class MapScene extends SceneBuilder {
 
-    /**
+    /*
      * Base layout
      */
     private BorderPane pane;
     private StackPane stackpane;
     private AnchorPane mapLayout;
     private ArrayList<Button> locationButt;
-
-    /**
-     * stats bar stuff
-     */
-    private HBox statsBar;
-    private Text pilotInfo;
-    private Text fighterInfo;
-    private Text merchantInfo;
-    private Text engineerInfo;
-    private Text creditsInfo;
 
     //Location info containers
     private Pane infoPane;
@@ -92,7 +84,12 @@ public class MapScene extends SceneBuilder {
             //Setting the first world generated has the spawn world
             regions.get(0).setBeenVisited(true);
             currentLocation = regions.get(0);
+            currentLocation.getRegionMarket().generateMarket(currentLocation);
             regionsGenerated = true;
+
+            //Creating the default ship
+            //Just a random ship
+            currentShip = new Ship("AFO", 5, 3, 50, 10);
         }
 
         /*
@@ -224,7 +221,7 @@ public class MapScene extends SceneBuilder {
                             + " Visited: " + visitedText + " \n"
                             + " Distance: " + distance + " \n"
                             + " Fuel cost: " + fuelCost + " (-"
-                            + pilotSkill.getValue() * 5 + "%) ");
+                            + pilotSkill.getValue() * travelDiscountPerPilotLevel + "%) ");
                     locationInfo.setId("locationInfo");
                 } else {
                     locationInfo = new Text(" Location: " + "?????" + " \n"
@@ -235,7 +232,7 @@ public class MapScene extends SceneBuilder {
                             + " Visited: " + "Not yet " + " \n"
                             + " Distance: " + distance + " \n"
                             + " Fuel cost: " + fuelCost + " (-"
-                            + pilotSkill.getValue() * 5 + "%) ");
+                            + pilotSkill.getValue() * travelDiscountPerPilotLevel + "%) ");
                     locationInfo.setId("locationInfo");
                 }
 
@@ -253,7 +250,8 @@ public class MapScene extends SceneBuilder {
                 travelToLocation.setMaxWidth(Double.MAX_VALUE);
                 closeInfoPanel.setMaxWidth(Double.MAX_VALUE);
 
-                //Checking if player has enough credits to traver to this location
+                //Checking if
+                // player has enough credits to traver to this location
                 if (credits >= fuelCost) {
                     travelToLocation.setStyle("-fx-background-color: rgba(0, 156, 0, 0.7)");
                 } else {
@@ -305,35 +303,6 @@ public class MapScene extends SceneBuilder {
 
     }
 
-    private void generateStatsBar() {
-        //Creating stats bar
-
-
-        statsBar = new HBox();
-        creditsInfo = new Text("Credits: " + credits);
-        creditsInfo.setId("statsBar");
-        creditsInfo.setFill(Color.YELLOW);
-
-        pilotInfo = new Text("Pilot: " + pilotSkill.getValue());
-        pilotInfo.setId("statsBar");
-        pilotInfo.setFill(Color.YELLOW);
-
-        fighterInfo = new Text("Fighter: " + fighterSkill.getValue());
-        fighterInfo.setId("statsBar");
-        fighterInfo.setFill(Color.YELLOW);
-
-        merchantInfo = new Text("Merchant: " + merchantSkill.getValue());
-        merchantInfo.setId("statsBar");
-        merchantInfo.setFill(Color.YELLOW);
-
-        engineerInfo = new Text("Engineer: " + engineerSkill.getValue());
-        engineerInfo.setId("statsBar");
-        engineerInfo.setFill(Color.YELLOW);
-        statsBar.setSpacing(100);
-        statsBar.setAlignment(Pos.CENTER);
-        statsBar.getChildren()
-                .addAll(creditsInfo, pilotInfo, fighterInfo, merchantInfo, engineerInfo);
-    }
     private Pane map() {
 
         generateRegions();
@@ -350,6 +319,9 @@ public class MapScene extends SceneBuilder {
         travelToLocation.setOnAction(e -> {
             try {
                 if (costToSelectedLocation <= credits) {
+                    if (currentLocation != selectedLocation) {
+                        selectedLocation.getRegionMarket().generateMarket(selectedLocation);
+                    }
                     currentLocation = selectedLocation;
                     currentLocation.setBeenVisited(true);
                     credits = credits - costToSelectedLocation;
@@ -376,10 +348,8 @@ public class MapScene extends SceneBuilder {
         //Adding planet info panel
         mapLayout.getChildren().addAll(infoPane);
 
-        generateStatsBar();
-
         pane.setCenter(mapLayout);
-        pane.setBottom(statsBar);
+        pane.setBottom(generateStatsBar());
         BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
         BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
         title.setId("mapTitle");

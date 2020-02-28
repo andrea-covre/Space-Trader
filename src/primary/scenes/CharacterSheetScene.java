@@ -47,15 +47,15 @@ public class CharacterSheetScene extends SceneBuilder {
         skill.setFont(Font.font("Comic Sans MS", 70));
         skill.setFill(Color.RED);
 
-        Text pilot = new Text("Pilot: \t\t" + pilotSkill);
+        Text pilot = new Text("Pilot: \t" + pilotSkill);
         pilot.setFont(Font.font("Comic Sans MS", 40));
         pilot.setFill(Color.YELLOW);
 
-        Text fighter = new Text("Fighter: \t\t" + fighterSkill);
+        Text fighter = new Text("Fighter: \t" + fighterSkill);
         fighter.setFont(Font.font("Comic Sans MS", 40));
         fighter.setFill(Color.YELLOW);
 
-        Text merchant = new Text("Fighter: \t\t" + merchantSkill);
+        Text merchant = new Text("Fighter: \t" + merchantSkill);
         merchant.setFont(Font.font("Comic Sans MS", 40));
         merchant.setFill(Color.YELLOW);
 
@@ -100,7 +100,7 @@ public class CharacterSheetScene extends SceneBuilder {
         } else {
             difficultyText = "Hard";
         }
-        Text difTitle = new Text("Playing On " + difficultyText + " Mode");
+        Text difTitle = new Text("Playing on " + difficultyText + " Mode");
         difTitle.setFont(Font.font("Comic Sans MS", 40));
         difTitle.setFill(Color.YELLOW);
 
