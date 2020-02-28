@@ -19,6 +19,7 @@ import primary.scenes.SceneLoader;
  * This class represents the initial configuration for a new game
  */
 public class NewGame extends Application {
+
     /**
      * Nodes that are important for scene changing:
      */

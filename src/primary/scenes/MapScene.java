@@ -3,8 +3,6 @@ package primary.scenes;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -12,11 +10,8 @@ import javafx.scene.text.Text;
 import primary.NewGame;
 import primary.Region;
 import primary.Ship;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+
 import java.util.ArrayList;
 
 
@@ -29,16 +24,6 @@ public class MapScene extends SceneLoader {
     private StackPane stackpane;
     private AnchorPane mapLayout;
     private ArrayList<Button> locationButt;
-
-    /*
-     * stats bar stuff
-     */
-    private HBox statsBar;
-    private Text pilotInfo;
-    private Text fighterInfo;
-    private Text merchantInfo;
-    private Text engineerInfo;
-    private Text creditsInfo;
 
     //Location info containers
     private Pane infoPane;
@@ -101,7 +86,12 @@ public class MapScene extends SceneLoader {
             //Setting the first world generated has the spawn world
             regions.get(0).setBeenVisited(true);
             currentLocation = regions.get(0);
+            currentLocation.getRegionMarket().generateMarket(currentLocation);
             regionsGenerated = true;
+
+            //Creating the default ship
+            //Just a random ship
+            currentShip = new Ship("AFO", 5, 3, 50, 10);
         }
 
         /*
@@ -316,45 +306,6 @@ public class MapScene extends SceneLoader {
 
     }
 
-    private void generateStatsBar() {
-        //Creating stats bar
-
-
-        statsBar = new HBox();
-        creditsInfo = new Text("Credits: " + player.getCredits());
-        creditsInfo.setId("statsBar");
-        creditsInfo.setFill(Color.YELLOW);
-
-        pilotInfo = new Text("Pilot: " + player.getPilotSkill().getValue());
-        pilotInfo.setId("statsBar");
-        pilotInfo.setFill(Color.YELLOW);
-
-        fighterInfo = new Text("Fighter: " + player.getFighterSkill().getValue());
-        fighterInfo.setId("statsBar");
-        fighterInfo.setFill(Color.YELLOW);
-
-        merchantInfo = new Text("Merchant: " + player.getMerchantSkill().getValue());
-        merchantInfo.setId("statsBar");
-        merchantInfo.setFill(Color.YELLOW);
-
-        engineerInfo = new Text("Engineer: " + player.getEngineerSkill().getValue());
-        engineerInfo.setId("statsBar");
-        engineerInfo.setFill(Color.YELLOW);
-        statsBar.setSpacing(100);
-        statsBar.setAlignment(Pos.CENTER);
-        statsBar.getChildren()
-                .addAll(creditsInfo, pilotInfo, fighterInfo, merchantInfo, engineerInfo, viewShip);
-
-
-        viewShip.setOnAction(e -> {
-            try {
-                setStage(new ShipScene());
-            } catch (MalformedURLException ex) {
-                ex.printStackTrace();
-            }
-        });
-        viewShip.setId("viewShip");
-    }
     private Pane map() {
 
         generateRegions();
@@ -371,6 +322,9 @@ public class MapScene extends SceneLoader {
         travelToLocation.setOnAction(e -> {
             try {
                 if (costToSelectedLocation <= player.getCredits()) {
+                    if (currentLocation != selectedLocation) {
+                        selectedLocation.getRegionMarket().generateMarket(selectedLocation);
+                    }
                     currentLocation = selectedLocation;
                     currentLocation.setBeenVisited(true);
                     player.setCredits(player.getCredits() - costToSelectedLocation);
@@ -396,10 +350,8 @@ public class MapScene extends SceneLoader {
         //Adding planet info panel
         mapLayout.getChildren().addAll(infoPane);
 
-        generateStatsBar();
-
         pane.setCenter(mapLayout);
-        pane.setBottom(statsBar);
+        pane.setBottom(generateStatsBar());
         BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
         BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
         title.setId("mapTitle");

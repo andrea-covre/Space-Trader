@@ -19,20 +19,78 @@ public class CharacterUpgrade {
     private String description;
     private int price;
     private int skillID;
+    private String skillType;
     private int incAmount;
+    private int adjustedPrice;
+    private int techLevel;
+    private int sellingPrice;
+    private boolean equipped;
+    public static final double DEPRECIATION = 0.5;
     private Random rand = new Random();
 
     /**
      * Constructor for Character Upgrade class
      */
     public CharacterUpgrade() {
-        int[] probability = new int[]{1,1,1,1,1,1,2,2,2,3};
         String[] var = generateUpgrade();
-        name = "Supreme " + var[0];
-        description = var[1];
+        techLevel = Integer.parseInt(var[4]);
+        int[] probability;
+        switch (techLevel) {
+        case 1:
+            probability = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 2, 2};
+            break;
+        case 2:
+            probability = new int[]{1, 1, 1, 1, 1, 1, 2, 2, 2, 2};
+            break;
+        case 3:
+            probability = new int[]{1, 1, 1, 1, 1, 2, 2, 2, 2, 3};
+            break;
+        case 4:
+            probability = new int[]{1, 1, 1, 2, 2, 2, 2, 2, 3, 3};
+            break;
+        case 5:
+            probability = new int[]{1, 1, 2, 2, 2, 2, 2, 3, 3, 3};
+            break;
+        default: 
+            throw new IllegalStateException("Unexpected value: " + techLevel);
+        }
         incAmount = probability[rand.nextInt(10)];
-        price = Integer.parseInt(var[2]) + (incAmount * 100);
+        String adjective;
+        switch (incAmount) {
+        case 1:
+            adjective = "Basic ";
+            break;
+        case 2:
+            adjective = "Advanced ";
+            break;
+        case 3:
+            adjective = "Supreme ";
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + incAmount);
+        }
+        name = adjective + var[0];
+        description = var[1];
+        price = Integer.parseInt(var[2]) * incAmount * 4;
+        sellingPrice = 0;
+        equipped = false;
         skillID = Integer.parseInt(var[3]);
+        switch (skillID) {
+        case 0:
+            skillType = "Pilot";
+            break;
+        case 1:
+            skillType = "Fighter";
+            break;
+        case 2:
+            skillType = "Merchant";
+            break;
+        case 3:
+            skillType = "Engineer";
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + skillID);
+        }
     }
     /**
      * Generates Character Upgrade from the Character Upgrade text file in the resources file
@@ -44,20 +102,23 @@ public class CharacterUpgrade {
      * 3 represents Engineer
      *
      * incAmount is how much the Upgrade increments a skill, dependent on a probability scheme
-     * The probability is 60% for an increase of 1, 30% for an increase of 2, and 10% for an increase of 3
-     * The incAmount also will slightly increase the price of a character upgrade:
-     * Increase of 100 credits for 1, 200 credits for 1, and 300 credits for 3
+     * The probability is 60% for an increase of 1, 30% for an increase of 2,
+     * and 10% for an increase of 3 The incAmount also will slightly increase
+     * the price of a character upgrade: Increase of 100 credits for 1, 200 credits for 1,
+     * and 300 credits for 3
+     *
+     * @return im here for no reason
      */
     private String[] generateUpgrade() {
         ArrayList<String> upgradeDictionary = new ArrayList<>();
         BufferedReader upgradeSC = null;
         String[] var = null;
-        String a = null;
+        String a;
 
         try {
             File items = new File("resources/CharacterUpgrade.txt");
             upgradeSC = new BufferedReader(new FileReader(items));
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Character Upgrades "
                     + "file is missing from the resources folder");
         }
@@ -88,5 +149,28 @@ public class CharacterUpgrade {
     public int getIncAmount() {
         return incAmount;
     }
-
+    public int getTechLevel() {
+        return techLevel;
+    }
+    public int getAdjustedPrice() {
+        return adjustedPrice;
+    }
+    public void setAdjustedPrice(int adjustedPrice) {
+        this.adjustedPrice = adjustedPrice;
+    }
+    public String getSkillType() {
+        return skillType;
+    }
+    public int getSellingPrice() {
+        return sellingPrice;
+    }
+    public void setSellingPrice(int sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+    public boolean isEquipped() {
+        return equipped;
+    }
+    public void setEquipped(boolean equipped) {
+        this.equipped = equipped;
+    }
 }

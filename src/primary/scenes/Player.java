@@ -25,11 +25,12 @@ public class Player {
         playerName = name;
         credits = c;
         skillPoints = s;
-        playerShip = new Ship("basic bitch", 50, new FileInputStream("resources/defaultShip.png"));
+        playerShip = new Ship("basic bitch", 50,
+                10, new FileInputStream("resources/defaultShip.png"));
     }
 
     public void IncrPilot(int a) {
-        if (a > 0){
+        if (a > 0) {
             if (skillPoints > 0) {
                 pilotSkill.inc(a);
                 skillPoints = skillPoints - a;
@@ -42,7 +43,7 @@ public class Player {
         }
     }
     public void IncrFighter(int a) {
-        if (a > 0){
+        if (a > 0) {
             if (skillPoints > 0) {
                 fighterSkill.inc(a);
                 skillPoints = skillPoints - a;

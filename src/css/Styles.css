@@ -85,7 +85,7 @@
 }
 
 #statsBar {
-    -fx-font: 18px "Comic Sans Ms";
+    -fx-font: 14px "Comic Sans Ms";
     -fx-background-color: transparent;
     -fx-text-fill: YELLOW;
 }
@@ -113,8 +113,16 @@ bacjground-image: url("locatio/location/bo");
 
 
 #regionTitle{
-    -fx-font: 50px "Comic Sans Ms";
+    -fx-font: 40px "Comic Sans Ms";
     -fx-background-color: transparent;
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#marketTitle{
+    -fx-font: 30px "Comic Sans Ms";
+    -fx-background-color: transparent;
+    -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
 }
 
@@ -131,11 +139,92 @@ bacjground-image: url("locatio/location/bo");
 }
 
 #mapIconButton{
-    -fx-font: 25px "Comic Sans Ms";
+    -fx-font: 30px "Comic Sans Ms";
     -fx-background-color: transparent;
 }
 
 #marketIconButton{
-    -fx-font: 25px "Comic Sans Ms";
+    -fx-font: 30px "Comic Sans Ms";
     -fx-background-color: transparent;
+}
+
+#itemTitle{
+    -fx-font: 20px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#itemDescription{
+    -fx-font: 10px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#itemBuyButt{
+    -fx-font: 12px "Comic Sans Ms";
+}
+
+#itemsForSaleTitle{
+    -fx-font: 16px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#specialItemsTitle{
+    -fx-font: 16px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#shipCargoTitle{
+    -fx-font: 16px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#shipUpgradeTitle{
+    -fx-font: 16px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#itemVBox{
+    -fx-background-color: GREY;
+    -fx-border-color: YELLOW;
+    -fx-padding: 5px;
+}
+
+#specialItemTitle{
+    -fx-font: 16px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#specialItemDescription{
+    -fx-font: 10px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#currentUpgradeItemDescription{
+    -fx-font: 10px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-text-fill: YELLOW;
+}
+
+#specialVBox{
+    -fx-background-color: GREY;
+    -fx-border-color: YELLOW;
+    -fx-padding: 5px;
+}
+
+#specialItemBuyButt{
+    -fx-font: 12px "Comic Sans Ms";
+}
+
+#backButton{
+    -fx-font: 22px "Comic Sans Ms";
+    -fx-text-alignment: center;
+    -fx-background-color: transparent;
+    -fx-text-fill: YELLOW;
 }

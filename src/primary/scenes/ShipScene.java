@@ -44,7 +44,7 @@ public class ShipScene extends SceneLoader {
                 + "Attack: " + playerShip.getAttack() + "\n"
                 + "Cargo: " + playerShip.getCargo() + "\n"
                 + "Name: " + playerShip.getName());
-        ShipName.setText("The " + playerShip.name);
+        ShipName.setText("The " + playerShip.getName());
         MainPane.setBackground(new Background(back));
     }
     @Override

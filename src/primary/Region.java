@@ -18,6 +18,7 @@ public class Region {
     private boolean hasBeenVisited = false;
     private static int numberOfRegions = 0;
     private int regionID;
+    private Market regionMarket = new Market();
 
     private Random rand = new Random();
 
@@ -86,6 +87,7 @@ public class Region {
     public boolean hasBeenVisited() {
         return hasBeenVisited;
     }
+
     public void setBeenVisited(boolean v) {
         hasBeenVisited = v;
     }
@@ -96,6 +98,10 @@ public class Region {
 
     public int getTechLevel() {
         return techLevel;
+    }
+
+    public Market getRegionMarket() {
+        return regionMarket;
     }
 }
 

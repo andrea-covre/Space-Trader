@@ -1,5 +1,9 @@
 package primary.scenes;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import primary.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +16,8 @@ public abstract class SceneLoader {
 
 
     protected static Player player;
+
+
 //    //Travel
     protected static double fuelCostPerUnit = 1; //cost per unit of distance
     protected static int travelDiscountPerPilotLevel = 3; //in percentage
@@ -22,6 +28,9 @@ public abstract class SceneLoader {
     protected static Region currentLocation;
     protected static Region selectedLocation;
 
+    //Ship info
+    protected static Ship currentShip;
+
     //Map generation
     protected static boolean regionsGenerated = false;
     protected static List<Region> regions;
@@ -30,6 +39,8 @@ public abstract class SceneLoader {
     //coordinate-wise: minimum distance required between planets,
     // valid for both X and Y [used during world generation]
     protected static int numberOfRegions = 10;
+
+    //
 
     /**
      * Graphics
@@ -45,6 +56,7 @@ public abstract class SceneLoader {
     protected enum Difficulty {
         EASY, MEDIUM, HARD;
     };
+
     public abstract Parent build();
 
     public void setStage(SceneLoader b) {
@@ -53,6 +65,73 @@ public abstract class SceneLoader {
 
     public static void startStage() {
         NewGame.getTheStage().setScene(new Scene(new WelcomeScene().build()));
+    }
+
+    protected HBox generateStatsBar() {
+        //Creating stats bar
+
+        HBox statsBar = new HBox();
+
+        Text creditsInfo = new Text("Credits: " + player.getCredits());
+        creditsInfo.setId("statsBar");
+        creditsInfo.setFill(Color.YELLOW);
+
+        Text spacing1 = new Text("|");
+        spacing1.setId("statsBar");
+        spacing1.setFill(Color.YELLOW);
+
+        Text pilotInfo = new Text("Pilot: " + player.getPilotSkill().getValue());
+        pilotInfo.setId("statsBar");
+        pilotInfo.setFill(Color.YELLOW);
+
+        Text fighterInfo = new Text("Fighter: " + player.getFighterSkill().getValue());
+        fighterInfo.setId("statsBar");
+        fighterInfo.setFill(Color.YELLOW);
+
+        Text  merchantInfo = new Text("Merchant: " + player.getMerchantSkill().getValue());
+        merchantInfo.setId("statsBar");
+        merchantInfo.setFill(Color.YELLOW);
+
+        Text engineerInfo = new Text("Engineer: " + player.getEngineerSkill().getValue());
+        engineerInfo.setId("statsBar");
+        engineerInfo.setFill(Color.YELLOW);
+
+        Text spacing2 = new Text("|");
+        spacing2.setId("statsBar");
+        spacing2.setFill(Color.YELLOW);
+
+        Text shipName = new Text("Ship: " + currentShip.getName());
+        shipName.setId("statsBar");
+        shipName.setFill(Color.YELLOW);
+
+        Text shipHealth = new Text("HP: " + currentShip.getHp() + "/" + currentShip.getMaxHp());
+        shipHealth.setId("statsBar");
+        shipHealth.setFill(Color.YELLOW);
+
+        Text shipAttack = new Text("Attack: " + currentShip.getAttack());
+        shipAttack.setId("statsBar");
+        shipAttack.setFill(Color.YELLOW);
+
+        Text shipCapacity = new Text("Capacity: " + currentShip.getItems().size()
+                + "/" + currentShip.getCargo());
+        shipCapacity.setId("statsBar");
+        shipCapacity.setFill(Color.YELLOW);
+
+        Text upgrades = new Text("Upgrades: " + currentShip.getUpgrades().size() + "/"
+                + currentShip.getUpgradeSlots());
+        upgrades.setId("statsBar");
+        upgrades.setFill(Color.YELLOW);
+
+
+
+        statsBar.setSpacing(30);
+        statsBar.setAlignment(Pos.CENTER);
+        statsBar.getChildren()
+                .addAll(creditsInfo, spacing1, pilotInfo,
+                        fighterInfo, merchantInfo, engineerInfo, spacing2, shipName,
+                        shipHealth, shipAttack, shipCapacity, upgrades);
+
+        return statsBar;
     }
 
 

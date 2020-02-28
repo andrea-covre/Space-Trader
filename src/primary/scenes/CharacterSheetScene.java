@@ -55,7 +55,7 @@ public class CharacterSheetScene extends SceneLoader {
         fighter.setFont(Font.font("Comic Sans MS", 40));
         fighter.setFill(Color.YELLOW);
 
-        Text merchant = new Text("Fighter: \t\t" + player.getMerchantSkill());
+        Text merchant = new Text("Merchant: \t\t" + player.getMerchantSkill());
         merchant.setFont(Font.font("Comic Sans MS", 40));
         merchant.setFill(Color.YELLOW);
 
@@ -100,7 +100,7 @@ public class CharacterSheetScene extends SceneLoader {
         } else {
             difficultyText = "Hard";
         }
-        Text difTitle = new Text("Playing On " + difficultyText + " Mode");
+        Text difTitle = new Text("Playing on " + difficultyText + " Mode");
         difTitle.setFont(Font.font("Comic Sans MS", 40));
         difTitle.setFill(Color.YELLOW);
 
