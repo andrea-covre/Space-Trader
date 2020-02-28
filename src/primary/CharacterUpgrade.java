@@ -19,23 +19,72 @@ public class CharacterUpgrade {
     private String description;
     private int price;
     private int skillID;
+    private String skillType;
     private int incAmount;
     private int adjustedPrice;
     private int techLevel;
+    private int sellingPrice;
+    private boolean equipped;
+    public static final double DEPRECIATION = 0.5;
     private Random rand = new Random();
 
     /**
      * Constructor for Character Upgrade class
      */
     public CharacterUpgrade() {
-        int[] probability = new int[]{1,1,1,1,1,1,2,2,2,3};
         String[] var = generateUpgrade();
-        name = "Supreme " + var[0];
-        description = var[1];
+        techLevel = Integer.parseInt(var[4]);
+        int[] probability = new int[]{1,1,1,1,1,1,1,1,1,1};
+        switch (techLevel) {
+            case 1:
+                probability = new int[]{1,1,1,1,1,1,1,1,2,2};
+                break;
+            case 2:
+                probability = new int[]{1,1,1,1,1,1,2,2,2,2};
+                break;
+            case 3:
+                probability = new int[]{1,1,1,1,1,2,2,2,2,3};
+                break;
+            case 4:
+                probability = new int[]{1,1,1,2,2,2,2,2,3,3};
+                break;
+            case 5:
+                probability = new int[]{1,1,2,2,2,2,2,3,3,3};
+                break;
+        }
         incAmount = probability[rand.nextInt(10)];
-        price = Integer.parseInt(var[2]) + (incAmount * 100);
+        String adjective = "Basic ";
+        switch (incAmount) {
+            case 1:
+                adjective = "Basic ";
+                break;
+            case 2:
+                adjective = "Advanced ";
+                break;
+            case 3:
+                adjective = "Supreme ";
+                break;
+        }
+        name = adjective + var[0];
+        description = var[1];
+        price = Integer.parseInt(var[2]) * incAmount * 4;
+        sellingPrice = 0;
+        equipped = false;
         skillID = Integer.parseInt(var[3]);
-        techLevel = 1;
+        switch (skillID) {
+            case 0:
+                skillType = "Pilot";
+                break;
+            case 1:
+                skillType = "Fighter";
+                break;
+            case 2:
+                skillType = "Merchant";
+                break;
+            case 3:
+                skillType = "Engineer";
+                break;
+        }
     }
     /**
      * Generates Character Upgrade from the Character Upgrade text file in the resources file
@@ -99,5 +148,20 @@ public class CharacterUpgrade {
     }
     public void setAdjustedPrice(int adjustedPrice) {
         this.adjustedPrice = adjustedPrice;
+    }
+    public String getSkillType() {
+        return skillType;
+    }
+    public int getSellingPrice() {
+        return sellingPrice;
+    }
+    public void setSellingPrice(int sellingPrice) {
+        this.sellingPrice = sellingPrice;
+    }
+    public boolean isEquipped() {
+        return equipped;
+    }
+    public void setEquipped(boolean equipped) {
+        this.equipped = equipped;
     }
 }

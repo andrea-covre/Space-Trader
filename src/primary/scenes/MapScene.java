@@ -9,10 +9,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import primary.NewGame;
 import primary.Region;
+import primary.Ship;
+
 import java.util.ArrayList;
 
 
 public class MapScene extends SceneBuilder {
+
     /*
      * Base layout
      */
@@ -92,6 +95,10 @@ public class MapScene extends SceneBuilder {
             currentLocation = regions.get(0);
             currentLocation.getRegionMarket().generateMarket(currentLocation);
             regionsGenerated = true;
+
+            //Creating the default ship
+            //Just a random ship
+            currentShip = new Ship("AFO", 5, 3, 50, 10);
         }
 
         /*

@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Random;
 
 /**
@@ -15,10 +14,11 @@ public class Item {
     private String name;
     private String description;
     private int price;
-    private int techLevel = 1;
+    private int techLevel;
     private int adjustedPrice;
-    //TODO: add tech level for items
-    //TODO: need more items at least 10 per tech level
+    private int adjustedSellingPrice;
+    private int finalBuyPrice;
+    private int finalSellPrice;
 
     /**
      * Constructor for Item class
@@ -28,6 +28,7 @@ public class Item {
         name = var[0];
         description = var[1];
         price = Integer.parseInt(var[2]);
+        techLevel = Integer.parseInt(var[3]);
     }
     /**
      * This method generates an Item from the Items text file in the resources file
@@ -81,5 +82,29 @@ public class Item {
 
     public void setAdjustedPrice(int adjustedPrice) {
         this.adjustedPrice = adjustedPrice;
+    }
+
+    public int getAdjustedSellingPrice() {
+        return adjustedSellingPrice;
+    }
+
+    public void setAdjustedSellingPrice(int adjustedSellingPrice) {
+        this.adjustedSellingPrice = adjustedSellingPrice;
+    }
+
+    public int getFinalBuyPrice() {
+        return finalBuyPrice;
+    }
+
+    public int getFinalSellPrice() {
+        return finalSellPrice;
+    }
+
+    public void setFinalBuyPrice(int finalBuyPrice) {
+        this.finalBuyPrice = finalBuyPrice;
+    }
+
+    public void setFinalSellPrice(int finalSellPrice) {
+        this.finalSellPrice = finalSellPrice;
     }
 }

@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 
 
 public class Main extends Application {
+
     /**
      * Graphics resorces
      */
@@ -25,6 +26,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
+
         loadResources();
         launch(args);
     }

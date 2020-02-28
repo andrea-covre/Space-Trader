@@ -3,33 +3,31 @@ package primary.scenes;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import primary.Main;
+import primary.CharacterUpgrade;
+import primary.Item;
 import primary.Market;
-
 import java.util.ArrayList;
+
 
 public class MarketScene extends SceneBuilder {
 
-    private int shipCapacity = 5;
     private ArrayList<Button> buyButtons;
     private ArrayList<Button> sellButtons;
+    private ArrayList<Button> sellUpgradesButtons;
+    private Button backButton = new Button("Back");
 
     @Override
     public Parent build() {
-        return regionScene();
+        return marketScene();
     }
-    private Pane regionScene() {
+    private Pane marketScene() {
         StackPane stackPane = new StackPane();
         BorderPane pane = new BorderPane();
         VBox centerBox = new VBox();
@@ -39,11 +37,15 @@ public class MarketScene extends SceneBuilder {
          */
         VBox titleBox = new VBox();
 
-        Text regionTitle = new Text(currentLocation.getName() + "\n ~ Market ~");
+        Text regionTitle = new Text(currentLocation.getName());
         regionTitle.setId("regionTitle");
         regionTitle.setFill(Color.YELLOW);
 
-        titleBox.getChildren().add(regionTitle);
+        Text marketTitle = new Text("~ Market ~");
+        marketTitle.setId("marketTitle");
+        marketTitle.setFill(Color.YELLOW);
+
+        titleBox.getChildren().addAll(regionTitle, marketTitle);
         titleBox.setAlignment(Pos.CENTER);
         pane.setTop(titleBox);
         BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
@@ -61,7 +63,9 @@ public class MarketScene extends SceneBuilder {
         shipCargoTitle.setId("shipCargoTitle");
         shipCargoTitle.setFill(Color.YELLOW);
 
-
+        Text shipUpgradeTitle = new Text("\n--- Upgrades ---\n");
+        shipUpgradeTitle.setId("shipUpgradeTitle");
+        shipUpgradeTitle.setFill(Color.YELLOW);
 
         //Tile Panes with market items
 
@@ -77,16 +81,22 @@ public class MarketScene extends SceneBuilder {
             itemTitle.setId("itemTitle");
             itemTitle.setFill(Color.YELLOW);
 
-            Text itemDescription = new Text(localMarket.getItemsOffering().get(i).getDescription());
+            Text itemDescription = new Text(localMarket.getItemsOffering().get(i).getDescription() + " (Tech: "
+                    + localMarket.getItemsOffering().get(i).getTechLevel() + ")");
             itemDescription.setId("itemDescription");
             itemDescription.setFill(Color.YELLOW);
 
             int itemFinalPrice = (int)
-                    ( (double) localMarket.getItemsOffering().get(i).getAdjustedPrice()
-                    * (1.00 - 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue()));
+                    ((double) localMarket.getItemsOffering().get(i).getAdjustedPrice()
+                            * (1.00 - 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue()));
+
+            localMarket.getItemsOffering().get(i).setFinalBuyPrice(itemFinalPrice);
+            localMarket.getItemsOffering().get(i).setFinalSellPrice((int) (itemFinalPrice
+                    * primary.Market.getMarketDepreciation()));
+
 
             buyButtons.add(new Button("Buy for " + itemFinalPrice + " (-"
-                    + Market.getDiscountMerchantLevel() * merchantSkill.getValue() +"%)"));
+                    + Market.getDiscountMerchantLevel() * merchantSkill.getValue() + "%)"));
 
             buyButtons.get(i).setId("itemBuyButt");
 
@@ -114,38 +124,28 @@ public class MarketScene extends SceneBuilder {
 
         VBox specialVBox = new VBox();
 
-        Text specialItemTitle = new Text(localMarket.getSpecialItem().getName());
+        CharacterUpgrade specialItem = localMarket.getSpecialItem();
+
+        Text specialItemTitle = new Text(specialItem.getName());
         specialItemTitle.setId("specialItemTitle");
         specialItemTitle.setFill(Color.YELLOW);
 
-        String specialItemSkill = "";
-        switch (localMarket.getSpecialItem().getSkillID()) {
-            case 0:
-                specialItemSkill = "Pilot";
-                break;
-            case 1:
-                specialItemSkill = "Fighter";
-                break;
-            case 2:
-                specialItemSkill = "Merchant";
-                break;
-            case 3:
-                specialItemSkill = "Engineer";
-                break;
-        }
-        Text itemDescription = new Text(localMarket.getSpecialItem().getDescription()
-                + " - Bonus: " + localMarket.getSpecialItem().getIncAmount() + " - Type: " + specialItemSkill);
+        Text itemDescription = new Text(specialItem.getDescription()
+                + " (Tech: " + specialItem.getTechLevel() + " | " + specialItem.getSkillType()
+                + " +" + specialItem.getIncAmount() + ")");
         itemDescription.setId("specialItemDescription");
         itemDescription.setFill(Color.YELLOW);
 
         int specialItemFinalPrice = (int)
-                ( (double) localMarket.getSpecialItem().getAdjustedPrice()
-                        * (1.00 - 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue()));
+                ((1.00 - 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue())
+                        * specialItem.getPrice());
+        specialItem.setAdjustedPrice(specialItemFinalPrice);
+        specialItem.setSellingPrice((int) (specialItemFinalPrice * CharacterUpgrade.DEPRECIATION));
 
         Button specialItemBuyButton = new Button("Buy for " + specialItemFinalPrice + " (-"
-                + Market.getDiscountMerchantLevel() * merchantSkill.getValue() +"%)");
+                + Market.getDiscountMerchantLevel() * merchantSkill.getValue() + "%)");
         specialItemBuyButton.setId("specialItemBuyButt");
-        if (credits >= specialItemFinalPrice) {
+        if (credits >= specialItemFinalPrice && !specialItem.isEquipped()) {
             specialItemBuyButton.setStyle("-fx-background-color: rgba(0, 156, 0)");
         } else {
             specialItemBuyButton.setStyle("-fx-background-color: rgba(255, 0, 0)");
@@ -163,52 +163,118 @@ public class MarketScene extends SceneBuilder {
 
 
         //TilePane with ship slots
-        //Tile Panes with market items
 
-//        TilePane shipSlots = new TilePane();
-//
-//        sellButtons = new ArrayList<>();
-//
-//        for (int i = 0; i < localMarket.getItemsPerMarket(); i++) {
-//            VBox itemVBox = new VBox();
-//
-//            Text itemTitle = new Text(localMarket.getItemsOffering().get(i).getName());
-//            itemTitle.setId("itemTitle");
-//            itemTitle.setFill(Color.YELLOW);
-//
-//            Text itemDescription = new Text(localMarket.getItemsOffering().get(i).getDescription());
-//            itemDescription.setId("itemDescription");
-//            itemDescription.setFill(Color.YELLOW);
-//
-//            int itemFinalPrice = (int)
-//                    ( (double) localMarket.getItemsOffering().get(i).getAdjustedPrice()
-//                            * (1.00 - 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue()));
-//
-//            buyButtons.add(new Button("Buy for " + itemFinalPrice + " (-"
-//                    + Market.getDiscountMerchantLevel() * merchantSkill.getValue() +"%)"));
-//
-//            buyButtons.get(i).setId("itemBuyButt");
-//
-//            if (credits >= itemFinalPrice) {
-//                buyButtons.get(i).setStyle("-fx-background-color: rgba(0, 156, 0)");
-//            } else {
-//                buyButtons.get(i).setStyle("-fx-background-color: rgba(255, 0, 0)");
-//            }
-//
-//            itemVBox.getChildren().addAll(itemTitle, itemDescription, buyButtons.get(i));
-//            itemVBox.setAlignment(Pos.CENTER);
-//            itemVBox.setId("itemVBox");
-//
-//            marketItems.getChildren().add(itemVBox);
-//        }
-//
-//        marketItems.setAlignment(Pos.CENTER);
-//        marketItems.setHgap(10);
-//        marketItems.setVgap(10);
+        TilePane shipSlots = new TilePane();
 
+        sellButtons = new ArrayList<>();
+
+        for (int i = 0; i < currentShip.getCargo(); i++) {
+            VBox itemVBox = new VBox();
+
+            if (i < currentShip.getItems().size()) {
+
+                Item currentCargoItem = currentShip.getItems().get(i);
+                Text cargoItemTitle = new Text(currentCargoItem.getName());
+                cargoItemTitle.setId("itemTitle");
+                cargoItemTitle.setFill(Color.YELLOW);
+
+                int itemFinalPrice = (int)
+                        ((double) currentCargoItem.getAdjustedPrice()
+                                * (1.00 + 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue()));
+
+                sellButtons.add(new Button("Sell for " + currentCargoItem.getFinalSellPrice()));
+
+                sellButtons.get(i).setId("itemBuyButt");
+
+                sellButtons.get(i).setStyle("-fx-background-color: rgb(255,180,34)");
+
+
+                itemVBox.getChildren().addAll(cargoItemTitle, sellButtons.get(i));
+                itemVBox.setAlignment(Pos.CENTER);
+                itemVBox.setId("itemVBox");
+
+            } else {
+
+                Text cargoItemTitle = new Text("Empty Slot\n#" + (i + 1));
+                cargoItemTitle.setId("itemTitle");
+                cargoItemTitle.setFill(Color.YELLOW);
+
+
+                itemVBox.getChildren().addAll(cargoItemTitle);
+                itemVBox.setAlignment(Pos.CENTER);
+                itemVBox.setId("itemVBox");
+
+            }
+            shipSlots.getChildren().add(itemVBox);
+        }
+
+        shipSlots.setAlignment(Pos.CENTER);
+        shipSlots.setHgap(10);
+        shipSlots.setVgap(10);
+
+
+        //TilePane with upgrades slots
+
+        TilePane upgradeSlots = new TilePane();
+        sellUpgradesButtons = new ArrayList<>();
+
+        for (int i = 0; i < currentShip.getUpgradeSlots(); i++) {
+            VBox itemUpgradesVBox = new VBox();
+
+            if (i < currentShip.getUpgrades().size()) {
+
+                CharacterUpgrade currentUpgradeItem = currentShip.getUpgrades().get(i);
+                Text upgradeItemTitle = new Text(currentUpgradeItem.getName());
+                upgradeItemTitle.setId("itemTitle");
+                upgradeItemTitle.setFill(Color.YELLOW);
+
+                Text currentUpgradeItemDescription = new Text("(Tech: " + specialItem.getTechLevel() + " | "
+                        + specialItem.getSkillType() + " +" + specialItem.getIncAmount() + ")");
+                currentUpgradeItemDescription.setId("currentUpgradeItemDescription");
+                currentUpgradeItemDescription.setFill(Color.YELLOW);
+
+                int itemFinalPrice = (int)
+                        ((double) currentUpgradeItem.getAdjustedPrice()
+                                * (1.00 + 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue()));
+
+                sellUpgradesButtons.add(new Button("Sell for " + currentUpgradeItem.getSellingPrice()));
+                sellUpgradesButtons.get(i).setId("itemBuyButt");
+                sellUpgradesButtons.get(i).setStyle("-fx-background-color: rgb(255,180,34)");
+
+
+                itemUpgradesVBox.getChildren().addAll(upgradeItemTitle, currentUpgradeItemDescription,
+                        sellUpgradesButtons.get(i));
+                itemUpgradesVBox.setAlignment(Pos.CENTER);
+                itemUpgradesVBox.setId("itemVBox");
+
+            } else {
+
+                Text upgradeItemTitle = new Text("Empty Upgrade Slot\n#" + (i + 1));
+                upgradeItemTitle.setId("itemTitle");
+                upgradeItemTitle.setFill(Color.YELLOW);
+
+
+                itemUpgradesVBox.getChildren().addAll(upgradeItemTitle);
+                itemUpgradesVBox.setAlignment(Pos.CENTER);
+                itemUpgradesVBox.setId("itemVBox");
+
+            }
+            upgradeSlots.getChildren().add(itemUpgradesVBox);
+        }
+
+        upgradeSlots.setAlignment(Pos.CENTER);
+        upgradeSlots.setHgap(10);
+        upgradeSlots.setVgap(10);
+
+
+        //Back Button layout
+        backButton.setId("backButton");
+        backButton.setTextFill(Color.YELLOW);
+        Text dummyText = new Text(" ");
 
         centerBox.setAlignment(Pos.CENTER);
-        centerBox.getChildren().addAll(itemsForSaleTitle, marketItems, specialItemsTitle, specialItems, shipCargoTitle);
+        centerBox.getChildren().addAll(itemsForSaleTitle, marketItems, specialItemsTitle, specialItems, shipCargoTitle,
+                shipSlots, shipUpgradeTitle, upgradeSlots, dummyText, backButton);
 
         pane.setCenter(centerBox);
         pane.setBottom(generateStatsBar());
@@ -216,21 +282,127 @@ public class MarketScene extends SceneBuilder {
 
         stackPane.getChildren().addAll(MAP_BACKGROUND, pane);
 
-//        regionBackButton.setOnAction(e -> {
-//            try {
-//                setStage(new MapScene());
-//            } catch (Throwable f) {
-//                f.printStackTrace();
-//            }
-//        });
-//
-//        enterMarket.setOnAction(e -> {
-//            try {
-//                setStage(new MapScene());
-//            } catch (Throwable f) {
-//                f.printStackTrace();
-//            }
-//        });
+        /*
+         * Button Managment
+         */
+
+        //Buy Buttons
+        for (int i = 0; i < localMarket.getItemsPerMarket(); i++) {
+            int finalI = i;
+
+            buyButtons.get(i).setOnAction(e -> {
+                try {
+                    int itemFinalPrice = (int)
+                            ((double) localMarket.getItemsOffering().get(finalI).getAdjustedPrice()
+                                    * (1.00 - 0.01 * Market.getDiscountMerchantLevel() * merchantSkill.getValue()));
+                    if (credits >= itemFinalPrice && currentShip.getCargo() > currentShip.getItems().size()) {
+                        currentShip.addItem(localMarket.getItemsOffering().get(finalI));
+                        credits = credits - itemFinalPrice;
+                    }
+                    setStage(new MarketScene());
+                } catch (Throwable f) {
+                    f.printStackTrace();
+                }
+            });
+        }
+
+        //Sell Buttons
+        for (int i = 0; i < currentShip.getItems().size(); i++) {
+            int finalI = i;
+
+            sellButtons.get(i).setOnAction(e -> {
+                try {
+                    credits = credits + currentShip.getItems().get(finalI).getFinalSellPrice();
+                    currentShip.getItems().remove(currentShip.getItems().get(finalI));
+                    setStage(new MarketScene());
+                } catch (Throwable f) {
+                    f.printStackTrace();
+                }
+            });
+        }
+
+
+        //Special item buy button
+        specialItemBuyButton.setOnAction(e -> {
+            try {
+                int itemFinalPrice = localMarket.getSpecialItem().getAdjustedPrice();
+                if (credits >= itemFinalPrice && currentShip.getUpgradeSlots() > currentShip.getUpgrades().size()
+                        && !localMarket.getSpecialItem().isEquipped()) {
+                    currentShip.getUpgrades().add(localMarket.getSpecialItem());
+                    localMarket.getSpecialItem().setEquipped(true);
+                    switch (localMarket.getSpecialItem().getSkillID()) {
+                        case 0:
+                            pilotSkill.setValue(pilotSkill.getValue()
+                                    + localMarket.getSpecialItem().getIncAmount());
+                            break;
+                        case 1:
+                            fighterSkill.setValue(fighterSkill.getValue()
+                                    + localMarket.getSpecialItem().getIncAmount());
+                            break;
+                        case 2:
+                            merchantSkill.setValue(merchantSkill.getValue()
+                                    + localMarket.getSpecialItem().getIncAmount());
+                            break;
+                        case 3:
+                            engineerSkill.setValue(engineerSkill.getValue()
+                                    + localMarket.getSpecialItem().getIncAmount());
+                            break;
+                        default:
+                            break;
+                    }
+                    credits = credits - itemFinalPrice;
+                }
+                setStage(new MarketScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+
+
+        //Special items sell button
+        for (int i = 0; i < currentShip.getUpgrades().size(); i++) {
+            int finalI = i;
+
+            sellUpgradesButtons.get(i).setOnAction(e -> {
+                try {
+                    credits = credits + currentShip.getUpgrades().get(finalI).getSellingPrice();
+                    currentShip.getUpgrades().get(finalI).setEquipped(false);
+                    switch (currentShip.getUpgrades().get(finalI).getSkillID()) {
+                        case 0:
+                            pilotSkill.setValue(pilotSkill.getValue()
+                                    - currentShip.getUpgrades().get(finalI).getIncAmount());
+                            break;
+                        case 1:
+                            fighterSkill.setValue(fighterSkill.getValue()
+                                    - currentShip.getUpgrades().get(finalI).getIncAmount());
+                            break;
+                        case 2:
+                            merchantSkill.setValue(merchantSkill.getValue()
+                                    - currentShip.getUpgrades().get(finalI).getIncAmount());
+                            break;
+                        case 3:
+                            engineerSkill.setValue(engineerSkill.getValue()
+                                    - currentShip.getUpgrades().get(finalI).getIncAmount());
+                            break;
+                        default:
+                            break;
+                    }
+                    currentShip.getUpgrades().remove(currentShip.getUpgrades().get(finalI));
+                    setStage(new MarketScene());
+                } catch (Throwable f) {
+                    f.printStackTrace();
+                }
+            });
+        }
+
+        //Back Button
+        backButton.setOnAction(e -> {
+            try {
+                setStage(new RegionScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
 
         pane.getStylesheets().add("css/Styles.css");
         return stackPane;

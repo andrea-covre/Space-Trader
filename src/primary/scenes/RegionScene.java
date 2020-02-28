@@ -108,9 +108,6 @@ public class RegionScene extends SceneBuilder {
 
         stackPane.getChildren().addAll(MAP_BACKGROUND, pane);
 
-
-
-
         regionBackButton.setOnAction(e -> {
             try {
                 setStage(new MapScene());
