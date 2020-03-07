@@ -11,6 +11,7 @@ import primary.NewGame;
 import primary.Region;
 import primary.Ship;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 
@@ -351,7 +352,17 @@ public class MapScene extends SceneLoader {
         mapLayout.getChildren().addAll(infoPane);
 
         pane.setCenter(mapLayout);
-        pane.setBottom(generateStatsBar());
+        Pane p = generateStatsBar();
+        p.getChildren().add(viewShip);
+        viewShip.setOnAction(e -> {
+            try {
+                setStage(new ShipScene());
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        pane.setBottom(p);
         BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
         BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
         title.setId("mapTitle");

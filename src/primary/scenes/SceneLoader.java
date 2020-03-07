@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.awt.*;
 import java.util.List;
 
 public abstract class SceneLoader {
@@ -71,6 +72,7 @@ public abstract class SceneLoader {
         //Creating stats bar
 
         HBox statsBar = new HBox();
+
 
         Text creditsInfo = new Text("Credits: " + player.getCredits());
         creditsInfo.setId("statsBar");
