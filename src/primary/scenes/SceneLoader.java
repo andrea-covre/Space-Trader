@@ -54,8 +54,8 @@ public abstract class SceneLoader {
 
 
     protected enum Difficulty {
-        EASY, MEDIUM, HARD;
-    };
+        EASY, MEDIUM, HARD
+    }
 
     public abstract Parent build();
 
@@ -117,10 +117,10 @@ public abstract class SceneLoader {
         shipCapacity.setId("statsBar");
         shipCapacity.setFill(Color.YELLOW);
 
-        Text upgrades = new Text("Upgrades: " + currentShip.getUpgrades().size() + "/"
+        Text shipUpgrades = new Text("Upgrades: " + currentShip.getUpgrades().size() + "/"
                 + currentShip.getUpgradeSlots());
-        upgrades.setId("statsBar");
-        upgrades.setFill(Color.YELLOW);
+        shipUpgrades.setId("statsBar");
+        shipUpgrades.setFill(Color.YELLOW);
 
 
 
@@ -129,7 +129,7 @@ public abstract class SceneLoader {
         statsBar.getChildren()
                 .addAll(creditsInfo, spacing1, pilotInfo,
                         fighterInfo, merchantInfo, engineerInfo, spacing2, shipName,
-                        shipHealth, shipAttack, shipCapacity, upgrades);
+                        shipHealth, shipAttack, shipCapacity, shipUpgrades);
 
         return statsBar;
     }
