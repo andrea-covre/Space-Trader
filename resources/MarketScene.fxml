@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -34,24 +36,62 @@
                         <Font name="Comic Sans MS" size="16.0" />
                      </font>
                   </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
                   <Text fx:id="specialItemsTitle" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Special Items ---">
                      <font>
                         <Font name="Comic Sans MS" size="16.0" />
                      </font>
                   </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
                   <Text fx:id="shipCargoTitle" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Ship's Cargo ---">
                      <font>
                         <Font name="Comic Sans MS" size="16.0" />
                      </font>
                   </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
                   <Text fx:id="shipUpgradeTitle" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="--- Upgrades ---">
                      <font>
                         <Font name="Comic Sans MS" size="16.0" />
                      </font>
                   </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
                </children>
             </VBox>
          </center>
+         <bottom>
+            <HBox alignment="CENTER" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" spacing="30.0" stylesheets="@../src/css/Styles.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Text id="statsBar" fx:id="creditsInfo" strokeType="OUTSIDE" strokeWidth="0.0" />
+                  <Text id="statsBar" strokeType="OUTSIDE" strokeWidth="0.0" text="|" />
+                  <Text id="statsBar" fx:id="pilotInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Pilot" />
+                  <Text id="statsBar" fx:id="fighterInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="fighter" />
+                  <Text id="statsBar" fx:id="merchantInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="merchant" />
+                  <Text id="statsBar" fx:id="engineerInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Engineer" />
+                  <Text id="statsBar" strokeType="OUTSIDE" strokeWidth="0.0" text="|" />
+                  <Text id="statsBar" fx:id="shipName" strokeType="OUTSIDE" strokeWidth="0.0" text="Ship:" />
+                  <Text id="statsBar" fx:id="shipHealth" strokeType="OUTSIDE" strokeWidth="0.0" text="shipHealth" />
+                  <Text id="statsBar" fx:id="shipAttack" strokeType="OUTSIDE" strokeWidth="0.0" text="shipattack" />
+                  <Text id="statsBar" fx:id="shipCapacity" strokeType="OUTSIDE" strokeWidth="0.0" text="shipcapacity" />
+                  <Text id="statsBar" fx:id="shipUpgrades" strokeType="OUTSIDE" strokeWidth="0.0" text="shipUpgrades" />
+               </children>
+            </HBox>
+         </bottom>
       </BorderPane>
    </children>
 </StackPane>
