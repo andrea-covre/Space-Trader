@@ -16,7 +16,7 @@ import java.net.MalformedURLException;
 public class ShipScene extends SceneLoader {
 
     private BackgroundImage back = new BackgroundImage(
-            new Image(new File("resources/ShipBackground.jpg").toURI().toURL().toString()),
+            new Image(new File("resources/map_Scene.jpg").toURI().toURL().toString()),
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
             BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     @FXML
@@ -61,6 +61,10 @@ public class ShipScene extends SceneLoader {
 
     @FXML
     public void handleBackClick(MouseEvent mouseEvent) {
-        setStage(new MapScene());
+        try {
+            setStage(new MapScene());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 }

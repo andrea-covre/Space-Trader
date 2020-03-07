@@ -90,7 +90,12 @@ public class MarketScene extends SceneLoader {
                 backButton);
 
         pane.setCenter(centerBox);
-        pane.setBottom(generateStatsBar());
+
+//        pane.setBottom(generateStatsBar());
+        /**
+         * @// TODO: 3/7/2020 deal with this  
+         */
+
         BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
 
         stackPane.getChildren().addAll(MAP_BACKGROUND, pane);
