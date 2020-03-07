@@ -8,7 +8,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <StackPane fx:id="stackpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" stylesheets="@../src/css/Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.MapScene">
    <children>
       <BorderPane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" stylesheets="@../src/css/Styles.css">
@@ -21,7 +20,7 @@
                   <Font name="Comic Sans MS" size="70.0" />
                </font>
                <BorderPane.margin>
-                  <Insets top="10.0" />
+                  <Insets top="50.0" />
                </BorderPane.margin>
             </Text>
          </top>
@@ -43,6 +42,9 @@
                </children>
             </HBox>
          </bottom>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
       </BorderPane>
    </children>
 </StackPane>

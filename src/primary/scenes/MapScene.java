@@ -37,6 +37,26 @@ public class MapScene extends SceneLoader {
             new Image(new File("resources/map_background.jpg").toURI().toURL().toString()),
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
             BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+    @FXML
+    public void initialize() {
+        stackpane.setBackground(new Background(back));
+        map();
+        generateStatsBar();
+    }
+
+    @Override
+    public Parent build() {
+        FXMLLoader p =  new FXMLLoader();
+        p.setController(this);
+        try {
+            return p.load(new File("resources/MapScene.fxml").toURI().toURL());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /*
      * Base layout
      */
@@ -78,12 +98,7 @@ public class MapScene extends SceneLoader {
     private static int yScaling = 2000;
     private static int xScaling = 2500;
 
-    @FXML
-    public void initialize() {
-        stackpane.setBackground(new Background(back));
-        map();
-        generateStatsBar();
-    }
+
 
     public MapScene() throws MalformedURLException {
 
@@ -141,17 +156,7 @@ public class MapScene extends SceneLoader {
 
 
 
-    @Override
-    public Parent build() {
-        FXMLLoader p =  new FXMLLoader();
-        p.setController(this);
-        try {
-            return p.load(new File("resources/MapScene.fxml").toURI().toURL());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     private void generateRegions() {
         for (int x = 0; x < regions.size(); x++) {
