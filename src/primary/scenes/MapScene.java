@@ -50,7 +50,7 @@ public class MapScene extends SceneLoader {
         FXMLLoader p =  new FXMLLoader();
         p.setController(this);
         try {
-            return p.load(new File("resources/MapScene.fxml").toURI().toURL());
+            return FXMLLoader.load(new File("resources/MapScene.fxml").toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -347,6 +347,8 @@ public class MapScene extends SceneLoader {
         });
 
     }
+
+
     protected void generateStatsBar() {
         //Creating stats bar
 

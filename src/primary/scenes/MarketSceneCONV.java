@@ -21,6 +21,16 @@ import java.net.MalformedURLException;
 
 public class MarketSceneCONV extends SceneLoader {
 
+    public Text creditsInfo;
+    public Text pilotInfo;
+    public Text engineerInfo;
+    public Text merchantInfo;
+    public Text fighterInfo;
+    public Text shipName;
+    public Text shipHealth;
+    public Text shipAttack;
+    public Text shipUpgrades;
+    public Text shipCapacity;
 
     public Text regionTitle1;
     public Text regionTitle;
@@ -420,6 +430,34 @@ public class MarketSceneCONV extends SceneLoader {
         marketItems.setAlignment(Pos.CENTER);
         marketItems.setHgap(10);
         marketItems.setVgap(10);
+    }
+
+
+    protected void generateStatsBar() {
+        //Creating stats bar
+
+        creditsInfo.setText("Credits: " + player.getCredits());
+
+        pilotInfo.setText("Pilot: " + player.getPilotSkill().getValue());
+
+        fighterInfo.setText("Fighter: " + player.getFighterSkill().getValue());
+
+        merchantInfo.setText("Merchant: " + player.getMerchantSkill().getValue());
+
+        engineerInfo.setText("Engineer: " + player.getEngineerSkill().getValue());
+
+        shipName.setText("Ship: " + currentShip.getName());
+
+        shipHealth.setText("HP: " + currentShip.getHp() + "/" + currentShip.getMaxHp());
+
+        shipAttack.setText("Attack: " + currentShip.getAttack());
+
+        shipCapacity.setText("Capacity: " + currentShip.getItems().size()
+                + "/" + currentShip.getCargo());
+        shipUpgrades.setText("Upgrades: " + currentShip.getUpgrades().size() + "/"
+                + currentShip.getUpgradeSlots());
+
+
     }
 
 

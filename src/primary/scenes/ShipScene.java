@@ -12,7 +12,7 @@ import primary.Ship;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-
+//public class ShipScene extends SceneLoader
 public class ShipScene extends SceneLoader {
 
     private BackgroundImage back = new BackgroundImage(
@@ -52,7 +52,7 @@ public class ShipScene extends SceneLoader {
         FXMLLoader p =  new FXMLLoader();
         p.setController(this);
         try {
-            return p.load(new File("resources/ShipScene.fxml").toURI().toURL());
+            return FXMLLoader.load(new File("resources/ShipScene.fxml").toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -55,8 +55,8 @@ public abstract class SceneLoader {
 
 
     protected enum Difficulty {
-        EASY, MEDIUM, HARD;
-    };
+        EASY, MEDIUM, HARD
+    }
 
     public abstract Parent build();
 
