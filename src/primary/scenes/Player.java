@@ -27,7 +27,7 @@ public class Player {
         credits = c;
         skillPoints = new AtomicInteger(s);
         playerShip = new Ship("basic bitch", 50,
-                10, new FileInputStream("resources/defaultShip.png"));
+                10, new FileInputStream("src/resources/images/defaultShip.png"));
     }
 
     public String getPlayerName() {

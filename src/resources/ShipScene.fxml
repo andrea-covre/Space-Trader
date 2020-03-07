@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<StackPane fx:id="mainPane" prefHeight="584.0" prefWidth="1000.0" stylesheets="@../src/css/Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.ShipScene">
+<StackPane fx:id="mainPane" prefHeight="584.0" prefWidth="1000.0" stylesheets="@../../src/css/Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.ShipScene">
    <children>
-      <BorderPane id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../src/css/Styles.css">
+      <BorderPane id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../src/css/Styles.css">
          <top>
-            <SplitPane id="clear" dividerPositions="0.5" maxHeight="45.0" prefHeight="45.0" prefWidth="600.0" stylesheets="@../src/css/Styles.css" BorderPane.alignment="CENTER">
+            <SplitPane id="clear" dividerPositions="0.5" maxHeight="45.0" prefHeight="45.0" prefWidth="600.0" stylesheets="@../../src/css/Styles.css" BorderPane.alignment="CENTER">
                <items>
-                  <Button id="clear" fx:id="BackButton" mnemonicParsing="false" onMouseClicked="#handleBackClick" prefHeight="49.0" prefWidth="123.0" style="-fx-text-fill: YELLOW;" stylesheets="@../src/css/Styles.css" text="Back" textOverrun="WORD_ELLIPSIS">
+                  <Button id="clear" fx:id="BackButton" mnemonicParsing="false" onMouseClicked="#handleBackClick" prefHeight="49.0" prefWidth="123.0" style="-fx-text-fill: YELLOW;" stylesheets="@../../src/css/Styles.css" text="Back" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="Comic Sans MS Bold" size="23.0" />
                      </font>
@@ -39,24 +39,24 @@
             </SplitPane>
          </top>
          <center>
-            <SplitPane id="clear" dividerPositions="0.65" prefHeight="160.0" prefWidth="200.0" stylesheets="@../src/css/Styles.css" BorderPane.alignment="CENTER">
+            <SplitPane id="clear" dividerPositions="0.65" prefHeight="160.0" prefWidth="200.0" stylesheets="@../../src/css/Styles.css" BorderPane.alignment="CENTER">
               <items>
                   <StackPane>
                      <children>
-                        <StackPane id="clear" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../src/css/Styles.css">
+                        <StackPane id="clear" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../../src/css/Styles.css">
                            <children>
                               <ImageView id="clear" fitHeight="250.0" fitWidth="250.0" scaleX="1.5" scaleY="1.5">
                                  <image>
-                                    <Image url="@defaultShip.png" />
+                                    <Image url="@images/defaultShip.png" />
                                  </image>
                               </ImageView>
                            </children>
                         </StackPane>
                      </children>
                   </StackPane>
-                  <StackPane id="clear" stylesheets="@../src/css/Styles.css">
+                  <StackPane id="clear" stylesheets="@../../src/css/Styles.css">
                      <children>
-                        <SplitPane id="clear" dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" stylesheets="@../src/css/Styles.css">
+                        <SplitPane id="clear" dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" stylesheets="@../../src/css/Styles.css">
                           <items>
                               <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="280.0">
                                  <top>
@@ -90,12 +90,12 @@
                                     <Insets right="25.0" />
                                  </padding>
                               </BorderPane>
-                              <BorderPane id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="280.0" stylesheets="@../src/css/Styles.css">
+                              <BorderPane id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="280.0" stylesheets="@../../src/css/Styles.css">
                                  <center>
                                     <FlowPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="231.0" prefWidth="284.0" style="-fx-border-color: #4a86ff;" />
                                  </center>
                                  <top>
-                                    <StackPane id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="31.0" prefWidth="234.0" stylesheets="@../src/css/Styles.css" BorderPane.alignment="CENTER">
+                                    <StackPane id="clear" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="31.0" prefWidth="234.0" stylesheets="@../../src/css/Styles.css" BorderPane.alignment="CENTER">
                                        <children>
                                           <Text fill="#4a86ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargo">
                                              <font>

@@ -34,14 +34,14 @@ public class MapScene extends SceneLoader {
     public Text shipCapacity;
 
     private BackgroundImage back = new BackgroundImage(
-            new Image(new File("resources/map_background.jpg").toURI().toURL().toString()),
+            new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
             BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
     @FXML
     public void initialize() {
-        stackpane.setBackground(new Background(back));
         map();
+        stackpane.setBackground(new Background(back));
         generateStatsBar();
     }
 
@@ -50,7 +50,7 @@ public class MapScene extends SceneLoader {
         FXMLLoader p =  new FXMLLoader();
         p.setController(this);
         try {
-            return p.load(new File("resources/MapScene.fxml").toURI().toURL());
+            return p.load(new File("src/resources/MapScene.fxml").toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }

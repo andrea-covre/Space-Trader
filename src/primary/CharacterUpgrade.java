@@ -98,7 +98,7 @@ public class CharacterUpgrade {
         String a;
 
         try {
-            File items = new File("resources/CharacterUpgrade.txt");
+            File items = new File("src/resources/CharacterUpgrade.txt");
             upgradeSC = new BufferedReader(new FileReader(items));
         } catch (FileNotFoundException e) {
             System.out.println("Character Upgrades "

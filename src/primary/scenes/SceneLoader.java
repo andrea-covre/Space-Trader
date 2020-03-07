@@ -1,16 +1,11 @@
 package primary.scenes;
 
-import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import primary.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.awt.*;
 import java.util.List;
 
 public abstract class SceneLoader {
@@ -46,8 +41,10 @@ public abstract class SceneLoader {
     /**
      * Graphics
      */
+
     protected static final ImageView BACKGROUND = new ImageView(
             new Image(Main.getBackGround(), 960, 1280, false, false));
+
 
     protected static final ImageView MAP_BACKGROUND = new ImageView(
             new Image(Main.getMapBackGround(), 960, 1280, false, false));

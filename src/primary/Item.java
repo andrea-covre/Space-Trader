@@ -42,7 +42,7 @@ public class Item {
         String a;
 
         try {
-            File items = new File("resources/Items.txt");
+            File items = new File("src/resources/Items.txt");
             itemsSC = new BufferedReader(new FileReader(items));
         } catch (FileNotFoundException e) {
             System.out.println("Items "

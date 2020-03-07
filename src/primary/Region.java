@@ -49,10 +49,10 @@ public class Region {
         Scanner regionNameSC = null;
         Scanner classNameSC = null;
         try {
-            File regionName = new File("resources/RegionNames.txt");
+            File regionName = new File("src/resources/RegionNames.txt");
             regionNameSC = new Scanner(regionName);
 
-            File className = new File("resources/RegionClassName.txt");
+            File className = new File("src/resources/RegionClassName.txt");
             classNameSC = new Scanner(className);
         } catch (FileNotFoundException e) {
             System.out.println("primary.Region's names "

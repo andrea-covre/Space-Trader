@@ -33,16 +33,16 @@ public class Main extends Application {
 
     /**
      * Loads all the graphics needed for the primary.NewGame class
-     * @throws FileNotFoundException if one of the images is not found
+     * @throws FileNotFoundException if one of the resources.images is not found
      */
     public static void loadResources() throws FileNotFoundException {
-        backGround = new FileInputStream("resources/menu_background.jpg");
+        backGround =  new FileInputStream("src/resources/images/menu_background.jpg");
 
         backgroundMusic = new AudioClip(
-                Paths.get("resources/default_music.mp3").toUri().toString());
-        mapBackGround = new FileInputStream("resources/map_background.jpg");
-        marketPlaceIcon = new FileInputStream("resources/MarketPlace_Icon.png");
-        mapIcon = new FileInputStream("resources/Map_Icon.png");
+                Paths.get("src/resources/default_music.mp3").toUri().toString());
+        mapBackGround = new FileInputStream("src/resources/images/map_background.jpg");
+        marketPlaceIcon = new FileInputStream("src/resources/images/MarketPlace_Icon.png");
+        mapIcon = new FileInputStream("src/resources/images/Map_Icon.png");
     }
 
     public static AudioClip getBackgroundMusic() {

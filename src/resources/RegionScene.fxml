@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Text?>
 
 
-<StackPane fx:id="stackPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../src/css/Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.RegionScene">
+<StackPane fx:id="stackPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../src/css/Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.RegionScene">
    <children>
-      <BorderPane fx:id="pane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../src/css/Styles.css">
+      <BorderPane fx:id="pane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../src/css/Styles.css">
          <top>
-            <VBox fx:id="titleBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../src/css/Styles.css" BorderPane.alignment="CENTER">
+            <VBox fx:id="titleBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../src/css/Styles.css" BorderPane.alignment="CENTER">
                <children>
                   <Text id="regionTitle" fx:id="regionTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="region title" textAlignment="CENTER" />
                   <Text id="regionInfo" fx:id="regionInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="region info " textAlignment="CENTER" />
@@ -22,15 +22,15 @@
             </VBox>
          </top>
          <center>
-            <TilePane fx:id="optionsPane" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" stylesheets="@../src/css/Styles.css" BorderPane.alignment="CENTER">
+            <TilePane fx:id="optionsPane" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../src/css/Styles.css" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="marketIconVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../src/css/Styles.css">
+                  <VBox fx:id="marketIconVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../src/css/Styles.css">
                      <children>
-                        <StackPane fx:id="marketIconStack" prefHeight="150.0" prefWidth="200.0" stylesheets="@../src/css/Styles.css">
+                        <StackPane fx:id="marketIconStack" prefHeight="150.0" prefWidth="200.0" stylesheets="@../../src/css/Styles.css">
                            <children>
                               <ImageView fx:id="marketPlaceImage" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@MarketPlace_Icon.png" />
+                                    <Image url="@images/MarketPlace_Icon.png" />
                                  </image>
                               </ImageView>
                               <Button id="marketIconButton" fx:id="enterMarket" mnemonicParsing="false" text="enterMarket" />
@@ -39,13 +39,13 @@
                         <Text id="iconText" strokeType="OUTSIDE" strokeWidth="0.0" text="Market Place" />
                      </children>
                   </VBox>
-                  <VBox fx:id="mapIconVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../src/css/Styles.css">
+                  <VBox fx:id="mapIconVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../src/css/Styles.css">
                      <children>
-                        <StackPane fx:id="mapIconStack" prefHeight="150.0" prefWidth="200.0" stylesheets="@../src/css/Styles.css">
+                        <StackPane fx:id="mapIconStack" prefHeight="150.0" prefWidth="200.0" stylesheets="@../../src/css/Styles.css">
                            <children>
                               <ImageView fx:id="mapIcon" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@Map_Icon.png" />
+                                    <Image url="@images/Map_Icon.png" />
                                  </image>
                               </ImageView>
                               <Button id="marketIconButton" fx:id="regionBackButton" mnemonicParsing="false" text="regionBackButton" />

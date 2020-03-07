@@ -1,5 +1,4 @@
 package primary.scenes;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -40,7 +37,7 @@ public class RegionScene extends SceneLoader {
     {
         try {
             back = new BackgroundImage(
-                        new Image(new File("resources/map_background.jpg").toURI().toURL().toString()),
+                        new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
                         BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                         BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         } catch (MalformedURLException e) {
@@ -56,16 +53,16 @@ public class RegionScene extends SceneLoader {
 
     @Override
     public Parent build() {
-        FXMLLoader p =  new FXMLLoader();
-        p.setController(this);
+        FXMLLoader loader =  new FXMLLoader();
+        loader.setController(this);
         try {
-            return p.load(new File("resources/RegionScene.fxml").toURI().toURL());
+            return loader.load(new File("src/resources/RegionScene.fxml").toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-    private Pane RegionScene() {
+    private void RegionScene() {
 
         /*
         Title
@@ -86,7 +83,7 @@ public class RegionScene extends SceneLoader {
         // button on top, everything inside a VBox
         //the top of the VBox has the icon, the bottom has the title
         /*
-        Icon images
+        Icon resources.images
          */
         marketPlaceImage.fitHeightProperty().setValue(iconSize);
         marketPlaceImage.fitWidthProperty().setValue(iconSize);
@@ -111,7 +108,6 @@ public class RegionScene extends SceneLoader {
             }
         });
 
-        return stackPane;
     }
 
 }
