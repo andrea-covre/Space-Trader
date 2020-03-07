@@ -121,7 +121,7 @@ public class RegionScene extends SceneLoader {
 
         enterMarket.setOnAction(e -> {
             try {
-                setStage(new MarketScene());
+                setStage(new MarketSceneCONV());
             } catch (Throwable f) {
                 f.printStackTrace();
             }

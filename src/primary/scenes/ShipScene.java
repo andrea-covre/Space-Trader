@@ -52,7 +52,7 @@ public class ShipScene extends SceneLoader {
         FXMLLoader p =  new FXMLLoader();
         p.setController(this);
         try {
-            return p.load(new File("resources/ShipScene.fxml").toURI().toURL());
+            return FXMLLoader.load(new File("resources/ShipScene.fxml").toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +60,7 @@ public class ShipScene extends SceneLoader {
     }
 
     @FXML
-    public void handleBackClick(MouseEvent mouseEvent) {
+    public void handleBackClick(MouseEvent mouseEvent) throws MalformedURLException {
         setStage(new MapScene());
     }
 }

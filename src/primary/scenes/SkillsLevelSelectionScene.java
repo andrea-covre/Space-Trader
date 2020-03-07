@@ -9,6 +9,8 @@ import skills.FighterSkill;
 import skills.MerchantSkill;
 import skills.PilotSkill;
 
+import java.net.MalformedURLException;
+
 public class SkillsLevelSelectionScene extends SceneLoader {
     /**
      * skills.Skill Level Selection Scene buttons
@@ -42,35 +44,67 @@ public class SkillsLevelSelectionScene extends SceneLoader {
         // setting actions for all skill leveling buttons
         pilotUp.setOnAction(e -> {
             new PilotSkill(1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
         pilotDown.setOnAction(e -> {
             new PilotSkill(-1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
         fighterUp.setOnAction(e -> {
             new FighterSkill(1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
         fighterDown.setOnAction(e -> {
             new FighterSkill(-1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
         merchantUp.setOnAction(e -> {
             new MerchantSkill(1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
         merchantDown.setOnAction(e -> {
             new MerchantSkill(-1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
         engineerUp.setOnAction(e -> {
             new EngineerSkill(1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
         engineerDown.setOnAction(e -> {
             new EngineerSkill(-1).upgrade(player);
-            setStage(this);
+            try {
+                setStage(this);
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            }
         });
 
         //setting back button to return to name selections
