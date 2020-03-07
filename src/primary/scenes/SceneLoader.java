@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.net.MalformedURLException;
+import java.awt.*;
 import java.util.List;
 
 public abstract class SceneLoader {
@@ -55,16 +55,21 @@ public abstract class SceneLoader {
 
 
     protected enum Difficulty {
-        EASY, MEDIUM, HARD
-    }
+        EASY, MEDIUM, HARD;
+    };
 
-    public abstract Parent build() throws MalformedURLException;
+    public abstract Parent build();
 
-    public void setStage(SceneLoader b) throws MalformedURLException {
+    public void setStage(SceneLoader b) {
         NewGame.getTheStage().getScene().setRoot(b.build());
     }
 
     public static void startStage() {
         NewGame.getTheStage().setScene(new Scene(new WelcomeScene().build()));
     }
+
+
+
+
+
 }

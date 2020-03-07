@@ -20,8 +20,7 @@ public class CharacterUpgrade {
     private String name;
     private String description;
     private int price;
-    private Skill skillID;
-    private String skillType;
+    private Skill skillType;
     private int incAmount;
     private int adjustedPrice;
     private int techLevel;
@@ -29,48 +28,30 @@ public class CharacterUpgrade {
     private boolean equipped;
     public static final double DEPRECIATION = 0.5;
     private Random rand = new Random();
+    private static int[][] probabilities = new int[][]{
+            {1, 1, 1, 1, 1, 1, 1, 1, 2, 2}, //0
+            {1, 1, 1, 1, 1, 1, 2, 2, 2, 2},
+            {1, 1, 1, 1, 1, 2, 2, 2, 2, 3},
+            {1, 1, 1, 2, 2, 2, 2, 2, 3, 3},
+            {1, 1, 2, 2, 2, 2, 2, 3, 3, 3} // 4
+    };
+    private static String[] adjectives = new String[]{"Basic", "Advanced", "Supreme"};
 
     /**
      * Constructor for Character Upgrade class
      */
     public CharacterUpgrade() {
+        for (int i = 0; i < 10; i++) {
+            System.out.print(probabilities[0][i]);
+
+        }
+        System.out.println();
         String[] var = generateUpgrade();
         techLevel = Integer.parseInt(var[4]);
         int[] probability;
-        switch (techLevel) {
-        case 1:
-            probability = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 2, 2};
-            break;
-        case 2:
-            probability = new int[]{1, 1, 1, 1, 1, 1, 2, 2, 2, 2};
-            break;
-        case 3:
-            probability = new int[]{1, 1, 1, 1, 1, 2, 2, 2, 2, 3};
-            break;
-        case 4:
-            probability = new int[]{1, 1, 1, 2, 2, 2, 2, 2, 3, 3};
-            break;
-        case 5:
-            probability = new int[]{1, 1, 2, 2, 2, 2, 2, 3, 3, 3};
-            break;
-        default: 
-            throw new IllegalStateException("Unexpected value: " + techLevel);
-        }
+        probability = probabilities[techLevel - 1];
         incAmount = probability[rand.nextInt(10)];
-        String adjective;
-        switch (incAmount) {
-        case 1:
-            adjective = "Basic ";
-            break;
-        case 2:
-            adjective = "Advanced ";
-            break;
-        case 3:
-            adjective = "Supreme ";
-            break;
-        default:
-            throw new IllegalStateException("Unexpected value: " + incAmount);
-        }
+        String adjective = adjectives[incAmount - 1];
         name = adjective + var[0];
         description = var[1];
         price = Integer.parseInt(var[2]) * incAmount * 4;
@@ -78,19 +59,19 @@ public class CharacterUpgrade {
         equipped = false;
         switch (Integer.parseInt(var[3])) {
         case 0:
-            skillID = new PilotSkill(incAmount);
+            skillType = new PilotSkill(incAmount);
             break;
         case 1:
-            skillID = new FighterSkill(incAmount);
+            skillType = new FighterSkill(incAmount);
             break;
         case 2:
-            skillID = new MerchantSkill(incAmount);
+            skillType = new MerchantSkill(incAmount);
             break;
         case 3:
-            skillID = new EngineerSkill(incAmount);
+            skillType = new EngineerSkill(incAmount);
             break;
         default:
-            throw new IllegalStateException("Unexpected value: " + skillID);
+            throw new IllegalStateException("Unexpected value: " + skillType);
         }
     }
     /**
@@ -157,7 +138,7 @@ public class CharacterUpgrade {
         this.adjustedPrice = adjustedPrice;
     }
     public String getSkillType() {
-        return skillID.getName();
+        return skillType.getName();
     }
     public int getSellingPrice() {
         return sellingPrice;
@@ -171,8 +152,7 @@ public class CharacterUpgrade {
     public void setEquipped(boolean equipped) {
         this.equipped = equipped;
     }
-
     public Skill getInc() {
-        return skillID;
+        return skillType;
     }
 }
