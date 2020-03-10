@@ -41,11 +41,6 @@ public class CharacterUpgrade {
      * Constructor for Character Upgrade class
      */
     public CharacterUpgrade() {
-        for (int i = 0; i < 10; i++) {
-            System.out.print(probabilities[0][i]);
-
-        }
-        System.out.println();
         String[] var = generateUpgrade();
         techLevel = Integer.parseInt(var[4]);
         int[] probability;
