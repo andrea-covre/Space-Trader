@@ -243,3 +243,8 @@ bacjground-image: url("locatio/location/bo");
     -fx-text-fill: YELLOW;
     -fx-fill: YELLOW;
 }
+
+#traderActionButton{
+    -fx-font: 30px "Comic Sans Ms";
+    -fx-background-color: transparent;
+}

@@ -115,7 +115,7 @@ public class NameSelectionScene extends SceneLoader {
         vbox.setAlignment(Pos.CENTER);
         stackPane.getChildren().addAll(BACKGROUND, hbox, vbox);
         pane.setCenter(stackPane);
-        Task<Void> sleeper = new Task<>() {
+        Task<Void> sleeper = new Task<Void>() {
             @Override
             protected Void call() {
                 try {
