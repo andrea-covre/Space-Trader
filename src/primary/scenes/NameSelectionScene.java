@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
-public class NameSelectionScene extends SceneBuilder {
+public class NameSelectionScene extends SceneLoader {
     private  Button sceneButton1 = new Button("New Game");
     private  Button sceneButton2 = new Button("Continue");
     private  Button backToScene1 = new Button("Back");
@@ -28,7 +28,8 @@ public class NameSelectionScene extends SceneBuilder {
 
         sceneButton1.setOnAction(e -> {
             try {
-                setStage(new DifficultyScene());
+                player = null;
+                setStage(new WelcomeScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -79,27 +80,35 @@ public class NameSelectionScene extends SceneBuilder {
          */
 
         sceneButton2.setOnAction(e -> {
-            if (playerName == null) {
+            if (player == null) {
                 try {
                     if (field.getText() == null || field.getText().trim().isEmpty()) {
                         field.clear();
                         field.setPromptText("Enter a valid name");
                     } else {
-                        playerName = field.getText().trim();
+                        player = new Player(field.getText().trim(), 0, 0);
                         field.clear();
-                        field.setPromptText("Works. Name is: " + playerName);
+                        field.setPromptText("Works. Name is: " + player.getPlayerName());
                     }
                 } catch (Throwable f) {
                     f.printStackTrace();
                 }
             } else {
                 try {
-                    setStage(new SkillsLevelSelectionScene());
+                    setStage(new DifficultyScene());
                 } catch (Throwable f) {
                     f.printStackTrace();
                 }
             }
         });
+        backToScene1.setOnAction(e -> {
+            try {
+                setStage(new DifficultyScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+
 
         hbox.getChildren().add(title);
         hbox.setAlignment(Pos.CENTER);

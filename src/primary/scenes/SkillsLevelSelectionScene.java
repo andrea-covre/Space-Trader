@@ -1,15 +1,17 @@
 package primary.scenes;
-import primary.IncrSkill;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import primary.Skill;
+import skills.EngineerSkill;
+import skills.FighterSkill;
+import skills.MerchantSkill;
+import skills.PilotSkill;
 
-public class SkillsLevelSelectionScene extends SceneBuilder {
+public class SkillsLevelSelectionScene extends SceneLoader {
     /**
-     * primary.Skill Level Selection Scene buttons
+     * skills.Skill Level Selection Scene buttons
      */
     //Pilot
     private  Button pilotUp = new Button("⬆");
@@ -38,23 +40,42 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
 
     private void setButtons() {
         // setting actions for all skill leveling buttons
-        pilotUp.setOnAction(new IncrSkill(pilotSkill, 1));
-        pilotDown.setOnAction(new IncrSkill(pilotSkill, -1));
-        fighterUp.setOnAction(new IncrSkill(fighterSkill, 1));
-        fighterDown.setOnAction(new IncrSkill(fighterSkill, -1));
-        merchantUp.setOnAction(new IncrSkill(merchantSkill, 1));
-        merchantDown.setOnAction(new IncrSkill(merchantSkill, -1));
-        engineerUp.setOnAction(new IncrSkill(engineerSkill, 1));
-        engineerDown.setOnAction(new IncrSkill(engineerSkill, -1));
+        pilotUp.setOnAction(e -> {
+            new PilotSkill(1).upgrade(player);
+            setStage(this);
+        });
+        pilotDown.setOnAction(e -> {
+            new PilotSkill(-1).upgrade(player);
+            setStage(this);
+        });
+        fighterUp.setOnAction(e -> {
+            new FighterSkill(1).upgrade(player);
+            setStage(this);
+        });
+        fighterDown.setOnAction(e -> {
+            new FighterSkill(-1).upgrade(player);
+            setStage(this);
+        });
+        merchantUp.setOnAction(e -> {
+            new MerchantSkill(1).upgrade(player);
+            setStage(this);
+        });
+        merchantDown.setOnAction(e -> {
+            new MerchantSkill(-1).upgrade(player);
+            setStage(this);
+        });
+        engineerUp.setOnAction(e -> {
+            new EngineerSkill(1).upgrade(player);
+            setStage(this);
+        });
+        engineerDown.setOnAction(e -> {
+            new EngineerSkill(-1).upgrade(player);
+            setStage(this);
+        });
 
         //setting back button to return to name selections
         backToNameSelection.setOnAction(e -> {
-            skillPoints = skillPoints + pilotSkill.getValue() + merchantSkill.getValue()
-                    + fighterSkill.getValue() + engineerSkill.getValue();
-            pilotSkill = new Skill(0);
-            merchantSkill = new Skill(0);
-            fighterSkill = new Skill(0);
-            engineerSkill = new Skill(0);
+            player.resetSkill();
             try {
                 setStage(new NameSelectionScene());
             } catch (Throwable f) {
@@ -79,7 +100,7 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
          */
         setButtons();
         /*
-         * primary.Skill Nodes
+         * skills.Skill Nodes
          */
         //Nodes to display skill name
         Text pilotTitle = new Text("Pilot");
@@ -92,20 +113,20 @@ public class SkillsLevelSelectionScene extends SceneBuilder {
         engineerTitle.setId("skillNameFont");
 
         //Nodes to display skill level
-        Text pilotLevelDisplay = new Text(pilotSkill.toString());
+        Text pilotLevelDisplay = new Text(player.getPilotSkill().toString());
         pilotLevelDisplay.setId("skillLevelFont");
-        Text fighterLevelDisplay = new Text(fighterSkill.toString());
+        Text fighterLevelDisplay = new Text(player.getFighterSkill().toString());
         fighterLevelDisplay.setId("skillLevelFont");
-        Text merchantLevelDisplay = new Text(merchantSkill.toString());
+        Text merchantLevelDisplay = new Text(player.getMerchantSkill().toString());
         merchantLevelDisplay.setId("skillLevelFont");
-        Text engineerLevelDisplay = new Text(engineerSkill.toString());
+        Text engineerLevelDisplay = new Text(player.getEngineerSkill().toString());
         engineerLevelDisplay.setId("skillLevelFont");
 
         /*
          * Nodes to display skill points available
          */
-        Text skillPointsDisplay = new Text("primary.Skill points: "
-                + skillPoints);
+        Text skillPointsDisplay = new Text("Skill points: "
+                + player.getSkillPoints());
         skillPointsDisplay.setId("skillLevelFont");
 
         /*

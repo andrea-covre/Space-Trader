@@ -13,12 +13,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import primary.scenes.SceneBuilder;
+import primary.scenes.SceneLoader;
 
 /**
  * This class represents the initial configuration for a new game
  */
 public class NewGame extends Application {
+
     /**
      * Nodes that are important for scene changing:
      */
@@ -39,7 +40,7 @@ public class NewGame extends Application {
         Main.getBackgroundMusic().setCycleCount(MediaPlayer.INDEFINITE);
         Main.getBackgroundMusic().setVolume(gameVolume);
         Main.getBackgroundMusic().play();
-        SceneBuilder.startStage();
+        SceneLoader.startStage();
         primaryStage.setTitle("Space trader");
         primaryStage.setResizable(true);
         Screen screen = Screen.getPrimary();

@@ -12,13 +12,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class WelcomeScene extends SceneBuilder {
+
+public class WelcomeScene extends SceneLoader {
     private  Button sceneButton1 = new Button("New Game");
     private  Button backToScene1 = new Button("Back");
     @Override
     public Parent build() {
         return welcome();
     }
+
     private Pane welcome()  {
         /*
          * Base layout
@@ -46,14 +48,14 @@ public class WelcomeScene extends SceneBuilder {
 
         sceneButton1.setOnAction(e -> {
             try {
-                setStage(new DifficultyScene());
+                setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
         });
         backToScene1.setOnAction(e -> {
             try {
-                setStage(new DifficultyScene());
+                setStage(new NameSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }

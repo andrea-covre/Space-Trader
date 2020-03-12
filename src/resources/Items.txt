@@ -1,0 +1,56 @@
+Antibiotics:Good for the Health:510:3
+Water:For the thirsty simps:30:1
+Board Game:For chilling with the homies:180:2
+Gears:Good for machines:690:3
+Narcotics:A step above antibiotics:2625:5
+Robots:Only a few have been made:3950:5
+SPAM:Cheap food for the go:30:2
+Animal meat:Can spoil quick without care:60:1
+Fruit:An apple a day...:40:1
+Vegetables:A balanced meal:50:1
+Bear Fur:Great for warmth:250:2
+Sheep Fur:Great for warmth:270:2
+Mink Fur:Great for warmth:350:1
+Beaver Fur:Great for warmth:300:1
+Coal:Good eats for your ship:390:2
+Emerald:Rare gem:600:3
+Ruby:Rare gem:800:3
+Diamond:Rare gem:1000:4
+Computer Game:For the lonely folk:210:4
+Doll:It's not evil:240:3
+Assault Rifle:Keep the heat on you always:1000:3
+Pistol:For those who want something small:700:3
+Rocket Launcher:Why would you need this:1500:3
+Rudder:Parts for ships:700:3
+Bow:Parts for ships:710:2
+Engine:Fresh engine for ships:750:4
+Herb:Good for foods and medicines:500:2
+Salt:Great for spice and preservation:350:1
+Strange Mushroom:Please don't eat:2000:3
+Golden Robot:The rarest of robots:5000:5
+Energy Cell:Used to power up machinery:3000:5
+Chips:Used to make devices:800:4
+Alien Fiber:Nobody knows how this gets harvested:400:3
+Skull:To be or not to be:500:2
+Dirt block:To be punched with bare hands:100:1
+Fish:A good excuse for that smell:200:1
+Mushrooms:Nice snack for a nice trip:550:2
+Cellphone:You better call your mum:2100:4
+LC-3:For some assembly practice:800:3
+Cigs:You deserve a cigs break:780:3
+Leaves:They come from the tree:420:2
+Paper bag:For nauseating anxiety:200:2
+Some Ice:It's time to shine:4200:4
+BT Speaker:Pump some beats:2300:4
+Waterproof microphone:To be used in the shower only:670:3
+Stolen Rolex:(Don't tell anybody):3900:4
+Nothing:The name says it all:0:1
+Food box:The food is sold separately:120:2
+Space Trader:A 5 stars videogame:6000:5
+Caps:In case of a Fallout:150:1
+Solar Sails:Go sail on the sun:3150:5
+Dyson Sphere:Used to harvest energy from stars:10000:5
+Plasma TV:For some good Netflix and Chill:4:2999
+Sandals:They work better then Geox:400:1
+Escape pod:You might need it:3800:5
+Vaccines:They are very trendy nowdays:2500:4

@@ -18,6 +18,7 @@ public class Region {
     private boolean hasBeenVisited = false;
     private static int numberOfRegions = 0;
     private int regionID;
+    private Market regionMarket = new Market();
 
     private Random rand = new Random();
 
@@ -48,10 +49,10 @@ public class Region {
         Scanner regionNameSC = null;
         Scanner classNameSC = null;
         try {
-            File regionName = new File("resources/RegionNames.txt");
+            File regionName = new File("src/resources/RegionNames.txt");
             regionNameSC = new Scanner(regionName);
 
-            File className = new File("resources/RegionClassName.txt");
+            File className = new File("src/resources/RegionClassName.txt");
             classNameSC = new Scanner(className);
         } catch (FileNotFoundException e) {
             System.out.println("primary.Region's names "
@@ -86,6 +87,7 @@ public class Region {
     public boolean hasBeenVisited() {
         return hasBeenVisited;
     }
+
     public void setBeenVisited(boolean v) {
         hasBeenVisited = v;
     }
@@ -96,6 +98,10 @@ public class Region {
 
     public int getTechLevel() {
         return techLevel;
+    }
+
+    public Market getRegionMarket() {
+        return regionMarket;
     }
 }
 

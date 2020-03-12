@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class DifficultyScene extends SceneBuilder {
+public class DifficultyScene extends SceneLoader {
     //Difficulty Scene
     private Button easy = new Button("Easy");
     private Button medium = new Button("Medium");
@@ -65,9 +65,9 @@ public class DifficultyScene extends SceneBuilder {
         easy.setOnAction(e -> {
             try {
                 setDifficulty = Difficulty.EASY;
-                credits = 5000;
-                skillPoints = 8;
-                setStage(new NameSelectionScene());
+                player.setCredits(10000);
+                player.setSkillPoints(8);
+                setStage(new SkillsLevelSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -75,9 +75,9 @@ public class DifficultyScene extends SceneBuilder {
         medium.setOnAction(e -> {
             try {
                 setDifficulty = Difficulty.MEDIUM;
-                credits = 3000;
-                skillPoints = 5;
-                setStage(new NameSelectionScene());
+                player.setCredits(6000);
+                player.setSkillPoints(5);
+                setStage(new SkillsLevelSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
@@ -85,9 +85,9 @@ public class DifficultyScene extends SceneBuilder {
         hard.setOnAction(e -> {
             try {
                 setDifficulty = Difficulty.HARD;
-                credits = 1000;
-                skillPoints = 3;
-                setStage(new NameSelectionScene());
+                player.setCredits(4000);
+                player.setSkillPoints(3);
+                setStage(new SkillsLevelSelectionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
