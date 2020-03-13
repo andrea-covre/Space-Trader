@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../src/css/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.TraderScene">
+   <children>
+      <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" styleClass="@../../src/css/Styles.css">
+         <top>
+            <Text id="title" fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="@../../src/css/Styles.css" text="Trader Encounter!" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <HBox id="hbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button id="traderActionButton" fx:id="buyButton" mnemonicParsing="false" text="Buy" />
+                  <Button id="traderActionButton" fx:id="ignoreButton" mnemonicParsing="false" text="Ignore" />
+                  <Button id="traderActionButton" fx:id="robButton" mnemonicParsing="false" text="Rob" />
+                  <Button id="traderActionButton" fx:id="negotiateButton" mnemonicParsing="false" text="Negotiate" />
+               </children>
+            </HBox>
+         </bottom>
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text id="itemTitle" fx:id="item" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text id="itemDescription" fx:id="itemDescription" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text id="traderResult" fx:id="result" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
