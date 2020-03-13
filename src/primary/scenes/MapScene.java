@@ -396,8 +396,7 @@ public class MapScene extends SceneLoader {
                     currentLocation = selectedLocation;
                     currentLocation.setBeenVisited(true);
                     player.setCredits(player.getCredits() - costToSelectedLocation);
-                    // setStage(new RegionScene());
-                    setStage(new TraderScene());
+                    setStage(new RegionScene());
                 }
             } catch (Throwable f) {
                 f.printStackTrace();
