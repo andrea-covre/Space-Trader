@@ -1,5 +1,8 @@
 package primary.scenes;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import primary.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -53,8 +56,8 @@ public abstract class SceneLoader {
 
 
     protected enum Difficulty {
-        EASY, MEDIUM, HARD;
-    };
+        EASY, MEDIUM, HARD
+    }
 
     public abstract Parent build();
 
@@ -64,6 +67,60 @@ public abstract class SceneLoader {
 
     public static void startStage() {
         NewGame.getTheStage().setScene(new Scene(new WelcomeScene().build()));
+    }
+
+    protected HBox generateStatsBar() {
+
+        HBox statsBar = new HBox();
+
+        Text creditsInfo = new Text("Credits: " + player.getCredits());
+        creditsInfo.setId("statsBar");
+
+        Text spacing1 = new Text(" | ");
+        spacing1.setId("statsBar");
+
+        Text pilotInfo = new Text("Pilot: " + player.getPilotSkill().getValue());
+        pilotInfo.setId("statsBar");
+
+        Text fighterInfo = new Text("Fighter: " + player.getFighterSkill().getValue());
+        fighterInfo.setId("statsBar");
+
+        Text merchantInfo = new Text("Merchant: " + player.getMerchantSkill().getValue());
+        merchantInfo.setId("statsBar");
+
+        Text engineerInfo = new Text("Engineer: " + player.getEngineerSkill().getValue());
+        engineerInfo.setId("statsBar");
+
+        Text spacing2 = new Text(" | ");
+        spacing2.setId("statsBar");
+
+        Text shipName = new Text("Ship: " + currentShip.getName());
+        shipName.setId("statsBar");
+
+        Text shipFuel = new Text("Fuel: " + currentShip.getFuel() + "/" + currentShip.getFuelCapacity());
+        shipFuel.setId("statsBar");
+
+        Text shipHealth = new Text("HP: " + currentShip.getHp() + "/" + currentShip.getMaxHp());
+        shipHealth.setId("statsBar");
+
+        Text shipAttack = new Text("Attack: " + currentShip.getAttack());
+        shipAttack.setId("statsBar");
+
+        Text shipCapacity = new Text("Capacity: " + currentShip.getItems().size()
+                + "/" + currentShip.getCargo());
+        shipCapacity.setId("statsBar");
+
+        Text shipUpgrades = new Text("Upgrades: " + currentShip.getUpgrades().size() + "/"
+                + currentShip.getUpgradeSlots());
+        shipUpgrades.setId("statsBar");
+
+        statsBar.getChildren().addAll(creditsInfo, spacing1, pilotInfo, fighterInfo, merchantInfo, engineerInfo,
+                spacing2, shipName, shipFuel, shipHealth, shipAttack, shipCapacity, shipUpgrades);
+
+        statsBar.setAlignment(Pos.CENTER);
+        statsBar.setSpacing(10);
+        return statsBar;
+
     }
 
 

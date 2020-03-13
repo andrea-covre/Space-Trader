@@ -23,18 +23,6 @@ import java.util.ArrayList;
 
 public class MapScene extends SceneLoader {
 
-    public Text creditsInfo;
-    public Text pilotInfo;
-    public Text engineerInfo;
-    public Text merchantInfo;
-    public Text fighterInfo;
-    public Text shipName;
-    public Text shipHealth;
-    public Text shipAttack;
-    public Text shipUpgrades;
-    public Text shipCapacity;
-
-
     private BackgroundImage back;
     {
         try {
@@ -59,7 +47,7 @@ public class MapScene extends SceneLoader {
         FXMLLoader p =  new FXMLLoader();
         p.setController(this);
         try {
-            return p.load(new File("src/resources/MapScene.fxml").toURI().toURL());
+            return FXMLLoader.load(new File("src/resources/MapScene.fxml").toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,7 +136,7 @@ public class MapScene extends SceneLoader {
 
             //Creating the default ship
             //Just a random ship
-            currentShip = new Ship("AFO", 5, 3, 50, 10);
+            currentShip = new Ship("AFO", 5, 3, 50, 10, 3000);
         }
 
         /*
@@ -306,7 +294,7 @@ public class MapScene extends SceneLoader {
                 closeInfoPanel.setMaxWidth(Double.MAX_VALUE);
 
                 //Checking if player has enough credits to traver to this location
-                if (player.getCredits() >= fuelCost) {
+                if (currentShip.getFuel() >= fuelCost) {
                     travelToLocation.setStyle("-fx-background-color: rgba(0, 156, 0, 0.7)");
                 } else {
                     travelToLocation.setStyle("-fx-background-color: rgba(255, 0, 0, 0.48)");
@@ -356,31 +344,31 @@ public class MapScene extends SceneLoader {
         });
 
     }
-    protected void generateStatsBar() {
-        //Creating stats bar
-        creditsInfo.setText("Credits: " + player.getCredits());
-
-        pilotInfo.setText("Pilot: " + player.getPilotSkill().getValue());
-
-        fighterInfo.setText("Fighter: " + player.getFighterSkill().getValue());
-
-        merchantInfo.setText("Merchant: " + player.getMerchantSkill().getValue());
-
-        engineerInfo.setText("Engineer: " + player.getEngineerSkill().getValue());
-
-        shipName.setText("Ship: " + currentShip.getName());
-
-        shipHealth.setText("HP: " + currentShip.getHp() + "/" + currentShip.getMaxHp());
-
-        shipAttack.setText("Attack: " + currentShip.getAttack());
-
-        shipCapacity.setText("Capacity: " + currentShip.getItems().size()
-                + "/" + currentShip.getCargo());
-        shipUpgrades.setText("Upgrades: " + currentShip.getUpgrades().size() + "/"
-                + currentShip.getUpgradeSlots());
-
-
-    }
+//    protected void generateStatsBar() {
+//        //Creating stats bar
+//        creditsInfo.setText("Credits: " + player.getCredits());
+//
+//        pilotInfo.setText("Pilot: " + player.getPilotSkill().getValue());
+//
+//        fighterInfo.setText("Fighter: " + player.getFighterSkill().getValue());
+//
+//        merchantInfo.setText("Merchant: " + player.getMerchantSkill().getValue());
+//
+//        engineerInfo.setText("Engineer: " + player.getEngineerSkill().getValue());
+//
+//        shipName.setText("Ship: " + currentShip.getName());
+//
+//        shipHealth.setText("HP: " + currentShip.getHp() + "/" + currentShip.getMaxHp());
+//
+//        shipAttack.setText("Attack: " + currentShip.getAttack());
+//
+//        shipCapacity.setText("Capacity: " + currentShip.getItems().size()
+//                + "/" + currentShip.getCargo());
+//        shipUpgrades.setText("Upgrades: " + currentShip.getUpgrades().size() + "/"
+//                + currentShip.getUpgradeSlots());
+//
+//
+//    }
 
     private Pane map() {
 
@@ -397,13 +385,13 @@ public class MapScene extends SceneLoader {
 
         travelToLocation.setOnAction(e -> {
             try {
-                if (costToSelectedLocation <= player.getCredits()) {
+                if (costToSelectedLocation <= currentShip.getFuel()) {
                     if (currentLocation != selectedLocation) {
                         selectedLocation.getRegionMarket().generateMarket(selectedLocation);
                     }
                     currentLocation = selectedLocation;
                     currentLocation.setBeenVisited(true);
-                    player.setCredits(player.getCredits() - costToSelectedLocation);
+                    currentShip.setFuel(currentShip.getFuel() - costToSelectedLocation);
                     setStage(new RegionScene());
                 }
             } catch (Throwable f) {
@@ -427,9 +415,14 @@ public class MapScene extends SceneLoader {
         mapLayout.getChildren().addAll(infoPane);
 
         pane.setCenter(mapLayout);
+        pane.setBottom(generateStatsBar());
+
         BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
         BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
+        BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
+
         title.setId("mapTitle");
+
         pane.getStylesheets().add("css/Styles.css");
         return stackpane;
     }
