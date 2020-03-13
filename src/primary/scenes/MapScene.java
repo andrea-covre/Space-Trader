@@ -393,10 +393,9 @@ public class MapScene extends SceneLoader {
                     currentLocation = selectedLocation;
                     currentLocation.setBeenVisited(true);
                     player.setCredits(player.getCredits() - costToSelectedLocation);
+                    currentShip.setFuel(currentShip.getFuel() - costToSelectedLocation);
                     SceneProbability prob = new SceneProbability();
                     prob.Probability();
-                    currentShip.setFuel(currentShip.getFuel() - costToSelectedLocation);
-                    setStage(new RegionScene());
                 }
             } catch (Throwable f) {
                 f.printStackTrace();
