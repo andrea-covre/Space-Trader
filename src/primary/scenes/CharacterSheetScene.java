@@ -83,7 +83,7 @@ public class CharacterSheetScene extends SceneLoader {
 
         startGameCSheet.setOnAction(e -> {
             try {
-                setStage(new MapScene());
+                setStage(new BanditScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
