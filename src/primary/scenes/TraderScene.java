@@ -89,19 +89,9 @@ public class TraderScene extends SceneLoader {
         generateBuyButton();
 
         EventHandler<WorkerStateEvent> regionEventEnd =
-                                new EventHandler<WorkerStateEvent>(){
-            @Override
-            public void handle( final WorkerStateEvent ev ) {
-                setStage(new RegionScene());
-            }
-        };
+                ev -> setStage(new RegionScene());
         EventHandler<WorkerStateEvent> negotationEventEnd =
-                                new EventHandler<WorkerStateEvent>(){
-            @Override
-            public void handle( final WorkerStateEvent ev ) {
-                result.setStyle("-fx-fill: transparent");
-            }
-        };
+                ev -> result.setStyle("-fx-fill: transparent");
 
         buyButton.setOnAction(e -> {
             boolean buy = player.getCredits() >= trader.getPrice() &&
@@ -126,7 +116,7 @@ public class TraderScene extends SceneLoader {
         });
 
         robButton.setOnAction(e -> {
-            if (trader.rob(player.getFighterSkill().getValue())) {
+            if (player.getFighterSkill().skillCheck(setDifficulty.ordinal())) {
                 int numRobbed = new Random().nextInt(itemAmount) + 1;
                 int num = 0;
                 for (; num < numRobbed && currentShip.getCargo() >
@@ -147,7 +137,7 @@ public class TraderScene extends SceneLoader {
 
         negotiateButton.setOnAction(e -> {
             if (trader.canNegotiate()) {
-                if (trader.negotiate(player.getMerchantSkill().getValue())) {
+                if (trader.negotiate(player.getMerchantSkill().skillCheck(setDifficulty.ordinal()))) {
                     displayResult("Negotiation Succeeded: Price Reduced!",
                                     negotationEventEnd);
                 } else {

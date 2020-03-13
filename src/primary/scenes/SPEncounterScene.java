@@ -97,13 +97,13 @@ public class SPEncounterScene extends SceneLoader {
     @FXML
     public void runAction(ActionEvent actionEvent) {
         // loose fuel
-        if (player.getCredits()
+        if (currentShip.getFuel()
                 - (100 * randObj.nextDouble()
                 * (setDifficulty.ordinal() + 1)) < 0) { // amount of fuel lost will be slightly random
-            player.setCredits(0);
+            currentShip.setFuel(0);
         } else {
-            player.setCredits(
-                    (int) (player.getCredits()
+            currentShip.setFuel(
+                    (int) (currentShip.getFuel()
                             - (100 * randObj.nextDouble() * (setDifficulty.ordinal() + 1))));
         }
 
