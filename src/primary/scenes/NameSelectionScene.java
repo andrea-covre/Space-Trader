@@ -1,137 +1,94 @@
 package primary.scenes;
 
 import javafx.concurrent.Task;
-import javafx.geometry.Insets;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+
+import java.io.File;
+import java.io.IOException;
+
 
 public class NameSelectionScene extends SceneLoader {
-    private  Button sceneButton1 = new Button("New Game");
-    private  Button sceneButton2 = new Button("Continue");
-    private  Button backToScene1 = new Button("Back");
+
+    private BackgroundImage back;
+
+    @FXML
+    private StackPane main;
+    @FXML
+    private TextField field;
+    @FXML
+    private Text title;
 
     @Override
     public Parent build() {
-        return nameSelection();
+        FXMLLoader p =  new FXMLLoader();
+        p.setController(this);
+        try {
+            return p.load(new File("src/resources/NameSelectionScene.fxml").toURI().toURL());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-
-
-    private Pane nameSelection() {
-        TextField field = new TextField();
-
-        sceneButton1.setOnAction(e -> {
+    @FXML
+    public void initialize() {
+        {
             try {
-                player = null;
-                setStage(new WelcomeScene());
+
+                back = new BackgroundImage(
+                        new Image(new File("src/resources/images/menu_background.jpg").toURI().toURL().toString(),
+                                1500, 1500, false, false),
+                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                main.setBackground(new Background(back));
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    @FXML
+    public void handleContinue(MouseEvent mouseEvent) {
+        if (player == null) {
+            try {
+                if (field.getText() == null || field.getText().trim().isEmpty()) {
+                    field.clear();
+                    field.setPromptText("Enter a valid name");
+                } else {
+                    player = new Player(field.getText().trim(), 0, 0);
+                    field.clear();
+                    field.setPromptText("Works. Name is: " + player.getPlayerName());
+                }
             } catch (Throwable f) {
                 f.printStackTrace();
             }
-        });
-        /*
-         * Base layout
-         */
-        BorderPane pane = new BorderPane();
-        StackPane stackPane = new StackPane();
-        HBox hbox = new HBox();
-        VBox vbox = new VBox();
-
-        /*
-         * Background image
-         */
-        BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
-        BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
-
-        /*
-         * Text
-         */
-        Text title = new Text("What is your name Trader?");
-        title.setFont(Font.font("Comic Sans MS", 80));
-        title.setFill(Color.YELLOW);
-
-        /*
-         * Text field to input the avatar's name
-         */
-        field.setPrefHeight(90);
-        field.setPrefWidth(20);
-        field.setPadding(new Insets(30, 30, 30, 30));
-        field.setStyle("-fx-background-color: transparent; -fx-text-fill: yellow;");
-        field.setFont(Font.font("Comic Sans MS", 80));
-        field.setAlignment(Pos.CENTER);
-
-        /*
-         * Buttons style
-         */
-        sceneButton2.setFont(Font.font("Comic Sans MS", 60));
-        sceneButton2.setStyle("-fx-background-color: transparent");
-        sceneButton2.setTextFill(Color.RED);
-        backToScene1.setFont(Font.font("Comic Sans MS", 60));
-        backToScene1.setStyle("-fx-background-color: transparent");
-        backToScene1.setTextFill(Color.RED);
-
-        /*
-         * Name Selection
-         */
-
-        sceneButton2.setOnAction(e -> {
-            if (player == null) {
-                try {
-                    if (field.getText() == null || field.getText().trim().isEmpty()) {
-                        field.clear();
-                        field.setPromptText("Enter a valid name");
-                    } else {
-                        player = new Player(field.getText().trim(), 0, 0);
-                        field.clear();
-                        field.setPromptText("Works. Name is: " + player.getPlayerName());
-                    }
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            } else {
-                try {
-                    setStage(new DifficultyScene());
-                } catch (Throwable f) {
-                    f.printStackTrace();
-                }
-            }
-        });
-        backToScene1.setOnAction(e -> {
+        } else {
             try {
                 setStage(new DifficultyScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }
-        });
-
-
-        hbox.getChildren().add(title);
-        hbox.setAlignment(Pos.CENTER);
-        vbox.setAlignment(Pos.CENTER);
-        stackPane.getChildren().addAll(BACKGROUND, hbox, vbox);
-        pane.setCenter(stackPane);
-        Task<Void> sleeper = new Task<>() {
-            @Override
-            protected Void call() {
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
-        sleeper.setOnSucceeded(event -> {
-            hbox.setAlignment(Pos.TOP_CENTER);
-            vbox.getChildren().addAll(field, sceneButton2, backToScene1);
-        });
-        new Thread(sleeper).start();
-        return pane;
+        }
     }
-
+    @FXML
+    public void handleBack(MouseEvent mouseEvent) {
+        try {
+            setStage(new WelcomeScene());
+        } catch (Throwable f) {
+            f.printStackTrace();
+        }
+    }
 }
