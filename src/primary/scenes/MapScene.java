@@ -1,5 +1,6 @@
 package primary.scenes;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -32,12 +33,21 @@ public class MapScene extends SceneLoader {
     public Text shipAttack;
     public Text shipUpgrades;
     public Text shipCapacity;
+    public Button testbutton;
 
-    private BackgroundImage back = new BackgroundImage(
-            new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
-            BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
-            BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
+    private BackgroundImage back;
+    {
+        try {
+            back = new BackgroundImage(
+
+                    new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+                    BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        } catch (MalformedURLException e) {
+            System.out.println("malformued URL expetion at mapscene line 41");
+        }
+    }
     @FXML
     public void initialize() {
         map();
@@ -100,7 +110,7 @@ public class MapScene extends SceneLoader {
 
 
 
-    public MapScene() throws MalformedURLException {
+    public MapScene() {
 
         /*
          * Regions generation
@@ -349,7 +359,6 @@ public class MapScene extends SceneLoader {
     }
     protected void generateStatsBar() {
         //Creating stats bar
-
         creditsInfo.setText("Credits: " + player.getCredits());
 
         pilotInfo.setText("Pilot: " + player.getPilotSkill().getValue());
@@ -424,5 +433,9 @@ public class MapScene extends SceneLoader {
         title.setId("mapTitle");
         pane.getStylesheets().add("css/Styles.css");
         return stackpane;
+    }
+
+    public void test(ActionEvent actionEvent) {
+        setStage(new SPEncounterScene());
     }
 }

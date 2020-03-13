@@ -2,8 +2,16 @@ package skills;
 
 import primary.scenes.Player;
 
+import java.util.Random;
+
 public abstract class Skill {
     protected String name;
+    private static int SKILLCHECK_MULTIPLIER = 10;
+    public boolean skillCheck(int difficultyOrdinal){
+        Random r = new Random();
+        return ( (r.nextInt(value) * SKILLCHECK_MULTIPLIER) > ((difficultyOrdinal * 40) + 40));
+
+    }
 
     public Skill(int i) {
         value = i;
