@@ -1,6 +1,5 @@
 package primary.scenes;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -29,7 +28,8 @@ public class MapScene extends SceneLoader {
         try {
             back = new BackgroundImage(
 
-                    new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
+                    new Image(new File("src/resources/images/map_background.jpg")
+                            .toURI().toURL().toString()),
                     BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                     BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         } catch (MalformedURLException e) {
@@ -343,7 +343,7 @@ public class MapScene extends SceneLoader {
         });
 
     }
-    private Pane map() {
+    private void map() {
 
         generateRegions();
         //Map buttons management
@@ -362,7 +362,7 @@ public class MapScene extends SceneLoader {
                     if (currentLocation != selectedLocation) {
                         currentShip.setFuel(currentShip.getFuel() - costToSelectedLocation);
                         SceneProbability prob = new SceneProbability();
-                        prob.Probability();
+                        prob.probability();
 
                     } else {
                         // probability roll only happens if we moving to new location
@@ -400,7 +400,6 @@ public class MapScene extends SceneLoader {
         title.setId("mapTitle");
 
         pane.getStylesheets().add("css/Styles.css");
-        return stackpane;
     }
 
 }

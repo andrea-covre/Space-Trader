@@ -1,13 +1,5 @@
 package primary;
-
-import primary.Ship;
-import skills.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Random;
-
-import primary.Item;
 
 public class Trader {
 
@@ -40,7 +32,9 @@ public class Trader {
     }
 
     public boolean negotiate(boolean merchantCheck) {
-        if (hasNegotiated) return false;
+        if (hasNegotiated) {
+            return false;
+        }
         hasNegotiated = true;
 
         if (merchantCheck) {

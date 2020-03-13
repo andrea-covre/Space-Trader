@@ -1,21 +1,18 @@
 package primary;
 
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import primary.scenes.*;
-
-import java.util.Map;
 import java.util.Random;
 
 public class SceneProbability extends SceneLoader {
     private Random rand = new Random();
     private int random = rand.nextInt(11);
-    private static int [][] probabilities = new int[][]{
-            {0,0,0,1,2,3,3,3,3,3,3}, //ez
-            {0,0,1,1,2,2,3,3,3,3,3}, // med
-            {0,1,1,1,2,2,3,3,3,3,3}}; // hard
+    private static int[][] probabilities = new int[][]{
+            {0, 0, 0, 1, 2, 3, 3, 3, 3, 3, 3}, //ez
+            {0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 3}, // med
+            {0, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3}}; // hard
 
-    public void Probability() {
+    public void probability() {
         int sceneProb = probabilities[setDifficulty.ordinal()][random];
         if (sceneProb == 0) {
             try {

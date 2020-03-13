@@ -93,12 +93,6 @@ public class MarketScene extends SceneLoader {
                 backButton);
 
         pane.setCenter(centerBox);
-
-//        pane.setBottom(generateStatsBar());
-        /**
-         * @// TODO: 3/7/2020 deal with this  
-         */
-
         BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
 
         stackPane.getChildren().addAll(MAP_BACKGROUND, pane);
@@ -125,7 +119,6 @@ public class MarketScene extends SceneLoader {
     }
 
     private void generateSpecialButtons() {
-        VBox specialVBox = new VBox();
         specialItems.getChildren().addAll(generateSpecialItemButton(), generateRefuelButton());
         specialItems.setAlignment(Pos.CENTER);
         specialItems.setHgap(10);
@@ -172,14 +165,16 @@ public class MarketScene extends SceneLoader {
         Text specialItemTitle = new Text("Jug of fuel");
         specialItemTitle.setId("specialItemTitle");
 
-        Text itemDescription = new Text("It will refuel " + Market.getFuelPerJug() + " units to your ship");
+        Text itemDescription = new Text("It will refuel "
+                + Market.getFuelPerJug() + " units to your ship");
         itemDescription.setId("specialItemDescription");
 
         int fuelCost = (int) (Market.getFuelCostPerUnit() * Market.getFuelPerJug());
 
         fuelBuyButton = new Button("Buy for " + fuelCost);
         fuelBuyButton.setId("specialItemBuyButt");
-        if (player.getCredits() >= fuelCost && currentShip.getFuel() < currentShip.getFuelCapacity()) {
+        if (player.getCredits() >= fuelCost && currentShip.getFuel()
+                < currentShip.getFuelCapacity()) {
             fuelBuyButton.setStyle("-fx-background-color: rgba(0, 156, 0)");
         } else {
             fuelBuyButton.setStyle("-fx-background-color: rgba(255, 0, 0)");
@@ -239,9 +234,9 @@ public class MarketScene extends SceneLoader {
 
         fuelBuyButton.setOnAction(e -> {
             try {
-                int fuelCost = (int)(Market.getFuelCostPerUnit() * Market.getFuelPerJug());
-                if (player.getCredits() >= fuelCost && currentShip.getFuel() < currentShip.getFuelCapacity())
-                {
+                int fuelCost = (int) (Market.getFuelCostPerUnit() * Market.getFuelPerJug());
+                if (player.getCredits() >= fuelCost && currentShip.getFuel()
+                        < currentShip.getFuelCapacity()) {
                     player.setCredits(player.getCredits() - fuelCost);
                     currentShip.setFuel(currentShip.getFuel() + Market.getFuelPerJug());
                     if (currentShip.getFuel() > currentShip.getFuelCapacity()) {
@@ -305,12 +300,6 @@ public class MarketScene extends SceneLoader {
                         + specialItem.getIncAmount() + ")");
                 currentUpgradeItemDescription.setId("currentUpgradeItemDescription");
 
-                int itemFinalPrice = (int)
-                        ((double) currentUpgradeItem.getAdjustedPrice()
-                                * (1.00 + 0.01
-                                * Market.getDiscountMerchantLevel()
-                                * player.getMerchantSkill().getValue()));
-
                 sellUpgradesButtons.add(new Button("Sell for "
                         + currentUpgradeItem.getSellingPrice()));
                 sellUpgradesButtons.get(i).setId("itemBuyButt");
@@ -354,10 +343,6 @@ public class MarketScene extends SceneLoader {
                 Item currentCargoItem = currentShip.getItems().get(i);
                 Text cargoItemTitle = new Text(currentCargoItem.getName());
                 cargoItemTitle.setId("itemTitle");
-                int itemFinalPrice = (int)
-                        ((double) currentCargoItem.getAdjustedPrice()
-                                * (1.00 + 0.01 * Market.getDiscountMerchantLevel()
-                                * player.getMerchantSkill().getValue()));
 
                 sellButtons.add(new Button("Sell for " + currentCargoItem.getFinalSellPrice()));
 

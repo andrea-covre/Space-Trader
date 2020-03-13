@@ -8,8 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import primary.Region;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -17,25 +15,26 @@ import java.net.MalformedURLException;
 public class AfterEncounterScene extends SceneLoader {
 
     @FXML
-    public StackPane backgroundPane;
+    private StackPane backgroundPane;
 
     @FXML
-    public Text title;
+    private Text title;
     @FXML
-    public Text message;
+    private Text message;
     @FXML
-    public Button contButton;
+    private Button contButton;
     private BackgroundImage back;
-    public static String inputs[] = new String[2];
+    private static String[] inputs = new String[2];
 
 
 
 
     @FXML
-    public void initialize() throws Exception {
+    public void initialize() {
         try {
             back = new BackgroundImage(
-                    new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
+                    new Image(new File("src/resources/images/map_background.jpg")
+                            .toURI().toURL().toString()),
                     BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                     BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         } catch (MalformedURLException e) {
@@ -55,7 +54,8 @@ public class AfterEncounterScene extends SceneLoader {
         FXMLLoader p =  new FXMLLoader();
         p.setController(this);
         try {
-            return p.load(new File("src/resources/AfterEncounterScene.fxml").toURI().toURL());
+            return p.load(new File("src/resources/AfterEncounterScene.fxml")
+                    .toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,6 +65,8 @@ public class AfterEncounterScene extends SceneLoader {
     public void contAction(ActionEvent actionEvent) {
         setStage(new MapScene());
     }
-
+    public static void setInput(String a, int i) {
+        inputs[i] = a;
+    }
 
 }

@@ -13,7 +13,7 @@ public class Ship {
     private int fuelCapacity;
     private int fuel;
     private String name;
-    public List<Item> items;
+    private List<Item> items;
     private int upgradeSlots;
     private List<CharacterUpgrade> upgrades;
     private FileInputStream image;

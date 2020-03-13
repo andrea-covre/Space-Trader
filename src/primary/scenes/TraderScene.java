@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import java.io.File;
@@ -19,15 +18,16 @@ import javafx.concurrent.WorkerStateEvent;
 import primary.Trader;
 
 public class TraderScene extends SceneLoader {
-    public StackPane stackPane;
-    public BorderPane borderPane;
-    public HBox hbox;
-    public Text title;
-    public Text item;
-    public Text itemDescription;
-    public Text result;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private Text item;
+    @FXML
+    private Text itemDescription;
+    @FXML
+    private Text result;
 
-    private primary.Trader trader = new Trader();
+    private primary.Trader trader;
 
     @FXML
     private Button robButton = new Button("Rob");
@@ -58,8 +58,9 @@ public class TraderScene extends SceneLoader {
 
     @FXML
     public void initialize() {
+        trader = new Trader();
         borderPane.setBackground(new Background(back));
-        TraderScene();
+        traderScene();
     }
 
     @Override
@@ -76,7 +77,7 @@ public class TraderScene extends SceneLoader {
         }
         return null;
     }
-    private void TraderScene() {
+    private void traderScene() {
 
         result.setStyle("-fx-fill: transparent");
 
@@ -88,19 +89,18 @@ public class TraderScene extends SceneLoader {
         itemDescription.setText(trader.getItem().getDescription());
         generateBuyButton();
 
-        EventHandler<WorkerStateEvent> regionEventEnd =
-                ev -> {
-                    selectedLocation.getRegionMarket().generateMarket(selectedLocation);
-                    currentLocation = selectedLocation;
-                    currentLocation.setBeenVisited(true);
-                    setStage(new RegionScene());
-                };
-        EventHandler<WorkerStateEvent> negotationEventEnd =
-                ev -> result.setStyle("-fx-fill: transparent");
+        EventHandler<WorkerStateEvent> regionEventEnd = ev -> {
+            selectedLocation.getRegionMarket().generateMarket(selectedLocation);
+            currentLocation = selectedLocation;
+            currentLocation.setBeenVisited(true);
+            setStage(new RegionScene());
+        };
+        EventHandler<WorkerStateEvent> negotationEventEnd = ev ->
+                result.setStyle("-fx-fill: transparent");
 
         buyButton.setOnAction(e -> {
-            boolean buy = player.getCredits() >= trader.getPrice() &&
-                            currentShip.getCargo() >= 1;
+            boolean buy = player.getCredits() >= trader.getPrice()
+                    && currentShip.getCargo() >= 1;
             if (buy) {
                 // only take as many as you can before the ship gets full.
                 int bought = 0;
@@ -108,9 +108,9 @@ public class TraderScene extends SceneLoader {
                     currentShip.addItem(trader.getItem());
                     player.setCredits(player.getCredits() - trader.getPrice());
                 }
-                displayResult("Successfully Bought " + bought + " items\n" +
-                                "for " + bought * trader.getPrice() + " credits.\n" +
-                                "Travelling to Destination",
+                displayResult("Successfully Bought " + bought + " items\n"
+                                + "for " + bought * trader.getPrice() + " credits.\n"
+                                + "Travelling to Destination",
                                 regionEventEnd);
             }
         });
@@ -142,7 +142,8 @@ public class TraderScene extends SceneLoader {
 
         negotiateButton.setOnAction(e -> {
             if (trader.canNegotiate()) {
-                if (trader.negotiate(player.getMerchantSkill().skillCheck(setDifficulty.ordinal()))) {
+                if (trader.negotiate(player.getMerchantSkill()
+                        .skillCheck(setDifficulty.ordinal()))) {
                     displayResult("Negotiation Succeeded: Price Reduced!",
                                     negotationEventEnd);
                 } else {
@@ -165,8 +166,8 @@ public class TraderScene extends SceneLoader {
     }
 
     private void generateBuyButton() {
-        boolean canBuy = player.getCredits() >= trader.getPrice() &&
-                            currentShip.getCargo() >= 1;
+        boolean canBuy = player.getCredits() >= trader.getPrice()
+                && currentShip.getCargo() >= 1;
         if (!canBuy) {
             buyButton.setStyle("-fx-background-color: rgba(255, 0, 0)");
         } else {

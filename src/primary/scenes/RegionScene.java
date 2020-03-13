@@ -12,32 +12,27 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class RegionScene extends SceneLoader {
-    public StackPane stackPane;
-    public BorderPane pane;
-    public VBox titleBox;
-    public Text regionInfo;
-    public Text regionTitle;
-    public TilePane optionsPane;
-    public VBox marketIconVbox;
-    public StackPane marketIconStack;
-    public ImageView marketPlaceImage;
-    public VBox mapIconVbox;
-    public StackPane mapIconStack;
-    public ImageView mapIcon;
+    @FXML
+    private BorderPane pane;
+    @FXML
+    private Text regionInfo;
+    @FXML
+    private Text regionTitle;
+    @FXML
+    private ImageView marketPlaceImage;
+    @FXML
+    private ImageView mapIcon;
     @FXML
     private Button regionBackButton = new Button("Back to Map");
     @FXML
     private Button enterMarket = new Button(" ");
-    /*
-    Graphics
-     */
-    private int iconSize = 100;
 
     private BackgroundImage back;
     {
         try {
             back = new BackgroundImage(
-                        new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
+                        new Image(new File("src/resources/images/map_background.jpg")
+                                .toURI().toURL().toString()),
                         BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                         BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         } catch (MalformedURLException e) {
@@ -46,9 +41,9 @@ public class RegionScene extends SceneLoader {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         pane.setBackground(new Background(back));
-        RegionScene();
+        regionScene();
     }
 
     @Override
@@ -56,13 +51,14 @@ public class RegionScene extends SceneLoader {
         FXMLLoader loader =  new FXMLLoader();
         loader.setController(this);
         try {
-            return loader.load(new File("src/resources/RegionScene.fxml").toURI().toURL());
+            return loader.load(new File("src/resources/RegionScene.fxml")
+                    .toURI().toURL());
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-    private void RegionScene() {
+    private void regionScene() {
 
         /*
         Title
@@ -85,6 +81,10 @@ public class RegionScene extends SceneLoader {
         /*
         Icon resources.images
          */
+        /*
+    Graphics
+     */
+        int iconSize = 100;
         marketPlaceImage.fitHeightProperty().setValue(iconSize);
         marketPlaceImage.fitWidthProperty().setValue(iconSize);
 

@@ -70,7 +70,7 @@ public class WelcomeScene extends SceneLoader {
 
         pane.setCenter(stackpane);
         stackpane.getChildren().addAll(BACKGROUND, hbox2, hbox);
-        Task<Void> sleeper = new Task<Void>() {
+        Task<Void> sleeper = new Task<>() {
             @Override
             protected Void call() {
                 try {

@@ -97,10 +97,12 @@ public abstract class SceneLoader {
         Text shipName = new Text("Ship: " + currentShip.getName());
         shipName.setId("statsBar");
 
-        Text shipFuel = new Text("Fuel: " + currentShip.getFuel() + "/" + currentShip.getFuelCapacity());
+        Text shipFuel = new Text("Fuel: " + currentShip.getFuel() + "/"
+                + currentShip.getFuelCapacity());
         shipFuel.setId("statsBar");
 
-        Text shipHealth = new Text("HP: " + currentShip.getHp() + "/" + currentShip.getMaxHp());
+        Text shipHealth = new Text("HP: " + currentShip.getHp() + "/"
+                + currentShip.getMaxHp());
         shipHealth.setId("statsBar");
 
         Text shipAttack = new Text("Attack: " + currentShip.getAttack());
@@ -114,7 +116,8 @@ public abstract class SceneLoader {
                 + currentShip.getUpgradeSlots());
         shipUpgrades.setId("statsBar");
 
-        statsBar.getChildren().addAll(creditsInfo, spacing1, pilotInfo, fighterInfo, merchantInfo, engineerInfo,
+        statsBar.getChildren().addAll(creditsInfo, spacing1, pilotInfo,
+                fighterInfo, merchantInfo, engineerInfo,
                 spacing2, shipName, shipFuel, shipHealth, shipAttack, shipCapacity, shipUpgrades);
 
         statsBar.setAlignment(Pos.CENTER);

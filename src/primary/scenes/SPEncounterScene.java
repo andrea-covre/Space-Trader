@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import primary.Item;
-import primary.NewGame;
 import primary.Region;
 
 import java.io.File;
@@ -22,22 +21,23 @@ import java.util.Random;
 public class SPEncounterScene extends SceneLoader {
 
     @FXML
-    public Button fightButton;
+    private Button fightButton;
     @FXML
-    public Button runButton;
+    private Button runButton;
     @FXML
-    public Button forfeitButton;
+    private Button forfeitButton;
     @FXML
-    public StackPane backgroundPane;
+    private StackPane backgroundPane;
     @FXML
-    public Text demandedItems;
+    private Text demandedItems;
     private Random randObj;
     private BackgroundImage back;
     {
         try {
             back = new BackgroundImage(
 
-                    new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
+                    new Image(new File("src/resources/images/map_background.jpg")
+                            .toURI().toURL().toString()),
                     BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                     BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         } catch (MalformedURLException e) {
@@ -82,8 +82,10 @@ public class SPEncounterScene extends SceneLoader {
 
                 throw new Exception("SPEncounter should not happen if player has no inventory :(");
             }
-            for (int i = 0; i <= setDifficulty.ordinal() && refList.size() != 0; i++) { // will remove more if space and difficult
-                if (randObj.nextDouble() > 0.5 || removedItems.size() == 0) { //coin flips for chances, more difficulty is more chances
+            for (int i = 0; i <= setDifficulty.ordinal() && refList.size() != 0; i++) {
+                // will remove more if space and difficult
+                if (randObj.nextDouble() > 0.5 || removedItems.size() == 0) {
+                    //coin flips for chances, more difficulty is more chances
                     removedItems.add(refList.remove(randObj.nextInt(refList.size())));
                     ret.append(removedItems.get(i).getName()).append("\n");
                 }
@@ -91,7 +93,8 @@ public class SPEncounterScene extends SceneLoader {
             return ret.toString();
         } catch (Exception e) {
             System.out.println(e);
-        } return "error!";
+        }
+        return "error!";
     }
 
 
@@ -100,7 +103,8 @@ public class SPEncounterScene extends SceneLoader {
         // loose fuel
         if (currentShip.getFuel()
                 - (100 * randObj.nextDouble()
-                * (setDifficulty.ordinal() + 1)) < 0) { // amount of fuel lost will be slightly random
+                * (setDifficulty.ordinal() + 1)) < 0) {
+            // amount of fuel lost will be slightly random
             currentShip.setFuel(0);
         } else {
             currentShip.setFuel(
@@ -113,7 +117,8 @@ public class SPEncounterScene extends SceneLoader {
                 player.getShip().getItems().add(i); // give back items
             }
             returnToRegion("ESCAPED!", "Your Supreme pilot uses his undeniable style, and "
-                    + "dope manuvers to escape the police, although you burnt some fuel in the process and you were not"
+                    + "dope manuvers to escape the police, although you burnt some "
+                    + "fuel in the process and you were not"
                     + " able to make it to " + intendedNextRegion.getName());
         } else {
             failedResistence();
@@ -123,7 +128,7 @@ public class SPEncounterScene extends SceneLoader {
 
     private void failedResistence() {
         int extraFine = 1000 * setDifficulty.ordinal() + (int) (randObj.nextDouble() * 500);
-        int extraDamage = (int)(player.getShip().getHp()
+        int extraDamage = (int) (player.getShip().getHp()
                 * (1 - 0.1 * setDifficulty.ordinal()));
         player.setCredits(player.getCredits() - extraFine); // additional fine
         player.getShip().setHp(extraDamage); // health will be decreased a certain percent
@@ -160,8 +165,8 @@ public class SPEncounterScene extends SceneLoader {
         selectedLocation.getRegionMarket().generateMarket(selectedLocation);
         currentLocation = selectedLocation;
         currentLocation.setBeenVisited(true);
-        AfterEncounterScene.inputs[0] = title;
-        AfterEncounterScene.inputs[1] = message;
+        AfterEncounterScene.setInput(title, 0);
+        AfterEncounterScene.setInput(message, 1);
         setStage(new AfterEncounterScene());
     }
     private void returnToRegion(String title, String message) {
@@ -169,8 +174,8 @@ public class SPEncounterScene extends SceneLoader {
         // need to refund fuel
         currentShip.setFuel(currentShip.getFuel() + costToSelectedLocation);
         selectedLocation = currentLocation;
-        AfterEncounterScene.inputs[0] = title;
-        AfterEncounterScene.inputs[1] = message;
+        AfterEncounterScene.setInput(title, 0);
+        AfterEncounterScene.setInput(message, 1);
         setStage(new AfterEncounterScene());
     }
 }

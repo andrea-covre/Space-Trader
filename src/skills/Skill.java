@@ -6,8 +6,8 @@ import java.util.Random;
 
 public abstract class Skill {
     protected String name;
-    private static int SKILLCHECK_MULTIPLIER = 10;
-    public boolean skillCheck(int difficultyOrdinal){
+    private static  final int SKILLCHECK_MULTIPLIER = 10;
+    public boolean skillCheck(int difficultyOrdinal) {
         Random r = new Random();
         return ((r.nextInt(value + 1) * SKILLCHECK_MULTIPLIER) > ((difficultyOrdinal * 40) + 40));
 
@@ -16,6 +16,7 @@ public abstract class Skill {
     public Skill(int i) {
         value = i;
     }
+
     protected int value;
 
     public void inc(int amount) {

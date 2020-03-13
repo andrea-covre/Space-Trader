@@ -4,16 +4,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import primary.Item;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BanditScene extends SceneLoader {
@@ -48,7 +48,8 @@ public class BanditScene extends SceneLoader {
         try {
             back = new BackgroundImage(
 
-                    new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
+                    new Image(new File("src/resources/images/map_background.jpg")
+                            .toURI().toURL().toString()),
                     BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                     BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         } catch (MalformedURLException e) {
@@ -68,7 +69,7 @@ public class BanditScene extends SceneLoader {
             } else {
                 title.setText("You couldn't pay the bandit and lost your items");
                 npcText.setText("Bandit: That's not enough money, I'm taking your items");
-                currentShip.setItems(null);
+                currentShip.setItems(new ArrayList<Item>());
             }
         } else {
             title.setText("You paid the bandit 2000 credits");
@@ -101,7 +102,8 @@ public class BanditScene extends SceneLoader {
                 f.printStackTrace();
             }
         } else {
-            currentShip.setFuel(currentShip.getFuel() - r.nextInt(100 * (setDifficulty.ordinal() + 1)));
+            currentShip.setFuel(currentShip.getFuel() - r.nextInt(100
+                    * (setDifficulty.ordinal() + 1)));
             if (player.getPilotSkill().skillCheck(setDifficulty.ordinal())) {
                 title.setText("You successfully fled from the bandit");
                 npcText.setText("Bandit: HEY GET BACK HERE!!!");
@@ -144,7 +146,8 @@ public class BanditScene extends SceneLoader {
             player.setCredits(player.getCredits() + random2);
             intendedDestination = true;
         } else {
-            title.setText("You failed to beat the bandit and lost your credits and your ship took damage");
+            title.setText("You failed to beat the bandit and lost your credits "
+                    + "and your ship took damage");
             npcText.setText("Bandit: Your so weak. You'll pay for that.");
             player.setCredits(0);
             currentShip.setHp(currentShip.getHp() - 3);

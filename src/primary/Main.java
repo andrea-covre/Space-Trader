@@ -8,9 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 
-
 public class Main extends Application {
-
     /**
      * Graphics resorces
      */

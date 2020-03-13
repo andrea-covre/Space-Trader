@@ -6,7 +6,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import primary.SceneProbability;
 
 public class CharacterSheetScene extends SceneLoader {
     private static Button startGameCSheet = new Button("Start");
