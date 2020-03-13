@@ -29,7 +29,6 @@ public class NewGame extends Application {
      */
     protected static double gameVolume = 0.5;
 
-
     /**
      *
      * @param primaryStage the Stage of SpaceTrader

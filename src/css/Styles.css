@@ -108,13 +108,10 @@
      -fx-background-color: transparent;
 }
 
-#teststuff{
-bacjground-image: url("locatio/location/bo");
-}
 
 
 #regionTitle{
-    -fx-font: 40px "Comic Sans Ms";
+    -fx-font: 35px "Comic Sans Ms";
     -fx-background-color: transparent;
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
@@ -122,7 +119,7 @@ bacjground-image: url("locatio/location/bo");
 }
 
 #marketTitle{
-    -fx-font: 30px "Comic Sans Ms";
+    -fx-font: 25px "Comic Sans Ms";
     -fx-background-color: transparent;
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
@@ -144,31 +141,31 @@ bacjground-image: url("locatio/location/bo");
 }
 
 #mapIconButton{
-    -fx-font: 30px "Comic Sans Ms";
+    -fx-font: 28px "Comic Sans Ms";
     -fx-background-color: transparent;
 }
 
 #marketIconButton{
-    -fx-font: 30px "Comic Sans Ms";
+    -fx-font: 28px "Comic Sans Ms";
     -fx-background-color: transparent;
 }
 
 #itemTitle{
-    -fx-font: 20px "Comic Sans Ms";
+    -fx-font: 18px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
     -fx-fill: YELLOW;
 }
 
 #itemDescription{
-    -fx-font: 10px "Comic Sans Ms";
+    -fx-font: 9px "Comic Sans Ms";
     -fx-text-alignment: center;
     -fx-text-fill: YELLOW;
     -fx-fill: YELLOW;
 }
 
 #itemBuyButt{
-    -fx-font: 12px "Comic Sans Ms";
+    -fx-font: 10px "Comic Sans Ms";
 }
 
 #itemsForSaleTitle{

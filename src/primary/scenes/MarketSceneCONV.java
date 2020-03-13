@@ -1,63 +1,124 @@
 package primary.scenes;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import primary.CharacterUpgrade;
 import primary.Item;
 import primary.Market;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.net.MalformedURLException;
 
 
-public class MarketScene extends SceneLoader {
+public class MarketSceneCONV extends SceneLoader {
+
+    public Text creditsInfo;
+    public Text pilotInfo;
+    public Text engineerInfo;
+    public Text merchantInfo;
+    public Text fighterInfo;
+    public Text shipName;
+    public Text shipHealth;
+    public Text shipAttack;
+    public Text shipUpgrades;
+    public Text shipCapacity;
+
+    public Text regionTitle1;
+    public Text regionTitle;
+    public Text itemsForSaleTitle;
+    public Text specialItemsTitle;
+    public Text shipCargoTitle;
+    public Text shipUpgradeTitle;
+    public Button backButton;
+
+    private BackgroundImage back;
+
+    {
+        try {
+            back = new BackgroundImage(
+                    new Image(new File("resources/images/map_background.jpg").toURI().toURL().toString()),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+                    BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private ArrayList<Button> buyButtons;
     private ArrayList<Button> sellButtons;
     private ArrayList<Button> sellUpgradesButtons;
-    private Button backButton = new Button("Back");
+
     private primary.Market localMarket = currentLocation.getRegionMarket();
+
+    @FXML
+    private StackPane stackPane = new StackPane();
+    @FXML
+    private BorderPane pane = new BorderPane();
+    @FXML
+    private VBox centerBox = new VBox();
+
+    @FXML
     private TilePane shipSlots = new TilePane();
+    @FXML
     private TilePane marketItems = new TilePane();
+    @FXML
     private TilePane upgradeSlots = new TilePane();
+    @FXML
     private TilePane specialItems = new TilePane();
     private CharacterUpgrade specialItem = localMarket.getSpecialItem();
     private Button specialItemBuyButton;
-    private Button fuelBuyButton;
 
+    @FXML
+    public void initialize() {
+        regionTitle.setText(currentLocation.getName());
+        stackPane.setBackground(new Background(back));
+        generateBuyButtons();
+        generateSpecialButtons();
+        generateSellButtons();
+        generateUpgradeSlots();
+        generateBuyActions();
+        generateSellActions();
+        //Back Button
+        backButton.setOnAction(e -> {
+            try {
+                setStage(new RegionScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+        backButton.setId("backButton");
+        generateStatsBar();
+    }
 
     @Override
     public Parent build() {
-        return marketScene();
+        FXMLLoader loader =  new FXMLLoader();
+        loader.setController(this);
+        try {
+            return FXMLLoader.load(new File(
+                    "src/resources/MarketScene.fxml"
+            ).toURI().toURL());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-    private Pane marketScene() {
-        StackPane stackPane = new StackPane();
-        BorderPane pane = new BorderPane();
-        VBox centerBox = new VBox();
+
+    private Pane marketSceneCONV() throws MalformedURLException {
 
         /*
         Title
          */
-        VBox titleBox = new VBox();
-
-        Text regionTitle = new Text(currentLocation.getName());
-        regionTitle.setId("regionTitle");
-
-        Text marketTitle = new Text("~ Market ~");
-        marketTitle.setId("marketTitle");
-
-        titleBox.getChildren().addAll(regionTitle, marketTitle);
-        titleBox.setAlignment(Pos.CENTER);
-        pane.setTop(titleBox);
-        pane.setBottom(generateStatsBar());
-        BorderPane.setAlignment(pane.getBottom(), Pos.CENTER);
-        BorderPane.setAlignment(pane.getTop(), Pos.CENTER);
+        regionTitle.setText(currentLocation.getName());
 
         //Sections Titles
         Text itemsForSaleTitle = new Text("--- Items for Sale ---\n");
@@ -86,23 +147,6 @@ public class MarketScene extends SceneLoader {
         backButton.setId("backButton");
         Text dummyText = new Text(" ");
 
-        centerBox.setAlignment(Pos.CENTER);
-        centerBox.getChildren().addAll(itemsForSaleTitle, marketItems,
-                specialItemsTitle, specialItems, shipCargoTitle,
-                shipSlots, shipUpgradeTitle, upgradeSlots, dummyText,
-                backButton);
-
-        pane.setCenter(centerBox);
-
-//        pane.setBottom(generateStatsBar());
-        /**
-         * @// TODO: 3/7/2020 deal with this  
-         */
-
-        BorderPane.setAlignment(pane.getCenter(), Pos.CENTER);
-
-        stackPane.getChildren().addAll(MAP_BACKGROUND, pane);
-
         /*
          * Button Managment
          */
@@ -125,14 +169,6 @@ public class MarketScene extends SceneLoader {
     }
 
     private void generateSpecialButtons() {
-        VBox specialVBox = new VBox();
-        specialItems.getChildren().addAll(generateSpecialItemButton(), generateRefuelButton());
-        specialItems.setAlignment(Pos.CENTER);
-        specialItems.setHgap(10);
-        specialItems.setVgap(10);
-    }
-
-    private VBox generateSpecialItemButton() {
         VBox specialVBox = new VBox();
 
         Text specialItemTitle = new Text(specialItem.getName());
@@ -163,33 +199,10 @@ public class MarketScene extends SceneLoader {
         specialVBox.setAlignment(Pos.CENTER);
         specialVBox.setId("specialVBox");
 
-        return specialVBox;
-    }
-
-    private VBox generateRefuelButton() {
-        VBox specialVBox = new VBox();
-
-        Text specialItemTitle = new Text("Jug of fuel");
-        specialItemTitle.setId("specialItemTitle");
-
-        Text itemDescription = new Text("It will refuel " + Market.getFuelPerJug() + " units to your ship");
-        itemDescription.setId("specialItemDescription");
-
-        int fuelCost = (int) (Market.getFuelCostPerUnit() * Market.getFuelPerJug());
-
-        fuelBuyButton = new Button("Buy for " + fuelCost);
-        fuelBuyButton.setId("specialItemBuyButt");
-        if (player.getCredits() >= fuelCost && currentShip.getFuel() < currentShip.getFuelCapacity()) {
-            fuelBuyButton.setStyle("-fx-background-color: rgba(0, 156, 0)");
-        } else {
-            fuelBuyButton.setStyle("-fx-background-color: rgba(255, 0, 0)");
-        }
-
-        specialVBox.getChildren().addAll(specialItemTitle, itemDescription, fuelBuyButton);
-        specialVBox.setAlignment(Pos.CENTER);
-        specialVBox.setId("specialVBox");
-
-        return specialVBox;
+        specialItems.getChildren().add(specialVBox);
+        specialItems.setAlignment(Pos.CENTER);
+        specialItems.setHgap(10);
+        specialItems.setVgap(10);
     }
 
     private void generateBuyActions() {
@@ -230,23 +243,6 @@ public class MarketScene extends SceneLoader {
                     localMarket.getSpecialItem().setEquipped(true);
                     localMarket.getSpecialItem().getInc().upgrade(player);
                     player.setCredits(player.getCredits() - itemFinalPrice);
-                }
-                setStage(new MarketScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-
-        fuelBuyButton.setOnAction(e -> {
-            try {
-                int fuelCost = (int)(Market.getFuelCostPerUnit() * Market.getFuelPerJug());
-                if (player.getCredits() >= fuelCost && currentShip.getFuel() < currentShip.getFuelCapacity())
-                {
-                    player.setCredits(player.getCredits() - fuelCost);
-                    currentShip.setFuel(currentShip.getFuel() + Market.getFuelPerJug());
-                    if (currentShip.getFuel() > currentShip.getFuelCapacity()) {
-                        currentShip.setFuel(currentShip.getFuelCapacity());
-                    }
                 }
                 setStage(new MarketScene());
             } catch (Throwable f) {

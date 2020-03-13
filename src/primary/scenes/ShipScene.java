@@ -3,6 +3,7 @@ package primary.scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 
 public class ShipScene extends SceneLoader {
 
+    public Button BackButton;
     private BackgroundImage back = new BackgroundImage(
             new Image(new File("resources/map_Scene.jpg").toURI().toURL().toString()),
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
@@ -61,10 +63,6 @@ public class ShipScene extends SceneLoader {
 
     @FXML
     public void handleBackClick(MouseEvent mouseEvent) {
-        try {
             setStage(new MapScene());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
     }
 }

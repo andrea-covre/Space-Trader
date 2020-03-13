@@ -13,6 +13,8 @@ public class Market {
     private static final double TECH_LEVEL_DISCOUNT_FACTOR = 0.1;
     private static final double DISCOUNT_MERCHANT_LEVEL = 3;
     private static final double MARKET_DEPRECIATION = 0.9;
+    private static final double FUEL_COST_PER_UNIT = 1.5;
+    private static final int FUEL_PER_JUG = 100;
 
     private Random rand = new Random();
 
@@ -84,6 +86,14 @@ public class Market {
 
     public static double getMarketDepreciation() {
         return MARKET_DEPRECIATION;
+    }
+
+    public static double getFuelCostPerUnit() {
+        return FUEL_COST_PER_UNIT;
+    }
+
+    public static int getFuelPerJug() {
+        return FUEL_PER_JUG;
     }
 }
 

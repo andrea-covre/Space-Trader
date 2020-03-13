@@ -39,20 +39,16 @@ public class Trader {
         return !hasNegotiated;
     }
 
-    public boolean negotiate(int merchantSkill) {
+    public boolean negotiate(boolean merchantCheck) {
         if (hasNegotiated) return false;
         hasNegotiated = true;
 
-        boolean success = new Random().nextInt(10) <= merchantSkill;
-        if (success) {
+        if (merchantCheck) {
             price = price / 10;
         } else {
             price = price * 2;
         }
-        return success;
+        return merchantCheck;
     }
 
-    public boolean rob(int fighterSkill) {
-        return new Random().nextInt(10) <= fighterSkill;
-    }
 }
