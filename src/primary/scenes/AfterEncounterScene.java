@@ -19,7 +19,6 @@ public class AfterEncounterScene extends SceneLoader {
     @FXML
     public StackPane backgroundPane;
 
-
     @FXML
     public Text title;
     @FXML
@@ -27,7 +26,6 @@ public class AfterEncounterScene extends SceneLoader {
     @FXML
     public Button contButton;
     private BackgroundImage back;
-    public static Region newRegion;
     public static String inputs[] = new String[2];
 
 
@@ -65,9 +63,6 @@ public class AfterEncounterScene extends SceneLoader {
     }
 
     public void contAction(ActionEvent actionEvent) {
-        currentLocation = newRegion;
-        currentLocation.setBeenVisited(true);
-        currentLocation.getRegionMarket().generateMarket(currentLocation);
         setStage(new MapScene());
     }
 

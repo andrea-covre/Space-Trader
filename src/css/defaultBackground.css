@@ -1,0 +1,39 @@
+.root{
+    -fx-background-image: url("../resources/images/menu_background.jpg");
+    -fx-background-size: stretch;
+}
+
+#skillLevelFont{
+    -fx-font: 35px "Comic Sans Ms";
+    -fx-fill: YELLOW;
+    -fx-background-color: transparent;
+}
+
+#skillNameFont{
+    -fx-font: 50px "Comic Sans Ms";
+    -fx-fill: YELLOW;
+}
+
+#skillSelectionStartFont{
+    -fx-font: 75px "Comic Sans Ms";
+    -fx-background-color: transparent;
+    -fx-text-fill: YELLOW;
+
+}
+
+#title{
+    -fx-font: 100px "Comic Sans Ms";
+    -fx-fill: YELLOW;
+}
+
+
+#clearRed {
+-fx-background-color: transparent;
+}
+#clear {
+-fx-background-color: transparent;
+-fx-text-fill: YELLOW;
+}
+
+
+

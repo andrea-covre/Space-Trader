@@ -18,6 +18,7 @@ import java.util.Random;
 
 public class BanditScene extends SceneLoader {
     private BackgroundImage back;
+    private boolean intendedDestination;
 
     @FXML
     private StackPane main;
@@ -43,32 +44,31 @@ public class BanditScene extends SceneLoader {
         }
         return null;
     }
-    @FXML
-    public void initialize() {
-        {
-            try {
-                back = new BackgroundImage(
-                        new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString(),
-                                1500, 1500, false, false),
-                        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                        BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-                main.setBackground(new Background(back));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+    {
+        try {
+            back = new BackgroundImage(
+
+                    new Image(new File("src/resources/images/map_background.jpg").toURI().toURL().toString()),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+                    BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        } catch (MalformedURLException e) {
+            System.out.println("malformued URL expetion at mapscene line 41");
         }
+    }
+    public void initialize() {
+        main.setBackground(new Background(back));
     }
     @FXML
     public void handlePay(MouseEvent mouseEvent) {
         if (player.getCredits() < 2000) {
-            if (player.getShip().getItems() == null) {
+            if (currentShip.getItems().size() == 0) {
                 title.setText("You couldn't pay the bandit and your ship took damage");
                 npcText.setText("Bandit: You don't have money or items? I'm damaging your ship.");
-                player.getShip().setHp(player.getShip().getHp() - 3);
+                currentShip.setHp(currentShip.getHp() - 3);
             } else {
                 title.setText("You couldn't pay the bandit and lost your items");
                 npcText.setText("Bandit: That's not enough money, I'm taking your items");
-                player.getShip().setItems(null);
+                currentShip.setItems(null);
             }
         } else {
             title.setText("You paid the bandit 2000 credits");
@@ -81,10 +81,12 @@ public class BanditScene extends SceneLoader {
         fightButton.setDisable(true);
         fleeButton.setTranslateX(250);
         fleeButton.setText("Continue");
+        intendedDestination = true;
     }
     @FXML
     public void handleFlee(MouseEvent mouseEvent) {
-        if (fleeButton.getText() == "Continue") {
+        Random r = new Random();
+        if (fleeButton.getText().equals("Continue")) {
             try {
                 npcText.setText("Bandit: RUN YO POCKETS!!!");
                 fleeButton.setText("Flee");
@@ -94,21 +96,20 @@ public class BanditScene extends SceneLoader {
                 payButton.setDisable(false);
                 fightButton.setVisible(true);
                 fightButton.setDisable(false);
-                setStage(new RegionScene());
+                goToRegion();
             } catch (Throwable f) {
                 f.printStackTrace();
             }
         } else {
-            Random r = new Random();
-            int random = r.nextInt(100);
-            if (random < (20 + (5 * player.getPilotSkill().getValue()))) {
+            currentShip.setFuel(currentShip.getFuel() - r.nextInt(100 * (setDifficulty.ordinal() + 1)));
+            if (player.getPilotSkill().skillCheck(setDifficulty.ordinal())) {
                 title.setText("You successfully fled from the bandit");
                 npcText.setText("Bandit: HEY GET BACK HERE!!!");
             } else {
                 title.setText("You failed to flee and lost your credits and your ship took damage");
                 npcText.setText("Bandit: Where do you think your going? You'll pay for that.");
                 player.setCredits(0);
-                player.getShip().setHp(player.getShip().getHp() - 3);
+                currentShip.setHp(currentShip.getHp() - 3);
             }
             payButton.setVisible(false);
             payButton.setDisable(true);
@@ -116,23 +117,38 @@ public class BanditScene extends SceneLoader {
             fightButton.setDisable(true);
             fleeButton.setTranslateX(250);
             fleeButton.setText("Continue");
+            intendedDestination = false;
         }
     }
+
+    private void goToRegion() {
+        if (intendedDestination) {
+            selectedLocation.getRegionMarket().generateMarket(selectedLocation);
+            currentLocation = selectedLocation;
+            currentLocation.setBeenVisited(true);
+            setStage(new RegionScene());
+        } else {
+            currentShip.setFuel(currentShip.getFuel() + costToSelectedLocation);
+            selectedLocation = currentLocation;
+            setStage(new RegionScene());
+        }
+    }
+
     @FXML
     public void handleFight(MouseEvent mouseEvent) {
         Random r = new Random();
-        int random = r.nextInt(100);
-        if (random < (10 + (5 * player.getFighterSkill().getValue()))) {
+        if (player.getFighterSkill().skillCheck(setDifficulty.ordinal())) {
             int random2 = r.nextInt(1000);
-            random2 = (random2/100) * 100;
             title.setText("You decided to fight the bandit and won " + random2 + " credits");
             npcText.setText("Bandit: Woah, chill out man. Here take this.");
             player.setCredits(player.getCredits() + random2);
+            intendedDestination = true;
         } else {
             title.setText("You failed to beat the bandit and lost your credits and your ship took damage");
             npcText.setText("Bandit: Your so weak. You'll pay for that.");
             player.setCredits(0);
-            player.getShip().setHp(player.getShip().getHp() - 3);
+            currentShip.setHp(currentShip.getHp() - 3);
+            intendedDestination = false;
         }
         payButton.setVisible(false);
         payButton.setDisable(true);

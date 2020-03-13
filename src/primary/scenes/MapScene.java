@@ -135,15 +135,13 @@ public class MapScene extends SceneLoader {
             currentLocation.getRegionMarket().generateMarket(currentLocation);
             regionsGenerated = true;
 
-            //Creating the default ship
-            //Just a random ship
+
             currentShip = new Ship("AFO", 5, 3, 50, 10, 3000);
         }
 
         /*
          * Base layout
          */
-//        stackpane.getChildren().add(MAP_BACKGROUND);
 
         locationButt = new ArrayList<>();
 
@@ -345,32 +343,6 @@ public class MapScene extends SceneLoader {
         });
 
     }
-//    protected void generateStatsBar() {
-//        //Creating stats bar
-//        creditsInfo.setText("Credits: " + player.getCredits());
-//
-//        pilotInfo.setText("Pilot: " + player.getPilotSkill().getValue());
-//
-//        fighterInfo.setText("Fighter: " + player.getFighterSkill().getValue());
-//
-//        merchantInfo.setText("Merchant: " + player.getMerchantSkill().getValue());
-//
-//        engineerInfo.setText("Engineer: " + player.getEngineerSkill().getValue());
-//
-//        shipName.setText("Ship: " + currentShip.getName());
-//
-//        shipHealth.setText("HP: " + currentShip.getHp() + "/" + currentShip.getMaxHp());
-//
-//        shipAttack.setText("Attack: " + currentShip.getAttack());
-//
-//        shipCapacity.setText("Capacity: " + currentShip.getItems().size()
-//                + "/" + currentShip.getCargo());
-//        shipUpgrades.setText("Upgrades: " + currentShip.getUpgrades().size() + "/"
-//                + currentShip.getUpgradeSlots());
-//
-//
-//    }
-
     private Pane map() {
 
         generateRegions();
@@ -388,14 +360,15 @@ public class MapScene extends SceneLoader {
             try {
                 if (costToSelectedLocation <= currentShip.getFuel()) {
                     if (currentLocation != selectedLocation) {
-                        selectedLocation.getRegionMarket().generateMarket(selectedLocation);
+                        currentShip.setFuel(currentShip.getFuel() - costToSelectedLocation);
+                        SceneProbability prob = new SceneProbability();
+                        prob.Probability();
+
+                    } else {
+                        // probability roll only happens if we moving to new location
+                        setStage(new RegionScene());
                     }
-                    currentLocation = selectedLocation;
-                    currentLocation.setBeenVisited(true);
-                    player.setCredits(player.getCredits() - costToSelectedLocation);
-                    currentShip.setFuel(currentShip.getFuel() - costToSelectedLocation);
-                    SceneProbability prob = new SceneProbability();
-                    prob.Probability();
+
                 }
             } catch (Throwable f) {
                 f.printStackTrace();

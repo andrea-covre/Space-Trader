@@ -89,7 +89,12 @@ public class TraderScene extends SceneLoader {
         generateBuyButton();
 
         EventHandler<WorkerStateEvent> regionEventEnd =
-                ev -> setStage(new RegionScene());
+                ev -> {
+                    selectedLocation.getRegionMarket().generateMarket(selectedLocation);
+                    currentLocation = selectedLocation;
+                    currentLocation.setBeenVisited(true);
+                    setStage(new RegionScene());
+                };
         EventHandler<WorkerStateEvent> negotationEventEnd =
                 ev -> result.setStyle("-fx-fill: transparent");
 
@@ -119,18 +124,18 @@ public class TraderScene extends SceneLoader {
             if (player.getFighterSkill().skillCheck(setDifficulty.ordinal())) {
                 int numRobbed = new Random().nextInt(itemAmount) + 1;
                 int num = 0;
-                for (; num < numRobbed && currentShip.getCargo() >
-                        currentShip.getItems().size(); num++) {
+                for (; num < numRobbed && currentShip.getCargo()
+                        > currentShip.getItems().size(); num++) {
                     currentShip.addItem(trader.getItem());
                 }
-                displayResult("Robbed Trader Successfully!\n" +
-                              "Received " + num + " items.\n" +
-                              "Travelling to destination.", regionEventEnd);
+                displayResult("Robbed Trader Successfully!\n"
+                        + "Received " + num + " items.\n"
+                        + "Travelling to destination.", regionEventEnd);
             } else {
                 int damage = new Random().nextInt(5);
                 currentShip.setHp(currentShip.getHp() - damage);
-                displayResult("Failed to Rob Trader.\nShip Lost " + damage +
-                              " HP\nTravelling to destination.",
+                displayResult("Failed to Rob Trader.\nShip Lost " + damage
+                                + " HP\nTravelling to destination.",
                               regionEventEnd);
             }
         });
@@ -162,7 +167,6 @@ public class TraderScene extends SceneLoader {
     private void generateBuyButton() {
         boolean canBuy = player.getCredits() >= trader.getPrice() &&
                             currentShip.getCargo() >= 1;
-
         if (!canBuy) {
             buyButton.setStyle("-fx-background-color: rgba(255, 0, 0)");
         } else {

@@ -9,7 +9,7 @@ public abstract class Skill {
     private static int SKILLCHECK_MULTIPLIER = 10;
     public boolean skillCheck(int difficultyOrdinal){
         Random r = new Random();
-        return ( (r.nextInt(value) * SKILLCHECK_MULTIPLIER) > ((difficultyOrdinal * 40) + 40));
+        return ((r.nextInt(value + 1) * SKILLCHECK_MULTIPLIER) > ((difficultyOrdinal * 40) + 40));
 
     }
 

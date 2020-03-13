@@ -79,6 +79,7 @@ public class SPEncounterScene extends SceneLoader {
             List<Item> refList = currentShip.getItems();
             StringBuilder ret = new StringBuilder();
             if (refList.size() == 0) {
+
                 throw new Exception("SPEncounter should not happen if player has no inventory :(");
             }
             for (int i = 0; i <= setDifficulty.ordinal() && refList.size() != 0; i++) { // will remove more if space and difficult
@@ -156,13 +157,18 @@ public class SPEncounterScene extends SceneLoader {
 
 
     private void procedeToRegion(String title, String message) {
-        AfterEncounterScene.newRegion = intendedNextRegion;
+        selectedLocation.getRegionMarket().generateMarket(selectedLocation);
+        currentLocation = selectedLocation;
+        currentLocation.setBeenVisited(true);
         AfterEncounterScene.inputs[0] = title;
         AfterEncounterScene.inputs[1] = message;
         setStage(new AfterEncounterScene());
     }
     private void returnToRegion(String title, String message) {
-        AfterEncounterScene.newRegion = currentLocation;
+
+        // need to refund fuel
+        currentShip.setFuel(currentShip.getFuel() + costToSelectedLocation);
+        selectedLocation = currentLocation;
         AfterEncounterScene.inputs[0] = title;
         AfterEncounterScene.inputs[1] = message;
         setStage(new AfterEncounterScene());
