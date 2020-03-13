@@ -94,7 +94,7 @@ public class BanditScene extends SceneLoader {
                 payButton.setDisable(false);
                 fightButton.setVisible(true);
                 fightButton.setDisable(false);
-                setStage(new MapScene());
+                setStage(new RegionScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }

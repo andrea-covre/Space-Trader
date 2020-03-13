@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import primary.SceneProbability;
 
 public class CharacterSheetScene extends SceneLoader {
     private static Button startGameCSheet = new Button("Start");
@@ -83,7 +84,7 @@ public class CharacterSheetScene extends SceneLoader {
 
         startGameCSheet.setOnAction(e -> {
             try {
-                setStage(new BanditScene());
+                setStage(new MapScene());
             } catch (Throwable f) {
                 f.printStackTrace();
             }

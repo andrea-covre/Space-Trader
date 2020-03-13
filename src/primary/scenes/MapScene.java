@@ -12,6 +12,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import primary.NewGame;
 import primary.Region;
+import primary.SceneProbability;
 import primary.Ship;
 
 import java.io.File;
@@ -396,7 +397,8 @@ public class MapScene extends SceneLoader {
                     currentLocation = selectedLocation;
                     currentLocation.setBeenVisited(true);
                     player.setCredits(player.getCredits() - costToSelectedLocation);
-                    setStage(new RegionScene());
+                    SceneProbability prob = new SceneProbability();
+                    prob.Probability();
                 }
             } catch (Throwable f) {
                 f.printStackTrace();

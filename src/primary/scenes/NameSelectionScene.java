@@ -83,7 +83,6 @@ public class NameSelectionScene extends SceneLoader {
             }
         }
     }
-
     @FXML
     public void handleBack(MouseEvent mouseEvent) {
         try {
