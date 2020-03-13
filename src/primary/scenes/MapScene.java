@@ -33,7 +33,6 @@ public class MapScene extends SceneLoader {
     public Text shipAttack;
     public Text shipUpgrades;
     public Text shipCapacity;
-    public Button testbutton;
 
 
     private BackgroundImage back;
@@ -435,7 +434,4 @@ public class MapScene extends SceneLoader {
         return stackpane;
     }
 
-    public void test(ActionEvent actionEvent) {
-        setStage(new SPEncounterScene());
-    }
 }

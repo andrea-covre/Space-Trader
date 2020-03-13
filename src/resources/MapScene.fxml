@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -39,7 +38,6 @@
                   <Text id="statsBar" fx:id="shipHealth" strokeType="OUTSIDE" strokeWidth="0.0" text="shipHealth" />
                   <Text id="statsBar" fx:id="shipAttack" strokeType="OUTSIDE" strokeWidth="0.0" text="shipattack" />
                   <Text id="statsBar" fx:id="shipCapacity" strokeType="OUTSIDE" strokeWidth="0.0" text="shipcapacity" />
-                  <Button fx:id="testbutton" mnemonicParsing="false" onAction="#test" text="test" />
                   <Text id="statsBar" fx:id="shipUpgrades" strokeType="OUTSIDE" strokeWidth="0.0" text="shipUpgrades" />
                </children>
             </HBox>
