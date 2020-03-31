@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="650.0" scaleShape="false" stylesheets="@../css/defaultBackground.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.SkillsLevelSelectionScene">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" />
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <TilePane alignment="CENTER" hgap="60.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text id="skillNameFont" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="Pilot" textAlignment="CENTER" />
+                        <HBox id="pilotLevelHbox" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button id="arrowsUp" fx:id="pilotUp" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handlePilotUp" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬆" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                              <Text id="skillLevelFont" fx:id="pilotLevelDisplay" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="30.0" />
+                                 </font>
+                              </Text>
+                              <Button id="arrowsDown" fx:id="pilotDown" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handlePilotDown" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬇" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text id="skillNameFont" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="Fighter" textAlignment="CENTER" />
+                        <HBox id="pilotLevelHbox" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button id="arrowsUp" fx:id="fighterUp" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleFighterUp" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬆" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                              <Text id="skillLevelFont" fx:id="fighterLevelDisplay" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="30.0" />
+                                 </font>
+                              </Text>
+                              <Button id="arrowsDown" fx:id="fighterDown" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleFighterDown" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬇" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text id="skillNameFont" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="Merchant" textAlignment="CENTER" />
+                        <HBox id="pilotLevelHbox" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button id="arrowsUp" fx:id="merchantUp" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleMerchantUp" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬆" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                              <Text id="skillLevelFont" fx:id="merchantLevelDisplay" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="30.0" />
+                                 </font>
+                              </Text>
+                              <Button id="arrowsDown" fx:id="merchantDown" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleMerchantDown" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬇" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text id="skillNameFont" fill="YELLOW" strokeType="OUTSIDE" strokeWidth="0.0" text="Engineer" textAlignment="CENTER" />
+                        <HBox id="pilotLevelHbox" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button id="arrowsUp" fx:id="engineerUp" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleEngineerUp" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬆" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                              <Text id="skillLevelFont" fx:id="engineerLevelDisplay" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="30.0" />
+                                 </font>
+                              </Text>
+                              <Button id="arrowsDown" fx:id="engineerDown" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleEngineerDown" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="⬇" textFill="GREEN">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="64.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </TilePane>
+            <Text id="skillLevelFont" fx:id="skillPointsDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Skill points: " />
+            <Button id="continueButton" fx:id="finish" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleFinish" style="-fx-background-color: transparent;" text="Finish" textFill="RED">
+               <font>
+                  <Font name="Comic Sans MS" size="60.0" />
+               </font>
+            </Button>
+            <Button id="continueButton" fx:id="back" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleBack" style="-fx-background-color: transparent;" text="Back" textFill="RED">
+               <font>
+                  <Font name="Comic Sans MS" size="60.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

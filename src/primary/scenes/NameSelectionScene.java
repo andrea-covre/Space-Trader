@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import primary.Trader;
 
 
 import java.io.File;
@@ -16,7 +18,10 @@ public class NameSelectionScene extends SceneLoader {
     @FXML
     private TextField field;
 
-
+    @FXML
+    public void initialize() {
+        player.setPlayerName(null);
+    }
     @Override
     public Parent build() {
         FXMLLoader p =  new FXMLLoader();
@@ -30,31 +35,23 @@ public class NameSelectionScene extends SceneLoader {
     }
     @FXML
     public void handleContinue(MouseEvent mouseEvent) {
-        if (player == null) {
             try {
                 if (field.getText() == null || field.getText().trim().isEmpty()) {
                     field.clear();
                     field.setPromptText("Enter a valid name");
                 } else {
-                    player = new Player(field.getText().trim(), 0, 0);
+                    player.setPlayerName(field.getText().trim());
                     field.clear();
-                    field.setPromptText("Works. Name is: " + player.getPlayerName());
+                    setStage(new SkillsLevelSelectionScene());
                 }
             } catch (Throwable f) {
                 f.printStackTrace();
             }
-        } else {
-            try {
-                setStage(new DifficultyScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        }
     }
     @FXML
     public void handleBack(MouseEvent mouseEvent) {
         try {
-            setStage(new WelcomeScene());
+            setStage(new DifficultyScene());
         } catch (Throwable f) {
             f.printStackTrace();
         }

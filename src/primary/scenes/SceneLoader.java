@@ -13,7 +13,6 @@ import java.util.List;
 
 public abstract class SceneLoader {
 
-
     protected static Player player;
 
 
