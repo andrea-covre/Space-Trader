@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class DifficultyScene extends SceneLoader {
     @FXML
-    Text title;
+    private Text title;
 
     @Override
     public Parent build() {
@@ -35,8 +35,8 @@ public class DifficultyScene extends SceneLoader {
         }
         return null;
     }
-
-    public void handleEasy(MouseEvent mouseEvent) {
+    @FXML
+    private void handleEasy(MouseEvent mouseEvent) {
         try {
             setDifficulty = Difficulty.EASY;
             player.setCredits(10000);
@@ -47,7 +47,8 @@ public class DifficultyScene extends SceneLoader {
         }
 
     }
-    public void handleMedium(MouseEvent mouseEvent) {
+    @FXML
+    private void handleMedium(MouseEvent mouseEvent) {
         try {
             setDifficulty = Difficulty.MEDIUM;
             player.setCredits(6000);
@@ -57,7 +58,8 @@ public class DifficultyScene extends SceneLoader {
             f.printStackTrace();
         }
     }
-    public void handleHard(MouseEvent mouseEvent) {
+    @FXML
+    private void handleHard(MouseEvent mouseEvent) {
         try {
             setDifficulty = Difficulty.HARD;
             player.setCredits(4000);

@@ -1,5 +1,6 @@
 package primary.scenes;
 
+import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,11 +20,11 @@ import java.io.IOException;
 
 public class WelcomeScene extends SceneLoader {
     @FXML
-    Text title;
+    private Text title;
     @FXML
-    Button newGame;
+    private Button newGame;
     @FXML
-    Text titleMiddle;
+    private Text titleMiddle;
 
     @FXML
     public void initialize() {
@@ -61,7 +62,7 @@ public class WelcomeScene extends SceneLoader {
         return null;
     }
     @FXML
-    public void handleNewGame(MouseEvent mouseEvent) {
+    private void handleNewGame(MouseEvent mouseEvent) {
         try {
             player = new Player(null, 0, 0);
             setStage(new DifficultyScene());

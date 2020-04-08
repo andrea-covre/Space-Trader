@@ -16,19 +16,19 @@ import java.io.IOException;
 
 public class CharacterSheetScene extends SceneLoader {
     @FXML
-    Text pilotSkill;
+    private Text pilotSkill;
     @FXML
-    Text fighterSkill;
+    private Text fighterSkill;
     @FXML
-    Text merchantSkill;
+    private Text merchantSkill;
     @FXML
-    Text engineerSkill;
+    private Text engineerSkill;
     @FXML
-    Text credits;
+    private Text credits;
     @FXML
-    Text difficultyText;
+    private Text difficultyText;
     @FXML
-    Text title;
+    private Text title;
 
     @FXML
     public void initialize() {
@@ -63,7 +63,7 @@ public class CharacterSheetScene extends SceneLoader {
     }
 
     @FXML
-    public void handleStartGame(MouseEvent mouseEvent) {
+    private void handleStartGame(MouseEvent mouseEvent) {
         try {
             setStage(new MapScene());
         } catch (Throwable f) {
@@ -72,7 +72,7 @@ public class CharacterSheetScene extends SceneLoader {
     }
 
     @FXML
-    public void handleBack(MouseEvent mouseEvent) {
+    private void handleBack(MouseEvent mouseEvent) {
         player.resetSkill();
         try {
             setStage(new SkillsLevelSelectionScene());

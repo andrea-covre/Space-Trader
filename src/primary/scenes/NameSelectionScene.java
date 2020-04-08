@@ -34,7 +34,7 @@ public class NameSelectionScene extends SceneLoader {
         return null;
     }
     @FXML
-    public void handleContinue(MouseEvent mouseEvent) {
+    private void handleContinue(MouseEvent mouseEvent) {
             try {
                 if (field.getText() == null || field.getText().trim().isEmpty()) {
                     field.clear();
@@ -49,7 +49,7 @@ public class NameSelectionScene extends SceneLoader {
             }
     }
     @FXML
-    public void handleBack(MouseEvent mouseEvent) {
+    private void handleBack(MouseEvent mouseEvent) {
         try {
             setStage(new DifficultyScene());
         } catch (Throwable f) {
