@@ -128,11 +128,21 @@ public class BanditScene extends SceneLoader {
             selectedLocation.getRegionMarket().generateMarket(selectedLocation);
             currentLocation = selectedLocation;
             currentLocation.setBeenVisited(true);
-            setStage(new RegionScene());
+            if (currentShip.getHp() <= 0) {
+                regionsGenerated = false;
+                setStage(new LoseScene());
+            } else {
+                setStage(new RegionScene());
+            }
         } else {
-            currentShip.setFuel(currentShip.getFuel() + costToSelectedLocation);
-            selectedLocation = currentLocation;
-            setStage(new RegionScene());
+            if (currentShip.getHp() <= 0) {
+                regionsGenerated = false;
+                setStage(new LoseScene());
+            } else {
+                currentShip.setFuel(currentShip.getFuel() + costToSelectedLocation);
+                selectedLocation = currentLocation;
+                setStage(new RegionScene());
+            }
         }
     }
 

@@ -63,7 +63,12 @@ public class AfterEncounterScene extends SceneLoader {
     }
 
     public void contAction(ActionEvent actionEvent) {
-        setStage(new MapScene());
+        if (currentShip.getHp() <= 0) {
+            regionsGenerated = false;
+            setStage(new LoseScene());
+        } else {
+            setStage(new MapScene());
+        }
     }
     public static void setInput(String a, int i) {
         inputs[i] = a;
