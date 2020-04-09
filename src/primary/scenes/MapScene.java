@@ -136,7 +136,7 @@ public class MapScene extends SceneLoader {
             regionsGenerated = true;
 
 
-            currentShip = new Ship("AFO", 5, 3, 3, 10, 3000);
+            currentShip = new Ship("AFO", 5, 3, 50, 10, 3000);
         }
 
         /*
