@@ -58,4 +58,5 @@ public class NewGame extends Application {
     public static Stage getTheStage() {
         return theStage;
     }
+
 }

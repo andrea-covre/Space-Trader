@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import primary.CharacterUpgrade;
 import primary.Item;
 import primary.Market;
+import skills.Skill;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,8 @@ public class MarketScene extends SceneLoader {
     private CharacterUpgrade specialItem = localMarket.getSpecialItem();
     private Button specialItemBuyButton;
     private Button fuelBuyButton;
+    private Button restoreHealthButton;
+    private Button winningButton;
 
 
     @Override
@@ -119,7 +122,13 @@ public class MarketScene extends SceneLoader {
     }
 
     private void generateSpecialButtons() {
-        specialItems.getChildren().addAll(generateSpecialItemButton(), generateRefuelButton());
+        if (currentLocation.isWinningRegion()) {
+            specialItems.getChildren().addAll(generateSpecialItemButton(), generateRefuelButton(),
+                    generateRestoreHPButton(), generateWinningButton());
+        } else {
+            specialItems.getChildren().addAll(generateSpecialItemButton(), generateRefuelButton(),
+                    generateRestoreHPButton());
+        }
         specialItems.setAlignment(Pos.CENTER);
         specialItems.setHgap(10);
         specialItems.setVgap(10);
@@ -159,6 +168,34 @@ public class MarketScene extends SceneLoader {
         return specialVBox;
     }
 
+    private VBox generateRestoreHPButton() {
+        VBox specialVBox = new VBox();
+
+        Text specialItemTitle = new Text("Eye drops");
+        specialItemTitle.setId("specialItemTitle");
+
+        Text itemDescription = new Text("It will restore 1 HP");
+        itemDescription.setId("specialItemDescription");
+
+        int healthPointCost = (int) (Market.getCostPerHp() * (1 - 0.05 * player.getEngineerSkill().getValue()));
+
+        restoreHealthButton = new Button("Buy for " + healthPointCost + " (-" + (player.getEngineerSkill().getValue() * 5)
+                + "%)");
+        restoreHealthButton.setId("specialItemBuyButt");
+        if (player.getCredits() >= healthPointCost && currentShip.getHp()
+                < currentShip.getMaxHp()) {
+            restoreHealthButton.setStyle("-fx-background-color: rgba(0, 156, 0)");
+        } else {
+            restoreHealthButton.setStyle("-fx-background-color: rgba(255, 0, 0)");
+        }
+
+        specialVBox.getChildren().addAll(specialItemTitle, itemDescription, restoreHealthButton);
+        specialVBox.setAlignment(Pos.CENTER);
+        specialVBox.setId("specialVBox");
+
+        return specialVBox;
+    }
+
     private VBox generateRefuelButton() {
         VBox specialVBox = new VBox();
 
@@ -186,6 +223,33 @@ public class MarketScene extends SceneLoader {
 
         return specialVBox;
     }
+
+    private VBox generateWinningButton() {
+        VBox specialVBox = new VBox();
+
+        Text specialItemTitle = new Text("Holy Grail");
+        specialItemTitle.setId("specialItemTitle");
+
+        Text itemDescription = new Text("It will end all of your sufferings");
+        itemDescription.setId("specialItemDescription");
+
+        int winningItemCost = Market.getCostWinningItem();
+
+        winningButton = new Button("Buy for " + winningItemCost);
+        winningButton.setId("specialItemBuyButt");
+        if (player.getCredits() >= winningItemCost) {
+            winningButton.setStyle("-fx-background-color: rgba(0, 156, 0)");
+        } else {
+            winningButton.setStyle("-fx-background-color: rgba(255, 0, 0)");
+        }
+
+        specialVBox.getChildren().addAll(specialItemTitle, itemDescription, winningButton);
+        specialVBox.setAlignment(Pos.CENTER);
+        specialVBox.setId("specialWinningVBox");
+
+        return specialVBox;
+    }
+
 
     private void generateBuyActions() {
         //Buy Buttons
@@ -248,6 +312,34 @@ public class MarketScene extends SceneLoader {
                 f.printStackTrace();
             }
         });
+
+        restoreHealthButton.setOnAction(e -> {
+            try {
+                int healthPointCost = (int) (Market.getCostPerHp() * (1 - 0.05 * player.getEngineerSkill().getValue()));
+                if (player.getCredits() >= healthPointCost && currentShip.getHp() < currentShip.getMaxHp()) {
+                    player.setCredits(player.getCredits() - healthPointCost);
+                    currentShip.setHp(currentShip.getHp() + 1);
+                }
+                setStage(new MarketScene());
+            } catch (Throwable f) {
+                f.printStackTrace();
+            }
+        });
+
+        if (currentLocation.isWinningRegion()) {
+            winningButton.setOnAction(e -> {
+                try {
+                    int winningCost = Market.getCostWinningItem();
+                    if (player.getCredits() >= winningCost) {
+                        player.setCredits(player.getCredits() - winningCost);
+                        regionsGenerated = false;
+                        setStage(new WinScene());
+                    }
+                } catch (Throwable f) {
+                    f.printStackTrace();
+                }
+            });
+        }
     }
 
     private void generateSellActions() {

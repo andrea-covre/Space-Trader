@@ -19,6 +19,7 @@ public class Region {
     private static int numberOfRegions = 0;
     private int regionID;
     private Market regionMarket = new Market();
+    private boolean winningRegion = false;
 
     private Random rand = new Random();
 
@@ -102,6 +103,14 @@ public class Region {
 
     public Market getRegionMarket() {
         return regionMarket;
+    }
+
+    public boolean isWinningRegion() {
+        return winningRegion;
+    }
+
+    public void setWinningRegion(boolean winningRegion) {
+        this.winningRegion = winningRegion;
     }
 }
 
