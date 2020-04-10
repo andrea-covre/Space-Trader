@@ -229,6 +229,12 @@
     -fx-padding: 5px;
 }
 
+#specialWinningVBox{
+    -fx-background-color: MAGENTA;
+    -fx-border-color: YELLOW;
+    -fx-padding: 5px;
+}
+
 #specialItemBuyButt{
     -fx-font: 12px "Comic Sans Ms";
 }

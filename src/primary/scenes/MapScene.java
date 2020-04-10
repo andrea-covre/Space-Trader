@@ -135,6 +135,8 @@ public class MapScene extends SceneLoader {
             currentLocation.getRegionMarket().generateMarket(currentLocation);
             regionsGenerated = true;
 
+            regions.get(2).setWinningRegion(true);
+
 
             currentShip = new Ship("AFO", 5, 3, 50, 10, 3000);
         }
