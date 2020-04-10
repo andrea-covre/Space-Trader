@@ -1,75 +1,33 @@
 package primary.scenes;
 
+import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import primary.Trader;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class WelcomeScene extends SceneLoader {
-    private  Button sceneButton1 = new Button("New Game");
-    private  Button backToScene1 = new Button("Back");
-    @Override
-    public Parent build() {
-        return welcome();
-    }
+    @FXML
+    private Text title;
+    @FXML
+    private Button newGame;
+    @FXML
+    private Text titleMiddle;
 
-    private Pane welcome()  {
-        /*
-         * Base layout
-         */
-        BorderPane pane = new BorderPane();
-        HBox hbox = new HBox();
-        HBox hbox2 = new HBox();
-        Text title = new Text("SPACE TRADER");
-        StackPane stackpane = new StackPane();
-
-        /*
-         * Background image
-         */
-        BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
-        BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
-
-        /*
-         * Buttons
-         */
-        hbox.setAlignment(Pos.CENTER);
-        sceneButton1.setFont(Font.font("Comic Sans MS", 60));
-        sceneButton1.setStyle("-fx-background-color: transparent");
-        sceneButton1.setTextFill(Color.RED);
-        hbox2.setAlignment(Pos.CENTER);
-
-        sceneButton1.setOnAction(e -> {
-            try {
-                setStage(new NameSelectionScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-        backToScene1.setOnAction(e -> {
-            try {
-                setStage(new NameSelectionScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-
-        /*
-         * Text
-         */
-        title.setFont(Font.font("Comic Sans MS", 100));
-        title.setFill(Color.YELLOW);
-        hbox2.getChildren().add(title);
-
-        pane.setCenter(stackpane);
-        stackpane.getChildren().addAll(BACKGROUND, hbox2, hbox);
+    @FXML
+    public void initialize() {
         Task<Void> sleeper = new Task<>() {
             @Override
             protected Void call() {
@@ -82,13 +40,34 @@ public class WelcomeScene extends SceneLoader {
             }
         };
         sleeper.setOnSucceeded(event -> {
-            hbox.getChildren().add(sceneButton1);
-            hbox2.setAlignment(Pos.TOP_CENTER);
+            titleMiddle.setVisible(false);
+            title.setVisible(true);
+            newGame.setVisible(true);
+            newGame.setDisable(false);
         });
         new Thread(sleeper).start();
-
-        return pane;
     }
-
-
+    @Override
+    public Parent build() {
+        FXMLLoader loader =  new FXMLLoader();
+        loader.setController(this);
+        try {
+            return loader.load(new File(
+                    "src/resources/WelcomeScene.fxml"
+            ).toURI().toURL());
+        } catch (IOException e) {
+            System.out.println("ERROR HERE");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @FXML
+    private void handleNewGame(MouseEvent mouseEvent) {
+        try {
+            player = new Player(null, 0, 0);
+            setStage(new DifficultyScene());
+        } catch (Throwable f) {
+            f.printStackTrace();
+        }
+    }
 }

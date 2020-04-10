@@ -1,7 +1,10 @@
 package primary.scenes;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import skills.EngineerSkill;
@@ -9,211 +12,109 @@ import skills.FighterSkill;
 import skills.MerchantSkill;
 import skills.PilotSkill;
 
+import java.io.File;
+import java.io.IOException;
+
 public class SkillsLevelSelectionScene extends SceneLoader {
-    /**
-     * skills.Skill Level Selection Scene buttons
-     */
-    //Pilot
-    private  Button pilotUp = new Button("⬆");
-    private  Button pilotDown = new Button("⬇");
+    @FXML
+    private Text skillPointsDisplay;
+    @FXML
+    private Text pilotLevelDisplay;
+    @FXML
+    private Text fighterLevelDisplay;
+    @FXML
+    private Text merchantLevelDisplay;
+    @FXML
+    Text engineerLevelDisplay;
 
-    //Fighter
-    private  Button fighterUp = new Button("⬆");
-    private  Button fighterDown = new Button("⬇");
-
-    //Merchant
-    private  Button merchantUp = new Button("⬆");
-    private  Button merchantDown = new Button("⬇");
-
-    //Engineer
-    private  Button engineerUp = new Button("⬆");
-    private  Button engineerDown = new Button("⬇");
-
-    //Navigation
-    private  Button startGame = new Button("Start");
-    private  Button backToNameSelection = new Button("Back");
+    @FXML
+    public void initialize() {
+        skillPointsDisplay.setText("Skill points: " + player.getSkillPoints());
+        pilotLevelDisplay.setText("" + player.getPilotSkill().getValue());
+        fighterLevelDisplay.setText("" + player.getFighterSkill().getValue());
+        merchantLevelDisplay.setText("" + player.getMerchantSkill().getValue());
+        engineerLevelDisplay.setText("" + player.getEngineerSkill().getValue());
+    }
 
     @Override
     public Parent build() {
-        return skillsLevelSelection();
+        FXMLLoader loader =  new FXMLLoader();
+        loader.setController(this);
+        try {
+            return loader.load(new File(
+                    "src/resources/SkillsLevelSelectionScene.fxml"
+            ).toURI().toURL());
+        } catch (IOException e) {
+            System.out.println("ERROR HERE");
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    private void setButtons() {
-        // setting actions for all skill leveling buttons
-        pilotUp.setOnAction(e -> {
-            new PilotSkill(1).upgrade(player);
-            setStage(this);
-        });
-        pilotDown.setOnAction(e -> {
-            new PilotSkill(-1).upgrade(player);
-            setStage(this);
-        });
-        fighterUp.setOnAction(e -> {
-            new FighterSkill(1).upgrade(player);
-            setStage(this);
-        });
-        fighterDown.setOnAction(e -> {
-            new FighterSkill(-1).upgrade(player);
-            setStage(this);
-        });
-        merchantUp.setOnAction(e -> {
-            new MerchantSkill(1).upgrade(player);
-            setStage(this);
-        });
-        merchantDown.setOnAction(e -> {
-            new MerchantSkill(-1).upgrade(player);
-            setStage(this);
-        });
-        engineerUp.setOnAction(e -> {
-            new EngineerSkill(1).upgrade(player);
-            setStage(this);
-        });
-        engineerDown.setOnAction(e -> {
-            new EngineerSkill(-1).upgrade(player);
-            setStage(this);
-        });
-
-        //setting back button to return to name selections
-        backToNameSelection.setOnAction(e -> {
-            player.resetSkill();
-            try {
-                setStage(new NameSelectionScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-
-        // setting start game to start the game
-        startGame.setOnAction(e -> {
-            try {
-                setStage(new CharacterSheetScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
+    @FXML
+    private void handlePilotUp(MouseEvent mouseEvent) {
+        new PilotSkill(1).upgrade(player);
+        setStage(this);
     }
 
-    private Pane skillsLevelSelection() {
+    @FXML
+    private void handlePilotDown(MouseEvent mouseEvent) {
+        new PilotSkill(-1).upgrade(player);
+        setStage(this);
+    }
 
-        /*
-        set buttons here in helper method
-         */
-        setButtons();
-        /*
-         * skills.Skill Nodes
-         */
-        //Nodes to display skill name
-        Text pilotTitle = new Text("Pilot");
-        pilotTitle.setId("skillNameFont");
-        Text fighterTitle = new Text("Fighter");
-        fighterTitle.setId("skillNameFont");
-        Text merchantTitle = new Text("Merchant");
-        merchantTitle.setId("skillNameFont");
-        Text engineerTitle = new Text("Engineer");
-        engineerTitle.setId("skillNameFont");
+    @FXML
+    private void handleFighterUp(MouseEvent mouseEvent) {
+        new FighterSkill(1).upgrade(player);
+        setStage(this);
+    }
 
-        //Nodes to display skill level
-        Text pilotLevelDisplay = new Text(player.getPilotSkill().toString());
-        pilotLevelDisplay.setId("skillLevelFont");
-        Text fighterLevelDisplay = new Text(player.getFighterSkill().toString());
-        fighterLevelDisplay.setId("skillLevelFont");
-        Text merchantLevelDisplay = new Text(player.getMerchantSkill().toString());
-        merchantLevelDisplay.setId("skillLevelFont");
-        Text engineerLevelDisplay = new Text(player.getEngineerSkill().toString());
-        engineerLevelDisplay.setId("skillLevelFont");
+    @FXML
+    private void handleFighterDown(MouseEvent mouseEvent) {
+        new FighterSkill(-1).upgrade(player);
+        setStage(this);
+    }
 
-        /*
-         * Nodes to display skill points available
-         */
-        Text skillPointsDisplay = new Text("Skill points: "
-                + player.getSkillPoints());
-        skillPointsDisplay.setId("skillLevelFont");
+    @FXML
+    private void handleMerchantUp(MouseEvent mouseEvent) {
+        new MerchantSkill(1).upgrade(player);
+        setStage(this);
+    }
 
-        /*
-         * Style of navigation buttons
-         */
-        //Start Game
-        startGame.setId("skillSelectionStartFont");
-        //Back
-        backToNameSelection.setId("skillLevelFont");
+    @FXML
+    private void handleMerchantDown(MouseEvent mouseEvent) {
+        new MerchantSkill(-1).upgrade(player);
+        setStage(this);
+    }
 
-        // Base layout
-        BorderPane pane = new BorderPane();
+    @FXML
+    private void handleEngineerUp(MouseEvent mouseEvent) {
+        new EngineerSkill(1).upgrade(player);
+        setStage(this);
+    }
 
-        // background
-        BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
-        BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
+    @FXML
+    private void handleEngineerDown(MouseEvent mouseEvent) {
+        new EngineerSkill(-1).upgrade(player);
+        setStage(this);
+    }
 
-        //Scene title
-        Text title = new Text("Skills");
-        title.setId("title");
+    @FXML
+    private void handleBack(MouseEvent mouseEvent) {
+        player.resetSkill();
+        try {
+            setStage(new NameSelectionScene());
+        } catch (Throwable f) {
+            f.printStackTrace();
+        }
+    }
 
-        //Pilot layout
-        HBox pilotLevelHbox = new HBox();
-        pilotLevelHbox.setAlignment(Pos.CENTER);
-        pilotLevelHbox.getChildren().addAll(pilotUp, pilotLevelDisplay, pilotDown);
-
-        VBox pilotLevelVBox = new VBox();
-        pilotLevelVBox.setAlignment(Pos.CENTER);
-        pilotLevelVBox.getChildren().addAll(pilotTitle, pilotLevelHbox);
-
-        //Fighter layout
-        HBox fighterLevelHbox = new HBox();
-        fighterLevelHbox.setAlignment(Pos.CENTER);
-        fighterLevelHbox.getChildren().addAll(fighterUp, fighterLevelDisplay, fighterDown);
-
-        VBox fighterLevelVBox = new VBox();
-        fighterLevelVBox.setAlignment(Pos.CENTER);
-        fighterLevelVBox.getChildren().addAll(fighterTitle, fighterLevelHbox);
-
-        //Merchant layout
-        HBox merchantLevelHbox = new HBox();
-        merchantLevelHbox.setAlignment(Pos.CENTER);
-        merchantLevelHbox.getChildren().addAll(merchantUp, merchantLevelDisplay, merchantDown);
-
-        VBox merchantLevelVBox = new VBox();
-        merchantLevelVBox.setAlignment(Pos.CENTER);
-        merchantLevelVBox.getChildren().addAll(merchantTitle, merchantLevelHbox);
-
-        //Engineer layout
-        HBox engineerLevelHbox = new HBox();
-        engineerLevelHbox.setAlignment(Pos.CENTER);
-        engineerLevelHbox.getChildren().addAll(engineerUp, engineerLevelDisplay, engineerDown);
-
-        VBox engineerLevelVBox = new VBox();
-        engineerLevelVBox.setAlignment(Pos.CENTER);
-        engineerLevelVBox.getChildren().addAll(engineerTitle, engineerLevelHbox);
-
-        //Condesing all the "skillVBoxes" in a TilePane
-        TilePane skillsTiles = new TilePane();
-        skillsTiles.setAlignment(Pos.CENTER);
-        skillsTiles.getChildren().addAll(pilotLevelVBox, fighterLevelVBox, merchantLevelVBox,
-                engineerLevelVBox);
-        skillsTiles.setHgap(60);
-
-        //Putting skillTiles into a VBOX
-        VBox skillsInterface = new VBox();
-        skillsInterface.getChildren().addAll(skillsTiles, skillPointsDisplay, new Text(""),
-                startGame, backToNameSelection);
-        skillsInterface.setAlignment(Pos.CENTER);
-
-        //Merging structure with the background
-        pane.getChildren().add(BACKGROUND);
-        pane.setCenter(skillsInterface);
-
-        /*
-         * Arrows' Style
-         */
-        pilotUp.setId("arrowsUp");
-        pilotDown.setId("arrowsDown");
-        fighterUp.setId("arrowsUp");
-        fighterDown.setId("arrowsDown");
-        merchantUp.setId("arrowsUp");
-        merchantDown.setId("arrowsDown");
-        engineerUp.setId("arrowsUp");
-        engineerDown.setId("arrowsDown");
-
-        pane.getStylesheets().add("css/Styles.css");
-        return pane;
+    @FXML
+    private void handleFinish(MouseEvent mouseEvent) {
+        try {
+            setStage(new CharacterSheetScene());
+        } catch (Throwable f) {
+            f.printStackTrace();
+        }
     }
 }

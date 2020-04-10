@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane fx:id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="650.0" scaleShape="false" stylesheets="@../css/defaultBackground.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="primary.scenes.CharacterSheetScene">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text id="r" fx:id="title" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome," textAlignment="CENTER" textOrigin="TOP" wrappingWidth="1000.0">
+                     <font>
+                        <Font name="Comic Sans MS" size="70.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" minWidth="550.0" prefHeight="322.0" prefWidth="500.0">
+                           <children>
+                              <Text id="r" fx:id="title1" fill="RED" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Skills" textAlignment="CENTER" textOrigin="TOP" wrappingWidth="1000.0">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="70.0" />
+                                 </font>
+                              </Text>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Text id="r" fx:id="title11" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Pilot" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                          <Text id="r" fx:id="title112" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Fighter" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                          <Text id="r" fx:id="title112" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Merchant" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                          <Text id="r" fx:id="title112" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Engineer" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Text id="r" fx:id="pilotSkill" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                          <Text id="r" fx:id="fighterSkill" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                          <Text id="r" fx:id="merchantSkill" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                          <Text id="r" fx:id="engineerSkill" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="40.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="80.0">
+                           <children>
+                              <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Credits">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="70.0" />
+                                 </font>
+                              </Text>
+                              <Text id="r" fx:id="credits" fill="YELLOW" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" textOrigin="TOP">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="40.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Text id="r" fx:id="difficultyText" fill="RED" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Playing on" textAlignment="CENTER" textOrigin="TOP" wrappingWidth="1000.0">
+                     <font>
+                        <Font name="Comic Sans MS" size="40.0" />
+                     </font>
+                  </Text>
+                  <Button id="characterSheetStartFont" fx:id="startGame" alignment="TOP_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleStartGame" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="Start Game" textFill="RED">
+                     <font>
+                        <Font name="Comic Sans MS" size="60.0" />
+                     </font>
+                  </Button>
+                  <Button id="characterSheetStartFont" fx:id="back" alignment="TOP_CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleBack" style="-fx-background-color: transparent;" stylesheets="@../css/Styles.css" text="Back" textFill="RED">
+                     <font>
+                        <Font name="Comic Sans MS" size="60.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>

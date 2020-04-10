@@ -60,7 +60,7 @@ public class BanditScene extends SceneLoader {
         main.setBackground(new Background(back));
     }
     @FXML
-    public void handlePay(MouseEvent mouseEvent) {
+    private void handlePay(MouseEvent mouseEvent) {
         if (player.getCredits() < 2000) {
             if (currentShip.getItems().size() == 0) {
                 title.setText("You couldn't pay the bandit and your ship took damage");
@@ -85,7 +85,7 @@ public class BanditScene extends SceneLoader {
         intendedDestination = true;
     }
     @FXML
-    public void handleFlee(MouseEvent mouseEvent) {
+    private void handleFlee(MouseEvent mouseEvent) {
         Random r = new Random();
         if (fleeButton.getText().equals("Continue")) {
             try {
@@ -128,16 +128,26 @@ public class BanditScene extends SceneLoader {
             selectedLocation.getRegionMarket().generateMarket(selectedLocation);
             currentLocation = selectedLocation;
             currentLocation.setBeenVisited(true);
-            setStage(new RegionScene());
+            if (currentShip.getHp() <= 0) {
+                regionsGenerated = false;
+                setStage(new LoseScene());
+            } else {
+                setStage(new RegionScene());
+            }
         } else {
-            currentShip.setFuel(currentShip.getFuel() + costToSelectedLocation);
-            selectedLocation = currentLocation;
-            setStage(new RegionScene());
+            if (currentShip.getHp() <= 0) {
+                regionsGenerated = false;
+                setStage(new LoseScene());
+            } else {
+                currentShip.setFuel(currentShip.getFuel() + costToSelectedLocation);
+                selectedLocation = currentLocation;
+                setStage(new RegionScene());
+            }
         }
     }
 
     @FXML
-    public void handleFight(MouseEvent mouseEvent) {
+    private void handleFight(MouseEvent mouseEvent) {
         Random r = new Random();
         if (player.getFighterSkill().skillCheck(setDifficulty.ordinal())) {
             int random2 = r.nextInt(1000);

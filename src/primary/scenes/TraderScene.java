@@ -134,9 +134,9 @@ public class TraderScene extends SceneLoader {
             } else {
                 int damage = new Random().nextInt(5);
                 currentShip.setHp(currentShip.getHp() - damage);
-                displayResult("Failed to Rob Trader.\nShip Lost " + damage
-                                + " HP\nTravelling to destination.",
-                              regionEventEnd);
+                    displayResult("Failed to Rob Trader.\nShip Lost " + damage
+                                    + " HP\nTravelling to destination.",
+                            regionEventEnd);
             }
         });
 
@@ -190,7 +190,14 @@ public class TraderScene extends SceneLoader {
                 return null;
             }
         };
-        sleeper.setOnSucceeded(task);
+        if (currentShip.getHp() <= 0) {
+            sleeper.setOnSucceeded(event -> {
+                regionsGenerated = false;
+                setStage(new LoseScene());
+            });
+        } else {
+            sleeper.setOnSucceeded(task);
+        }
         new Thread(sleeper).start();
     }
 

@@ -52,9 +52,11 @@ public class Player {
         this.skillPoints.set(skillPoints);
     }
 
+    public void setPlayerName(String name) {this.playerName = name; }
+
     public void resetSkill() {
         setSkillPoints(pilotSkill.getValue() + engineerSkill.getValue()
-                + fighterSkill.getValue() + merchantSkill.getValue());
+                + fighterSkill.getValue() + merchantSkill.getValue() + skillPoints.get());
         pilotSkill.setValue(0);
         engineerSkill.setValue(0);
         fighterSkill.setValue(0);

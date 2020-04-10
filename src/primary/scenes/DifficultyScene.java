@@ -1,8 +1,11 @@
 package primary.scenes;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -11,89 +14,59 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.io.File;
+import java.io.IOException;
+
 public class DifficultyScene extends SceneLoader {
-    //Difficulty Scene
-    private Button easy = new Button("Easy");
-    private Button medium = new Button("Medium");
-    private Button hard = new Button("Hard");
+    @FXML
+    private Text title;
 
     @Override
     public Parent build() {
-        return difficulty();
+        FXMLLoader loader =  new FXMLLoader();
+        loader.setController(this);
+        try {
+            return loader.load(new File(
+                    "src/resources/DifficultyScene.fxml"
+            ).toURI().toURL());
+        } catch (IOException e) {
+            System.out.println("ERROR HERE");
+            e.printStackTrace();
+        }
+        return null;
     }
+    @FXML
+    private void handleEasy(MouseEvent mouseEvent) {
+        try {
+            setDifficulty = Difficulty.EASY;
+            player.setCredits(10000);
+            player.setSkillPoints(8);
+            setStage(new NameSelectionScene());
+        } catch (Throwable f) {
+            f.printStackTrace();
+        }
 
-
-    private Pane difficulty() {
-        /*
-         * Base layout
-         */
-        BorderPane pane = new BorderPane();
-        HBox hbox = new HBox();
-        HBox hbox2 = new HBox();
-        Text title = new Text("Pick a Difficulty");
-        StackPane stackpane = new StackPane();
-
-        /*
-         *
-         * Background image
-         */
-        BACKGROUND.fitWidthProperty().bind(pane.widthProperty());
-        BACKGROUND.fitHeightProperty().bind(pane.heightProperty());
-
-        /*
-         * Text
-         */
-        title.setFont(Font.font("Comic Sans MS", 100));
-        title.setFill(Color.YELLOW);
-        easy.setFont(Font.font("Comic Sans MS", 60));
-        easy.setStyle("-fx-background-color: transparent");
-        easy.setTextFill(Color.RED);
-        medium.setFont(Font.font("Comic Sans MS", 60));
-        medium.setStyle("-fx-background-color: transparent");
-        medium.setTextFill(Color.RED);
-        hard.setFont(Font.font("Comic Sans MS", 60));
-        hard.setStyle("-fx-background-color: transparent");
-        hard.setTextFill(Color.RED);
-        hbox.getChildren().addAll(easy, medium, hard);
-        hbox.setAlignment(Pos.CENTER);
-        hbox2.getChildren().add(title);
-        hbox2.setAlignment(Pos.TOP_CENTER);
-
-        /*
-         * Difficulty
-         */
-        easy.setOnAction(e -> {
-            try {
-                setDifficulty = Difficulty.EASY;
-                player.setCredits(10000);
-                player.setSkillPoints(8);
-                setStage(new SkillsLevelSelectionScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-        medium.setOnAction(e -> {
-            try {
-                setDifficulty = Difficulty.MEDIUM;
-                player.setCredits(6000);
-                player.setSkillPoints(5);
-                setStage(new SkillsLevelSelectionScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-        hard.setOnAction(e -> {
-            try {
-                setDifficulty = Difficulty.HARD;
-                player.setCredits(4000);
-                player.setSkillPoints(3);
-                setStage(new SkillsLevelSelectionScene());
-            } catch (Throwable f) {
-                f.printStackTrace();
-            }
-        });
-        pane.setCenter(stackpane);
-        stackpane.getChildren().addAll(BACKGROUND, hbox2, hbox);
-        return pane;
+    }
+    @FXML
+    private void handleMedium(MouseEvent mouseEvent) {
+        try {
+            setDifficulty = Difficulty.MEDIUM;
+            player.setCredits(6000);
+            player.setSkillPoints(5);
+            setStage(new NameSelectionScene());
+        } catch (Throwable f) {
+            f.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleHard(MouseEvent mouseEvent) {
+        try {
+            setDifficulty = Difficulty.HARD;
+            player.setCredits(4000);
+            player.setSkillPoints(3);
+            setStage(new NameSelectionScene());
+        } catch (Throwable f) {
+            f.printStackTrace();
+        }
     }
 }

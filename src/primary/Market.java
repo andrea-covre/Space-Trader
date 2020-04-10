@@ -15,6 +15,8 @@ public class Market {
     private static final double MARKET_DEPRECIATION = 0.9;
     private static final double FUEL_COST_PER_UNIT = 1.5;
     private static final int FUEL_PER_JUG = 100;
+    private static final int COST_PER_HP = 200;
+    private static final int COST_WINNING_ITEM = 1000;
 
     private Random rand = new Random();
 
@@ -94,6 +96,14 @@ public class Market {
 
     public static int getFuelPerJug() {
         return FUEL_PER_JUG;
+    }
+
+    public static int getCostPerHp() {
+        return COST_PER_HP;
+    }
+
+    public static int getCostWinningItem() {
+        return COST_WINNING_ITEM;
     }
 }
 
