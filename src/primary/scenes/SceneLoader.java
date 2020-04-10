@@ -1,5 +1,6 @@
 package primary.scenes;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public abstract class SceneLoader {
 
+    protected static FXMLLoader p =  new FXMLLoader();
 
     protected static Player player;
 

@@ -21,12 +21,6 @@ import java.util.Random;
 public class SPEncounterScene extends SceneLoader {
 
     @FXML
-    private Button fightButton;
-    @FXML
-    private Button runButton;
-    @FXML
-    private Button forfeitButton;
-    @FXML
     private StackPane backgroundPane;
     @FXML
     private Text demandedItems;
