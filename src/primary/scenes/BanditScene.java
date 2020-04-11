@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import primary.Item;
@@ -60,7 +59,7 @@ public class BanditScene extends SceneLoader {
         main.setBackground(new Background(back));
     }
     @FXML
-    private void handlePay(MouseEvent mouseEvent) {
+    private void handlePay() {
         if (player.getCredits() < 2000) {
             if (currentShip.getItems().size() == 0) {
                 title.setText("You couldn't pay the bandit and your ship took damage");
@@ -85,7 +84,7 @@ public class BanditScene extends SceneLoader {
         intendedDestination = true;
     }
     @FXML
-    private void handleFlee(MouseEvent mouseEvent) {
+    private void handleFlee() {
         Random r = new Random();
         if (fleeButton.getText().equals("Continue")) {
             try {
@@ -147,7 +146,7 @@ public class BanditScene extends SceneLoader {
     }
 
     @FXML
-    private void handleFight(MouseEvent mouseEvent) {
+    private void handleFight() {
         Random r = new Random();
         if (player.getFighterSkill().skillCheck(setDifficulty.ordinal())) {
             int random2 = r.nextInt(1000);

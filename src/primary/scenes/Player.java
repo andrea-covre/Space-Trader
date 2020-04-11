@@ -52,7 +52,8 @@ public class Player {
         this.skillPoints.set(skillPoints);
     }
 
-    public void setPlayerName(String name) {this.playerName = name; }
+    public void setPlayerName(String name) {
+        this.playerName = name; }
 
     public void resetSkill() {
         setSkillPoints(pilotSkill.getValue() + engineerSkill.getValue()

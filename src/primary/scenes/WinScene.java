@@ -1,11 +1,8 @@
 package primary.scenes;
 
 import javafx.animation.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -13,10 +10,7 @@ import javafx.animation.Animation;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public class WinScene extends SceneLoader {
 
@@ -42,8 +36,8 @@ public class WinScene extends SceneLoader {
     private Text subtitle1;
     @FXML
     private Text subtitle4;
-    ArrayList<Text> list = new ArrayList<>();
-    SequentialTransition seq = new SequentialTransition();
+    private ArrayList<Text> list = new ArrayList<>();
+    private SequentialTransition seq = new SequentialTransition();
 
     @Override
     public Parent build() {
@@ -84,12 +78,9 @@ public class WinScene extends SceneLoader {
         list.add(subtitle4);
         animation(list);
         seq.play();
-        seq.statusProperty().addListener(new ChangeListener<Animation.Status>() {
-            @Override
-            public void changed(ObservableValue<? extends Animation.Status> observableValue,
-                                Animation.Status oldValue, Animation.Status newValue) {
-                if(newValue==Animation.Status.STOPPED)
-                    setStage(new WelcomeScene());
+        seq.statusProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (newValue == Animation.Status.STOPPED) {
+                setStage(new WelcomeScene());
             }
         });
     }

@@ -1,5 +1,5 @@
-#background{
-    -fx-background-image: url("menu_background.jpg");
+.root{
+    -fx-background-image: url("../resources/images/menu_background.jpg");
     -fx-background-size: stretch;
 }
 

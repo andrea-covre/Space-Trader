@@ -1,10 +1,8 @@
 package primary.scenes;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -93,7 +91,7 @@ public class SPEncounterScene extends SceneLoader {
 
 
     @FXML
-    public void runAction(ActionEvent actionEvent) {
+    public void runAction() {
         // loose fuel
         if (currentShip.getFuel()
                 - (100 * randObj.nextDouble()
@@ -134,7 +132,7 @@ public class SPEncounterScene extends SceneLoader {
     }
 
     @FXML
-    public void fightAction(ActionEvent actionEvent) {
+    public void fightAction() {
         if (player.getFighterSkill().skillCheck(setDifficulty.ordinal())) {
             for (Item i: removedItems) {
                 player.getShip().getItems().add(i); // give back items
@@ -149,7 +147,7 @@ public class SPEncounterScene extends SceneLoader {
     }
 
     @FXML
-    public void forfeitAction(ActionEvent actionEvent) {
+    public void forfeitAction() {
         procedeToRegion("Forfeit!", "your crew hands over the cargo, and the police "
                 + "leave you all the lesser ... Coward "); // stuff is already removed
     }

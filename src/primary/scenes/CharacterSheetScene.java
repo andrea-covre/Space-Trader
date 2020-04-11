@@ -1,16 +1,8 @@
 package primary.scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import skills.PilotSkill;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -63,7 +55,7 @@ public class CharacterSheetScene extends SceneLoader {
     }
 
     @FXML
-    private void handleStartGame(MouseEvent mouseEvent) {
+    private void handleStartGame() {
         try {
             setStage(new MapScene());
         } catch (Throwable f) {
@@ -72,7 +64,7 @@ public class CharacterSheetScene extends SceneLoader {
     }
 
     @FXML
-    private void handleBack(MouseEvent mouseEvent) {
+    private void handleBack() {
         player.resetSkill();
         try {
             setStage(new SkillsLevelSelectionScene());

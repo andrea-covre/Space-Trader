@@ -16,7 +16,6 @@ public class Ship {
     private List<Item> items;
     private int upgradeSlots;
     private List<CharacterUpgrade> upgrades;
-    private FileInputStream image;
 
     public Ship(String name, int cargo,
                 int upgradeSlots, int hp,
@@ -31,7 +30,6 @@ public class Ship {
         this.upgradeSlots = upgradeSlots;
         this.items = new ArrayList<Item>();
         this.upgrades = new ArrayList<CharacterUpgrade>();
-        this.image = image;
     }
 
     public Ship(String name, int cargo, int upgradeSlots, int hp, int attack, int fuelCapacity) {

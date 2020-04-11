@@ -1,18 +1,11 @@
 package primary.scenes;
 
-import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import primary.Trader;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +55,7 @@ public class WelcomeScene extends SceneLoader {
         return null;
     }
     @FXML
-    private void handleNewGame(MouseEvent mouseEvent) {
+    private void handleNewGame() {
         try {
             player = new Player(null, 0, 0);
             setStage(new DifficultyScene());

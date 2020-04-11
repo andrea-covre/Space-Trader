@@ -2,16 +2,7 @@ package primary.scenes;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.File;
@@ -36,7 +27,7 @@ public class DifficultyScene extends SceneLoader {
         return null;
     }
     @FXML
-    private void handleEasy(MouseEvent mouseEvent) {
+    private void handleEasy() {
         try {
             setDifficulty = Difficulty.EASY;
             player.setCredits(10000);
@@ -48,7 +39,7 @@ public class DifficultyScene extends SceneLoader {
 
     }
     @FXML
-    private void handleMedium(MouseEvent mouseEvent) {
+    private void handleMedium() {
         try {
             setDifficulty = Difficulty.MEDIUM;
             player.setCredits(6000);
@@ -59,7 +50,7 @@ public class DifficultyScene extends SceneLoader {
         }
     }
     @FXML
-    private void handleHard(MouseEvent mouseEvent) {
+    private void handleHard() {
         try {
             setDifficulty = Difficulty.HARD;
             player.setCredits(4000);

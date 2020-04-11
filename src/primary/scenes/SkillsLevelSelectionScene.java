@@ -1,11 +1,7 @@
 package primary.scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import skills.EngineerSkill;
 import skills.FighterSkill;
@@ -25,7 +21,7 @@ public class SkillsLevelSelectionScene extends SceneLoader {
     @FXML
     private Text merchantLevelDisplay;
     @FXML
-    Text engineerLevelDisplay;
+    private Text engineerLevelDisplay;
 
     @FXML
     public void initialize() {
@@ -52,55 +48,55 @@ public class SkillsLevelSelectionScene extends SceneLoader {
     }
 
     @FXML
-    private void handlePilotUp(MouseEvent mouseEvent) {
+    private void handlePilotUp() {
         new PilotSkill(1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handlePilotDown(MouseEvent mouseEvent) {
+    private void handlePilotDown() {
         new PilotSkill(-1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handleFighterUp(MouseEvent mouseEvent) {
+    private void handleFighterUp() {
         new FighterSkill(1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handleFighterDown(MouseEvent mouseEvent) {
+    private void handleFighterDown() {
         new FighterSkill(-1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handleMerchantUp(MouseEvent mouseEvent) {
+    private void handleMerchantUp() {
         new MerchantSkill(1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handleMerchantDown(MouseEvent mouseEvent) {
+    private void handleMerchantDown() {
         new MerchantSkill(-1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handleEngineerUp(MouseEvent mouseEvent) {
+    private void handleEngineerUp() {
         new EngineerSkill(1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handleEngineerDown(MouseEvent mouseEvent) {
+    private void handleEngineerDown() {
         new EngineerSkill(-1).upgrade(player);
         setStage(this);
     }
 
     @FXML
-    private void handleBack(MouseEvent mouseEvent) {
+    private void handleBack() {
         player.resetSkill();
         try {
             setStage(new NameSelectionScene());
@@ -110,7 +106,7 @@ public class SkillsLevelSelectionScene extends SceneLoader {
     }
 
     @FXML
-    private void handleFinish(MouseEvent mouseEvent) {
+    private void handleFinish() {
         try {
             setStage(new CharacterSheetScene());
         } catch (Throwable f) {

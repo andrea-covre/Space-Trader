@@ -12,7 +12,6 @@ import javafx.scene.text.Text;
 import primary.CharacterUpgrade;
 import primary.Item;
 import primary.Market;
-import skills.Skill;
 
 import java.util.ArrayList;
 
@@ -177,9 +176,11 @@ public class MarketScene extends SceneLoader {
         Text itemDescription = new Text("It will restore 1 HP");
         itemDescription.setId("specialItemDescription");
 
-        int healthPointCost = (int) (Market.getCostPerHp() * (1 - 0.05 * player.getEngineerSkill().getValue()));
+        int healthPointCost = (int) (Market.getCostPerHp()
+                * (1 - 0.05 * player.getEngineerSkill().getValue()));
 
-        restoreHealthButton = new Button("Buy for " + healthPointCost + " (-" + (player.getEngineerSkill().getValue() * 5)
+        restoreHealthButton = new Button("Buy for " + healthPointCost
+                + " (-" + (player.getEngineerSkill().getValue() * 5)
                 + "%)");
         restoreHealthButton.setId("specialItemBuyButt");
         if (player.getCredits() >= healthPointCost && currentShip.getHp()
@@ -315,8 +316,10 @@ public class MarketScene extends SceneLoader {
 
         restoreHealthButton.setOnAction(e -> {
             try {
-                int healthPointCost = (int) (Market.getCostPerHp() * (1 - 0.05 * player.getEngineerSkill().getValue()));
-                if (player.getCredits() >= healthPointCost && currentShip.getHp() < currentShip.getMaxHp()) {
+                int healthPointCost = (int) (Market.getCostPerHp()
+                        * (1 - 0.05 * player.getEngineerSkill().getValue()));
+                if (player.getCredits() >= healthPointCost
+                        && currentShip.getHp() < currentShip.getMaxHp()) {
                     player.setCredits(player.getCredits() - healthPointCost);
                     currentShip.setHp(currentShip.getHp() + 1);
                 }

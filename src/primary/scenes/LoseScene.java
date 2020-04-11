@@ -40,8 +40,8 @@ public class LoseScene extends SceneLoader {
     private Text subtitle1;
     @FXML
     private Text subtitle4;
-    ArrayList<Text> list = new ArrayList<>();
-    SequentialTransition seq = new SequentialTransition();
+    private ArrayList<Text> list = new ArrayList<>();
+    private SequentialTransition seq = new SequentialTransition();
 
     @Override
     public Parent build() {
@@ -86,8 +86,9 @@ public class LoseScene extends SceneLoader {
             @Override
             public void changed(ObservableValue<? extends Animation.Status> observableValue,
                                 Animation.Status oldValue, Animation.Status newValue) {
-                if(newValue==Animation.Status.STOPPED)
+                if (newValue == Animation.Status.STOPPED) {
                     setStage(new WelcomeScene());
+                }
             }
         });
     }
