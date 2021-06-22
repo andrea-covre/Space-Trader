@@ -3,7 +3,7 @@
 ## Overview
 This project is a recreation of the popular game [Space Trader](https://en.wikipedia.org/wiki/Space_Trader_(Palm_OS)) as an exercise for version control best practices, object design, object-oriented programming methods, Agile and Iterative development and JavaFX programming.
 
-<img src="figures/gameplay-demo.gif" alt="Gameplay DEMO by Andrea Covre]" width="500"/>
+<img src="figures/gameplay-demo.gif" alt="Gameplay DEMO by Andrea Covre]" width="750"/>
 
 <br>
 
@@ -25,16 +25,15 @@ Skill points can be assigned to the player's attributes/skills. The <em>Pilot</e
 
 ### Travelling
 
-<img src="figures/visited-location-example.png" alt="Map example of visited location by Andrea Covre]" width="250"/>
-<img src="figures/non-visited-location-example.png" alt="Map example of non visited location by Andrea Covre]" width="250"/>
-<br>
-<img src="figures/map-example-1.png" alt="Map example 1 by Andrea Covre]" width="250"/>
-<img src="figures/map-example-2.png" alt="Map example 2 by Andrea Covre]" width="250"/>
+<img src="figures/visited-location-example.png" alt="Map example of visited location by Andrea Covre]" width="500"/>
+<img src="figures/non-visited-location-example.png" alt="Map example of non visited location by Andrea Covre]" width="500"/>
+<img src="figures/map-example-1.png" alt="Map example 1 by Andrea Covre]" width="500"/>
+<img src="figures/map-example-2.png" alt="Map example 2 by Andrea Covre]" width="500"/>
 
 The game fetuses multiple locations with randomly generated coordinates, names (through multiple dictionaries), and attributes. The player can travel to any of these locations by spending some ship's fuel based on the distance between the location the player is travelling to and the player's current position (fuel cost can be discounted based on the player's <em>Pilot</em> attribute). During each travel there is a chance of meeting a bandit or a trader on the way. The player can decide to either pay, flee or fight the bandit, or to rob, trade, negotiated  or ignore the trader. The outcomes of these action (success or failure) depend on the game difficulty and player attributes.
 
-<img src="figures/bandit-example.png" alt="Bandit encounter example by Andrea Covre]" width="250"/>
-<img src="figures/trader-example.png" alt="Trader encounter example by Andrea Covre]" width="250"/>
+<img src="figures/bandit-example.png" alt="Bandit encounter example by Andrea Covre]" width="500"/>
+<img src="figures/trader-example.png" alt="Trader encounter example by Andrea Covre]" width="500"/>
 
 <br>
 
