@@ -82,8 +82,7 @@ Purchasing this item will allow the player to win and complete the game, and wil
     * Designed, styled and wrote the scenes for:
         * the <em>map scene</em> → [`MapScene.java`](src/primary/scenes/MapScene.java)
         * the <em>region scene</em> → [`RegionScene.java`](src/primary/scenes/RegionScene.java)
-        <br>
-        including:
+        * including:
             * information panes
             * random generation and layout of regions (locations), and their names, descriptions and attributes
             * player travelling sequence and implementation  
@@ -95,8 +94,7 @@ Purchasing this item will allow the player to win and complete the game, and wil
         * the <em>item</em> class → [`Item.java`](src/primary/Item.java)
     * Designed, styled and wrote the scenes for:
         * the <em>market scene</em> → [`MarketScene.java`](src/primary/scenes/MarketScene.java)
-        <br>
-        including:
+        * including:
             * random generation of items, and their names, descriptions and attributes
             * generation and adjustments of items prices based on players attributes, region's tech level and item's rarity
             * implementation of player's upgrades
@@ -108,7 +106,7 @@ Purchasing this item will allow the player to win and complete the game, and wil
 * **Ship**
     * Designed and implemented:
         * the <em>ship</em> class → [`Ship.java`](src/primary/Ship.java)
-        including:
+        * including:
             * health points (HP)
             * fuel & cargo management
 
