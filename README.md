@@ -112,7 +112,7 @@ Purchasing this item will allow the player to win and complete the game, and wil
 
     <br>
 * **Skill Selection**
-    * Designed, styled and wrote the <em>skills selection scene</em> → [`SkillsLevelSelectionScene.java`](src/primary/scenes/SkillLevelSelectionScene.java)
+    * Designed, styled and wrote the <em>skills selection scene</em> → [`SkillsLevelSelectionScene.java`](src/primary/scenes/SkillsLevelSelectionScene.java)
         <br>
 
 
